@@ -26,6 +26,8 @@ class SplashActivity : AppCompatActivity(), LatestListener  {
     }
 
     override fun goForward() {
+        dashboardViewModel.getLatestData()
+        dashboardViewModel.getHistoryData()
         startActivity(Intent(this, MainActivity::class.java))
         this.finish()
     }

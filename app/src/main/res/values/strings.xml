@@ -18,7 +18,7 @@
     <string name="get_vaccinated">Are you 18+? Get Vaccinated</string>
     <string name="seek_help">Seek Help</string>
     <string name="statewise_statistics_fetched_at_xxpm">Statewise Statistics: </string>
-    <string name="search_hint_dashboard">Search for a State or UT</string>
+    <string name="search_hint_dashboard">Search State or UT</string>
     <string name="indian">Indian:</string>
     <string name="foreign">Foreign:</string>
     <string name="helpline">Helpline</string>
@@ -28,4 +28,12 @@
     <string name="date">Date</string>
     <string name="get_statewise_data">Get Statewise Data</string>
     <string name="statewise_history">StateWise History</string>
+    <string name="covid_19_india_info">Covid-19 India Info</string>
+    <string name="search_for_a_date_dd_mm_yyyy">Search for a Date (DD/MM/YYYY)</string>
+    <string name="helpline1">+91-11-23978046</string>
+    <string name="helpline2">1075</string>
+    <string name="website">https://www.mohfw.gov.in</string>
+    <string name="nearest_response_centers">Region-wise Helpline Numbers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

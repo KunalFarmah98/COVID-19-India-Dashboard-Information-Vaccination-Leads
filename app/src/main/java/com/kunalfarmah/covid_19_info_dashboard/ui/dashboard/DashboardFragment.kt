@@ -70,6 +70,16 @@ class DashboardFragment : Fragment() {
                 df.format(Integer.parseInt(sPref?.getString(Constants.LATEST_ACTIVE, "0")))
             )
         }
+
+        list = dashboardViewModel.latestData.value
+        if(!list.isNullOrEmpty()){
+            setView(list!!)
+        }
+        else{
+            binding.loading.visibility = View.VISIBLE
+            binding.loading.startShimmerAnimation()
+        }
+
         dashboardViewModel.getLatestData()
         dashboardViewModel.getHistoryData()
 
@@ -78,9 +88,8 @@ class DashboardFragment : Fragment() {
 
         dashboardViewModel.latestData.observe(viewLifecycleOwner, {
             Log.d("latest", it.toString())
-            list = it
-            mAdapter = DashboardAdapter(context, it)
-            binding.latestRecycler.adapter = mAdapter
+            list=it
+            setView(it)
         })
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -112,8 +121,11 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-    fun find(list: List<CovidEntity>?, query: String): Boolean {
-
-        return false
+    private fun setView(list:List<CovidEntity>){
+        binding.loading.visibility = View.GONE
+        binding.loading.stopShimmerAnimation()
+        binding.latestRecycler.visibility = View.VISIBLE
+        mAdapter = DashboardAdapter(context, list)
+        binding.latestRecycler.adapter = mAdapter
     }
 }

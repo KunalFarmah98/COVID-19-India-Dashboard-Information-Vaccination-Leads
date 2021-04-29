@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
@@ -43,30 +44,23 @@ class HistoryActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
         sPref = getSharedPreferences(Constants.PREFS, MODE_PRIVATE)
         date = sPref?.getString(Constants.SELECTED_DATE,"")
-        dashboardViewModel.getHistoryByDate(date!!)
-        val df = DecimalFormat("##,##,###")
-        val dateFormatter1: SimpleDateFormat =  SimpleDateFormat("yyyy-MM-dd")
-        val dateFormatter2: SimpleDateFormat = SimpleDateFormat("dd/MM/yyy")
 
-        binding.layout.visibility = View.GONE
-        binding.loading.visibility = View.VISIBLE
-        binding.loading.startShimmerAnimation()
+        list = dashboardViewModel.historyDateData.value
+
+        if(!list.isNullOrEmpty()){
+            setView(list!!)
+        }
+        else{
+            binding.layout.visibility = View.GONE
+            binding.loading.visibility = View.VISIBLE
+            binding.loading.startShimmerAnimation()
+        }
+        dashboardViewModel.getHistoryByDate(date!!)
 
         dashboardViewModel.historyDateData.observe(this,{
             if(it!=null){
                 list = it
-                binding.layout.visibility = View.VISIBLE
-                binding.loading.visibility = View.GONE
-                binding.loading.stopShimmerAnimation()
-                binding.dateSummary.text = dateFormatter2.format(dateFormatter1.parse(date)!!)
-                binding.totalSummary.text = String.format("Total:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL,"")!!)))
-                binding.recoveredSummary.text = String.format("Recovered:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED,"")!!)))
-                binding.deceasedSummary.text = String.format("Deceased:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED,"")!!)))
-
-                binding.historyRecycler.layoutManager = LinearLayoutManager(this)
-                binding.historyRecycler.setHasFixedSize(true)
-                mAdapter = HistoryStateWiseAdapter(this@HistoryActivity, it)
-                binding.historyRecycler.adapter = mAdapter
+                setView(it)
             }
         })
 
@@ -109,5 +103,24 @@ class HistoryActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    private fun setView(List:List<CovidHistoryEntity>){
+        val df = DecimalFormat("##,##,###")
+        val dateFormatter1: SimpleDateFormat =  SimpleDateFormat("yyyy-MM-dd")
+        val dateFormatter2: SimpleDateFormat = SimpleDateFormat("dd/MM/yyy")
+
+        binding.layout.visibility = View.VISIBLE
+        binding.loading.visibility = View.GONE
+        binding.loading.stopShimmerAnimation()
+        binding.dateSummary.text = dateFormatter2.format(dateFormatter1.parse(date)!!)
+        binding.totalSummary.text = String.format("Total:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL,"")!!)))
+        binding.recoveredSummary.text = String.format("Recovered:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED,"")!!)))
+        binding.deceasedSummary.text = String.format("Deceased:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED,"")!!)))
+
+        binding.historyRecycler.layoutManager = LinearLayoutManager(this)
+        binding.historyRecycler.setHasFixedSize(true)
+        mAdapter = HistoryStateWiseAdapter(this@HistoryActivity, list!!)
+        binding.historyRecycler.adapter = mAdapter
     }
 }
