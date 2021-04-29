@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemSumaryDashboardBinding
+import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemSummaryDashboardBinding
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
 import java.text.DecimalFormat
@@ -17,7 +17,7 @@ class HistoryStateWiseAdapter(context: Context?, list: List<CovidHistoryEntity>)
     var mContext: Context? = context
 
     class DashboardVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var binding: ItemSumaryDashboardBinding = ItemSumaryDashboardBinding.bind(itemView)
+        var binding: ItemSummaryDashboardBinding = ItemSummaryDashboardBinding.bind(itemView)
         val df = DecimalFormat("##,##,###");
         fun bind(case: CovidHistoryEntity) {
             binding.name.text = case.state
@@ -37,7 +37,7 @@ class HistoryStateWiseAdapter(context: Context?, list: List<CovidHistoryEntity>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardVH {
         return DashboardVH(
-            ItemSumaryDashboardBinding.inflate(
+            ItemSummaryDashboardBinding.inflate(
                 LayoutInflater.from(mContext), parent, false
             ).root
         )

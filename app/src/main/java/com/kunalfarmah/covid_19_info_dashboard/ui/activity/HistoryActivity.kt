@@ -10,6 +10,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityHistoryBinding
@@ -32,6 +35,9 @@ class HistoryActivity : AppCompatActivity() {
     private var date:String?=null
     private lateinit var mAdapter: HistoryStateWiseAdapter
     private var list: List<CovidHistoryEntity>?=null
+    private var total:Int?=null
+    private var recovered:Int?=null
+    private var deceased:Int?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +70,7 @@ class HistoryActivity : AppCompatActivity() {
             }
         })
 
+        setUpPieChart()
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             var tempAdapter: HistoryStateWiseAdapter? = null
             var temp: List<CovidEntity>?=null
@@ -114,13 +121,43 @@ class HistoryActivity : AppCompatActivity() {
         binding.loading.visibility = View.GONE
         binding.loading.stopShimmerAnimation()
         binding.dateSummary.text = dateFormatter2.format(dateFormatter1.parse(date)!!)
-        binding.totalSummary.text = String.format("Total:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL,"")!!)))
-        binding.recoveredSummary.text = String.format("Recovered:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED,"")!!)))
-        binding.deceasedSummary.text = String.format("Deceased:\n%s",df.format(Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED,"")!!)))
+        total = Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL,"")!!)
+        recovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED,"")!!)
+        deceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED,"")!!)
+        binding.totalSummary.text = String.format("Total:\n%s",df.format(total))
+        binding.recoveredSummary.text = String.format("Recovered:\n%s",df.format(total))
+        binding.deceasedSummary.text = String.format("Deceased:\n%s",df.format(deceased))
 
         binding.historyRecycler.layoutManager = LinearLayoutManager(this)
         binding.historyRecycler.setHasFixedSize(true)
         mAdapter = HistoryStateWiseAdapter(this@HistoryActivity, list!!)
         binding.historyRecycler.adapter = mAdapter
+    }
+
+    private fun setUpPieChart() {
+        total = Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL,"")!!)
+        recovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED,"")!!)
+        deceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED,"")!!)
+        var pieEntries = ArrayList<PieEntry>()
+        pieEntries.add(PieEntry(recovered!!.toFloat()))
+        pieEntries.add(PieEntry(deceased!!.toFloat()))
+
+        var dataSet = PieDataSet(pieEntries,String.format("Summary for %s",date))
+        var red:Int= resources.getColor(R.color.red)
+        var green:Int = resources.getColor(R.color.green)
+        var colors = ArrayList<Int>()
+        colors.add(green)
+        colors.add(red)
+        dataSet.colors = colors
+        var pieData = PieData(dataSet)
+        binding.pieChart.data = pieData
+        binding.pieChart.data.setValueTextSize(13f)
+        binding.pieChart.data.setValueTextColor(resources.getColor(R.color.white))
+        binding.pieChart.centerText = "Rates in %"
+        binding.pieChart.setCenterTextSize(23f)
+        binding.pieChart.setUsePercentValues(true)
+        binding.pieChart.legend.isEnabled = false
+        binding.pieChart.description.isEnabled = false
+        binding.pieChart.invalidate()
     }
 }

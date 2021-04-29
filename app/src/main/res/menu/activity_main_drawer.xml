@@ -4,18 +4,56 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:onClick="goToDashboard"
-            android:title="@string/dashboard" />
-        <item
-            android:id="@+id/nav_contacts"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/helpline" />
-    </group>
+        <item android:title="@string/general">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_home"
+                        android:icon="@drawable/baseline_bar_chart_black_24dp"
+                        android:onClick="goToDashboard"
+                        android:title="@string/dashboard" />
+                    <item
+                        android:id="@+id/nav_contacts"
+                        android:icon="@drawable/baseline_help_outline_black_24dp"
+                        android:title="@string/helpline" />
+                </group>
+            </menu>
+        </item>
 
-    <group>
+        <item android:title="@string/vaccination">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_vaccine_registration"
+                        android:icon="@drawable/syringe"
+                        android:title="@string/register_for_vaccination_on_cowin" />
+                    <item
+                        android:id="@+id/nav_vaccine_certificate"
+                        android:icon="@drawable/approved"
+                        android:title="@string/vaccination_certificate" />
+                </group>
+            </menu>
 
+        </item>
+
+        <item android:title="@string/leads">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_sprinklr_dashboard"
+                        android:icon="@drawable/baseline_dashboard_black_24dp"
+                        android:title="@string/beds_oxygen_medcines_dashboard_by_sprinklr" />
+                    <item
+                        android:id="@+id/nav_covid_india_res"
+                        android:icon="@drawable/globe"
+                        android:title="@string/covid_india_resources" />
+
+                    <item
+                        android:id="@+id/nav_hospital_map"
+                        android:icon="@drawable/baseline_location_on_black_24dp"
+                        android:title="@string/hospital_locations" />
+                </group>
+            </menu>
+        </item>
     </group>
 </menu>

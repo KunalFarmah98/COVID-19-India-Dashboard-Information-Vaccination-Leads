@@ -2,7 +2,7 @@
     <string name="app_name">Covid-19 Info-Dashboard</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Welcome to Covid-19 India Dashboard</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -30,10 +30,24 @@
     <string name="statewise_history">StateWise History</string>
     <string name="covid_19_india_info">Covid-19 India Info</string>
     <string name="search_for_a_date_dd_mm_yyyy">Search for a Date (DD/MM/YYYY)</string>
-    <string name="helpline1">+91-11-23978046</string>
-    <string name="helpline2">1075</string>
-    <string name="website">https://www.mohfw.gov.in</string>
+    <string name="helpline1"><u>01123978046</u></string>
+    <string name="helpline2"><u>1075</u></string>
+    <string name="website"><u>https://www.mohfw.gov.in</u></string>
     <string name="nearest_response_centers">Region-wise Helpline Numbers</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="india_covid_19_helpline_numbers">India Covid-19 HelpLine Numbers:</string>
+    <string name="ministry_of_health_website">Ministry of Health Website:</string>
+    <string name="title">COVID-19 India Information, Dashboard, Vaccination, Leads</string>
+    <string name="covid_19">Covid-19</string>
+    <string name="vaccination">Vaccination</string>
+    <string name="register_for_vaccination_on_cowin">Register for Vaccination</string>
+    <string name="vaccination_certificate">Vaccination Certificate</string>
+    <string name="leads">Beds, Oxygen ,Leads and Posts</string>
+    <string name="hospital_locations">Hospital Locations</string>
+    <string name="covid_india_resources">Covid India Resources</string>
+    <string name="beds_oxygen_medcines_dashboard_by_sprinklr">Sprinklr Dashboard</string>
+    <string name="general">General</string>
+    <string name="hospital_map">map</string>
+    <string name="coid19_india_resources">res</string>
 </resources>

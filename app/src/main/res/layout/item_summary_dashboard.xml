@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/purple_700"
+        app:cardElevation="5dp"
+        app:strokeColor="@color/purple_700"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:strokeWidth="3dp"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
@@ -23,12 +26,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
                 android:gravity="center"
                 android:padding="5dp"
+                android:textAlignment="center"
+                android:textStyle="bold"
                 android:text="@string/india"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
 
             <LinearLayout
@@ -43,11 +47,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
                     android:gravity="center"
                     android:text="@string/total_cases"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textColor="@color/purple_700"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,8 +68,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/indian"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/foriegn"
@@ -76,8 +79,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/foreign"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
@@ -99,8 +102,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/active"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textColor="@color/blue"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/recovered"
@@ -110,8 +113,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/recovered"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textColor="@color/green"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/deceased"
@@ -121,8 +124,8 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/deceased"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+                        android:textColor="@color/red"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 

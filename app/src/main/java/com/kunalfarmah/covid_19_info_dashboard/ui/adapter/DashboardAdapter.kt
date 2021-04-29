@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemSumaryDashboardBinding
+import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemSummaryDashboardBinding
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import java.text.DecimalFormat
 
@@ -16,7 +16,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
     var mContext: Context? = context
 
     class DashboardVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var binding: ItemSumaryDashboardBinding = ItemSumaryDashboardBinding.bind(itemView)
+        var binding: ItemSummaryDashboardBinding = ItemSummaryDashboardBinding.bind(itemView)
         val df = DecimalFormat("##,##,###");
         fun bind(case: CovidEntity) {
             binding.name.text = case.state
@@ -30,7 +30,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
                 binding.active.visibility = View.VISIBLE
                 binding.infoLayout.weightSum = 3f
                 binding.active.text =
-                    String.format("Active Cases:\n%s", df.format(Integer.parseInt(case.active)))
+                    String.format("Active:\n%s", df.format(Integer.parseInt(case.active)))
             }
             binding.recovered.text =
                 String.format("Recovered:\n%s", df.format(Integer.parseInt(case.recovered)))
@@ -46,7 +46,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardVH {
         return DashboardVH(
-            ItemSumaryDashboardBinding.inflate(
+            ItemSummaryDashboardBinding.inflate(
                 LayoutInflater.from(mContext), parent, false
             ).root
         )

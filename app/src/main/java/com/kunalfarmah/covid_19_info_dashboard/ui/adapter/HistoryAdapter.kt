@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemHistoryDateBinding
-import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemSumaryDashboardBinding
+import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemSummaryDashboardBinding
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.HistoricalSummary
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Summary
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity

@@ -105,9 +105,6 @@ class MainActivity : AppCompatActivity() {
             bottomNav?.menu?.findItem(R.id.nav_home)?.isChecked = true
         } else if (bottomNav?.selectedItemId == R.id.nav_home) {
             finish()
-
-        } else if (supportFragmentManager.findFragmentByTag(WebViewFragment.TAG) != null && WebViewFragment().isVisible) {
-            supportFragmentManager.popBackStack()
         } else
             super.onBackPressed()
 
@@ -130,5 +127,21 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.title = "Dashboard"
             bottomNav?.menu?.findItem(R.id.nav_home)?.isChecked = true
         }
+    }
+
+    fun openMap(item: MenuItem) {
+        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.HOSPITAL_MAP).apply()
+    }
+    fun openResources(item: MenuItem) {
+        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.INDIA_RESOURCES).apply()
+    }
+    fun openSprinklr(item: MenuItem) {
+        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.SPRINKLR_DASHBOARD).apply()
+    }
+    fun getCertificate(item: MenuItem) {
+        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.CERTIFICATE).apply()
+    }
+    fun registerVaccine(item: MenuItem) {
+        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.REGISTRATION).apply()
     }
 }

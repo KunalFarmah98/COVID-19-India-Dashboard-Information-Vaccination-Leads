@@ -8,11 +8,60 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardFragment"
-        android:label="@string/dashboard"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_dashboard" />
     <activity
         android:id="@+id/nav_contacts"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.HelplineActivity"
         android:label="Helplines" />
+    <activity
+        android:id="@+id/nav_vaccine_registration"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity"
+        android:label="COWIN Registration"
+        tools:layout="@layout/activity_vaccination" >
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="REGISTRATION" />
+    </activity>
+    <activity
+        android:id="@+id/nav_vaccine_certificate"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity"
+        android:label="Vaccination Certificate"
+        tools:layout="@layout/activity_vaccination" >
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="CERTIFICATE" />
+    </activity>
+    <activity
+        android:id="@+id/nav_sprinklr_dashboard"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
+        android:label="Sprinklr Dashboard for Beds, Oxygen, Medicine related posts"
+        tools:layout="@layout/activity_resources" >
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="SPRINKLR_DASHBOARD" />
+    </activity>
+    <activity
+        android:id="@+id/nav_covid_india_res"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
+        android:label="Covid India Resources"
+        tools:layout="@layout/activity_resources" >
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="INDIA_RESOURCES" />
+    </activity>
+    <activity
+        android:id="@+id/nav_hospital_map"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
+        android:label="Hospitals on Map"
+        tools:layout="@layout/activity_resources" >
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="HOSPITAL_MAP" />
+    </activity>
 
 </navigation>
