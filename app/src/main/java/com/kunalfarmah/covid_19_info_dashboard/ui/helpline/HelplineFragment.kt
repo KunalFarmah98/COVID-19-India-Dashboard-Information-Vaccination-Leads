@@ -48,9 +48,11 @@ class HelplineFragment : Fragment() {
 
         dashboardViewModel.getContacts()
 
+
+
         dashboardViewModel.contactsData.observe(viewLifecycleOwner, {
             if (null != it) {
-                list = it.contacts?.regional
+                list = it.contacts?.regional?.sortedWith(StateComparator())!!
                 setView(list!!)
             }
         })
@@ -111,6 +113,12 @@ class HelplineFragment : Fragment() {
         binding.helplines.setHasFixedSize(true)
         mAdapter = HelplineAdapter(activity, list)
         binding.helplines.adapter = mAdapter
+    }
+
+    class StateComparator: Comparator<ContactsRegionalItem?>{
+        override fun compare(o1: ContactsRegionalItem?, o2: ContactsRegionalItem?): Int {
+            return o1?.loc!!.compareTo(o2?.loc!!)
+        }
     }
 
 

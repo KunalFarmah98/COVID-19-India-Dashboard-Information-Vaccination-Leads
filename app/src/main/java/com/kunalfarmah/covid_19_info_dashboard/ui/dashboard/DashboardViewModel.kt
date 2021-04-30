@@ -14,6 +14,7 @@ import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
@@ -54,9 +55,11 @@ constructor(
         }
     }
 
-    fun fetchActiveDate(latestListener: LatestListener){
+    fun fetchActiveData(latestListener: LatestListener?){
         viewModelScope.launch {
             covidRepository.fetchActiveData(latestListener)
+        }.invokeOnCompletion {
+            latestListener?.goForward()
         }
     }
 
@@ -73,9 +76,11 @@ constructor(
     }
 
 
-    fun getLatestData() {
+    fun getLatestData(latestListener: LatestListener?) {
         viewModelScope.launch {
             latestData.value = covidRepository.getLatestData()
+        }.invokeOnCompletion {
+            latestListener?.goForward()
         }
     }
 

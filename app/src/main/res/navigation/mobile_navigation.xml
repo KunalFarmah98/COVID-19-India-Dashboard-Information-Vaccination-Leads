@@ -74,4 +74,15 @@
             android:defaultValue="HOSPITAL_MAP" />
     </activity>
 
+    <activity
+        android:id="@+id/nav_mh_covid_help_Desk"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
+        android:label="Hospitals on Map"
+        tools:layout="@layout/activity_resources" >
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="MH_COVID_HELP_DESK" />
+    </activity>
+
 </navigation>

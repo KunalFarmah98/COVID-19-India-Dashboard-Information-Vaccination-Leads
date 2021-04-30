@@ -12,6 +12,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
+import com.kunalfarmah.covid_19_info_dashboard.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityResourcesBinding
@@ -19,6 +20,7 @@ import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityResourcesBind
 
 class ResourcesActivity : AppCompatActivity() {
     val args: ResourcesActivityArgs by navArgs()
+    var url:String?=null
     lateinit var binding: ActivityResourcesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +38,13 @@ class ResourcesActivity : AppCompatActivity() {
         when(action){
             Constants.SPRINKLR_DASHBOARD -> {
                 supportActionBar?.title = "Spinklr's dashboard for Covid-19 Leads and Resources"
-                binding.webView.loadUrl("https://external.sprinklr.com/insights/explorer/dashboard/601b9e214c7a6b689d76f493/tab/16?id=DASHBOARD_601b9e214c7a6b689d76f493&home=1")
+                url = "https://external.sprinklr.com/insights/explorer/dashboard/601b9e214c7a6b689d76f493/tab/16?id=DASHBOARD_601b9e214c7a6b689d76f493&home=1"
+                loadUrl(url!!)
             }
             Constants.INDIA_RESOURCES -> {
                 supportActionBar?.title = "Covid-19 India Resources"
-                binding.webView.loadUrl("https://www.covidindiaresources.com/")
+                url = "https://www.covidindiaresources.com/"
+                binding.webView.loadUrl(url!!)
             }
             Constants.HOSPITAL_MAP -> {
                 supportActionBar?.title = "Covid-19 Hospitals on Map"
@@ -62,6 +66,27 @@ class ResourcesActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
+            Constants.MH_COVID_HELP_DESK->{
+                supportActionBar?.title = "Covid-19 Hospitals on Map"
+                val url = "https://docs.google.com/spreadsheets/u/0/d/16-UdbV7hX7vRVxT2EVHDjXscaAnE5QKTjG-7JIFdOHM/htmlview"
+                loadUrl(url)
+            }
+        }
+
+        binding.noNetworkLayout.retry.setOnClickListener {
+            loadUrl(url!!)
+        }
+    }
+
+    private fun loadUrl(url:String){
+        if(AppUtil.isNetworkAvailable(this)) {
+            binding.webView.visibility = View.VISIBLE
+            binding.noNetworkLayout.noNetworkLayout.visibility = View.GONE
+            binding.webView.loadUrl(url)
+        }
+        else{
+            binding.webView.visibility = View.GONE
+            binding.noNetworkLayout.noNetworkLayout.visibility = View.VISIBLE
         }
     }
 

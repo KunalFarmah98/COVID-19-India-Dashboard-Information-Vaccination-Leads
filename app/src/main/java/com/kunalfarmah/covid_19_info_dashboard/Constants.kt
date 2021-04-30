@@ -23,6 +23,7 @@ class Constants {
         const val SPRINKLR_DASHBOARD = "SPRINKLR_DASHBOARD"
         const val INDIA_RESOURCES = "INDIA_RESOURCES"
         const val HOSPITAL_MAP =  "HOSPITAL_MAP"
+        const val MH_COVID_HELP_DESK = "MH_COVID_HELP_DESK"
 
     }
 }

@@ -21,7 +21,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
         fun bind(case: CovidEntity) {
             binding.name.text = case.state
             binding.total.text =
-                String.format("Total Cases: %s", df.format(Integer.parseInt(case.total)))
+                String.format("Total Cases: %s", df.format(case.total))
             if(case.active.isNullOrEmpty()){
                 binding.active.visibility = View.GONE
                 binding.infoLayout.weightSum = 2f

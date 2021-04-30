@@ -60,5 +60,21 @@
                 </group>
             </menu>
         </item>
+
+        <item android:title="@string/delhi_ncr_leads">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_mh_covid_help_Desk"
+                        android:icon="@drawable/google_sheets"
+                        android:title="@string/mh_covid_help_Desk" />
+                    <item
+                        android:id="@+id/nav_cocvid_health_bot"
+                        android:icon="@drawable/robotic"
+                        android:onClick="goToHealthBot"
+                        android:title="@string/covid_health_bot" />
+                </group>
+            </menu>
+        </item>
     </group>
 </menu>

@@ -39,6 +39,7 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel.getHistoryData()
         binding = FragmentHistoryBinding.inflate(inflater)
         list = viewModel.historyData.value
         if(!list.isNullOrEmpty()){
@@ -51,7 +52,6 @@ class HistoryFragment : Fragment() {
         }
 
         activity?.actionBar?.title = "History"
-        viewModel.getHistoryData()
 
         viewModel.historyData.observe(viewLifecycleOwner, {
             if (it != null) {

@@ -17,7 +17,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"
             app:cardBackgroundColor="@color/cardview_light_background"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
@@ -133,7 +134,6 @@
             android:id="@+id/helplines"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="5dp"
             android:layout_marginTop="10dp"
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/helpline_list_item" />

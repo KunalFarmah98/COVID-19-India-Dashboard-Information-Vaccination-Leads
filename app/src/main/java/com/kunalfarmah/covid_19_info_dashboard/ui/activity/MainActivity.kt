@@ -1,6 +1,7 @@
 package com.kunalfarmah.covid_19_info_dashboard.ui.activity
 
 import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.content.SharedPreferences
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -48,10 +50,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Dashboard"
         toolbar.title = "Dashboard"
-
-        dashboardViewModel.getLatestData()
-        dashboardViewModel.getHistoryData()
-        dashboardViewModel.fetchContacts()
 
         sharedPreferences = getSharedPreferences(Constants.PREFS, MODE_PRIVATE)
 
@@ -102,6 +100,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
+        if(drawerLayout.isDrawerOpen(navView)) {
+            drawerLayout.closeDrawers()
+            return
+        }
         if (bottomNav?.selectedItemId != R.id.nav_home) {
             bottomNav?.selectedItemId = R.id.nav_home
             supportActionBar?.title = "Dashboard"
@@ -165,12 +167,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun goToHealthBot(item: MenuItem) {
+        drawerLayout.closeDrawers()
+
+        var intent = Intent(ACTION_VIEW)
+        intent.data = Uri.parse("https://wa.me/919910130828?text=covid%20bot%20delhi")
+        if(isWhatsAppInstalled())
+            intent.`package` = "com.whatsapp"
+//        else
+//            Toast.makeText(this@MainActivity,"WhatsApp is not Installed",Toast.LENGTH_SHORT).show()
+        startActivity(intent)
+    }
+
     private fun isChromeInstalled(): Boolean {
         var pInfo: PackageInfo? = null
         pInfo = try {
             packageManager.getPackageInfo("com.android.chrome", 0)
         } catch (e: PackageManager.NameNotFoundException) {
-            //chrome is not installed on the device
+            return false
+        }
+        return null != pInfo
+    }
+
+    private fun isWhatsAppInstalled(): Boolean {
+        var pInfo: PackageInfo? = null
+        pInfo = try {
+            packageManager.getPackageInfo("com.whatsapp", 0)
+        } catch (e: PackageManager.NameNotFoundException) {
             return false
         }
         return null != pInfo

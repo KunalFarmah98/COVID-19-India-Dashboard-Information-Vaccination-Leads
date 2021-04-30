@@ -30,10 +30,29 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+    <View
+        android:id="@+id/seperator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/bottom_nav"
+        android:background="@color/purple_700"/>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/bottom_nav" >
+
+        <!--this is to give a divider-->
+        <View
+            android:id="@+id/line"
+            android:layout_width="0.1dp"
+            android:layout_height="48dp"
+            android:layout_marginVertical="2dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:background="@color/purple_700"/>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </RelativeLayout>

@@ -9,12 +9,12 @@ import androidx.room.Query
 interface CovidDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertLatest(covidEntity: CovidEntity): Long
+    suspend fun insertLatest(covidEntity: CovidEntity)
 
     @Query("UPDATE covid19_Table SET active = :cases WHERE state=:state")
     suspend fun insertActive(cases: String, state: String)
 
-    @Query("SELECT * FROM covid19_table")
+    @Query("SELECT * FROM covid19_table ORDER BY total DESC")
     suspend fun getLatestCases(): List<CovidEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

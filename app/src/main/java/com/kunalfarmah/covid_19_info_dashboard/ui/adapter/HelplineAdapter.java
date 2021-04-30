@@ -47,13 +47,17 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Helpli
         SpannableString content = new SpannableString(list[0]);
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         helplineVH.number.setText(content);
-        helplineVH.number.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent call = new Intent(Intent.ACTION_DIAL);
-                call.setData(Uri.parse("tel:"+helplineVH.number.getText().toString()));
-                mContext.startActivity(call);
-            }
+
+        helplineVH.number.setOnClickListener(v -> {
+            Intent call = new Intent(Intent.ACTION_DIAL);
+            call.setData(Uri.parse("tel:"+helplineVH.number.getText().toString()));
+            mContext.startActivity(call);
+        });
+
+        helplineVH.itemView.setOnClickListener(v->{
+            Intent call = new Intent(Intent.ACTION_DIAL);
+            call.setData(Uri.parse("tel:"+helplineVH.number.getText().toString()));
+            mContext.startActivity(call);
         });
     }
 

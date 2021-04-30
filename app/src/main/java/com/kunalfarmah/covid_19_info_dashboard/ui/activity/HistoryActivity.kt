@@ -10,9 +10,12 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityHistoryBinding
@@ -28,7 +31,7 @@ import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class HistoryActivity : AppCompatActivity() {
+class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
     private val dashboardViewModel:DashboardViewModel by viewModels()
     private lateinit var binding: ActivityHistoryBinding
     private var sPref:SharedPreferences?=null
@@ -153,11 +156,29 @@ class HistoryActivity : AppCompatActivity() {
         binding.pieChart.data = pieData
         binding.pieChart.data.setValueTextSize(13f)
         binding.pieChart.data.setValueTextColor(resources.getColor(R.color.white))
-        binding.pieChart.centerText = "Rates in %"
-        binding.pieChart.setCenterTextSize(23f)
+        binding.pieChart.centerText = "Rates in % (rounded off)"
+        binding.pieChart.setCenterTextSize(15f)
         binding.pieChart.setUsePercentValues(true)
         binding.pieChart.legend.isEnabled = false
         binding.pieChart.description.isEnabled = false
+        binding.pieChart.setOnChartValueSelectedListener(this)
         binding.pieChart.invalidate()
+    }
+
+    override fun onValueSelected(e: Entry?, h: Highlight?) {
+
+         if (e!!.equalTo(PieEntry(recovered!!.toFloat()))){
+            binding.deceasedSummary.textSize = 20f
+            binding.recoveredSummary.textSize = 22f
+        }
+        if (e.equalTo(PieEntry(deceased!!.toFloat()))){
+            binding.deceasedSummary.textSize = 22f
+            binding.recoveredSummary.textSize = 20f
+        }
+    }
+
+    override fun onNothingSelected() {
+        binding.deceasedSummary.textSize = 20f
+        binding.recoveredSummary.textSize = 20f
     }
 }

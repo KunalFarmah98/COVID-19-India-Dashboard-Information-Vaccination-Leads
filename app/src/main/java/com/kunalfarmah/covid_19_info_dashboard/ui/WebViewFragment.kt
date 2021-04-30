@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import com.kunalfarmah.covid_19_info_dashboard.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.R
+import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentWebViewBinding
 
 
 class WebViewFragment() : Fragment() {
 
 
+    lateinit var binding: FragmentWebViewBinding
+    var url:String?=null
     companion object{
         val TAG = "WebViewFragment"
     }
@@ -21,10 +25,25 @@ class WebViewFragment() : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        var view = inflater.inflate(R.layout.fragment_web_view, container, false)
+        binding = FragmentWebViewBinding.inflate(inflater)
 
-        view.findViewById<WebView>(R.id.webView).loadUrl(requireArguments().getString("url",""))
-        return view
+        url = requireArguments().getString("url","")
+        loadUrl(url!!)
+        binding.noNetworkLayout.retry.setOnClickListener {
+            loadUrl(url!!)
+        }
+        return binding.root
+
     }
 
+    private fun loadUrl(url: String) {
+        if (AppUtil.isNetworkAvailable(requireContext())) {
+            binding.webView.visibility = View.VISIBLE
+            binding.noNetworkLayout.noNetworkLayout.visibility = View.GONE
+            binding.webView.loadUrl(url)
+        } else {
+            binding.webView.visibility = View.GONE
+            binding.noNetworkLayout.noNetworkLayout.visibility = View.VISIBLE
+        }
+    }
 }
