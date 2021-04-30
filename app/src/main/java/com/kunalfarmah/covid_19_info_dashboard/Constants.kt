@@ -19,6 +19,7 @@ class Constants {
         const val NAV_ACTION = "NAV_ACTION"
         const val REGISTRATION =  "REGISTRATION"
         const val CERTIFICATE  = "CERTIFICATE"
+        const val VACCINE_DASHBAORD = "VACCINE_DASHBAORD"
         const val SPRINKLR_DASHBOARD = "SPRINKLR_DASHBOARD"
         const val INDIA_RESOURCES = "INDIA_RESOURCES"
         const val HOSPITAL_MAP =  "HOSPITAL_MAP"

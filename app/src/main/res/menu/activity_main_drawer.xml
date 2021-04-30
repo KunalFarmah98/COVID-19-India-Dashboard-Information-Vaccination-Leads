@@ -31,6 +31,11 @@
                         android:id="@+id/nav_vaccine_certificate"
                         android:icon="@drawable/approved"
                         android:title="@string/vaccination_certificate" />
+
+                    <item
+                        android:id="@+id/nav_vaccine_statistics"
+                        android:icon="@drawable/dashboard"
+                        android:title="@string/vaccination_statistics" />
                 </group>
             </menu>
 

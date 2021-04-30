@@ -24,6 +24,7 @@ import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentDashboardBind
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Summary
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.ui.activity.HelplineActivity
+import com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.DashboardAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -130,6 +131,11 @@ class DashboardFragment : Fragment() {
 
         binding.help.setOnClickListener{
             startActivity(Intent(activity,HelplineActivity::class.java))
+        }
+        binding.getVaccinated.setOnClickListener{
+            var intent = Intent(activity,VaccinationActivity::class.java)
+            intent.putExtra("action",Constants.REGISTRATION)
+            startActivity(intent)
         }
 
         return binding.root

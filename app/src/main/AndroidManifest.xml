@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Covid19InfoDashboard">
-        <activity android:name=".ui.activity.ResourcesActivity"></activity>
+        <activity android:name=".ui.activity.WebViewActivity"></activity>
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.ResourcesActivity" />
         <activity android:name=".ui.activity.VaccinationActivity" />
         <activity android:name=".ui.activity.HelplineActivity" />
         <activity android:name=".ui.activity.HistoryActivity" />

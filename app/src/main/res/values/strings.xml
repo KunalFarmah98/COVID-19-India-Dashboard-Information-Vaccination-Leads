@@ -50,4 +50,17 @@
     <string name="general">General</string>
     <string name="hospital_map">map</string>
     <string name="coid19_india_resources">res</string>
+    <string name="if_the_page_didn_t_open_open_this_link_in_a_desktop_browser">If the page didn\'t open or show correctly, open this link in a desktop browser:</string>
+    <string name="hospital_map_url"><u>https://covid-19-hospital-data.el.r.appspot.com</u></string>
+    <string name="vaccination_statistics">Vaccination Statistics</string>
+    <string name="about">About</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="covid_19_info">Covid-19 Info</string>
+    <string name="donate">Donate</string>
+    <string name="info_1">This app has been made to provide easier access to Covid-19 data in India including daily summary followed by case counts in various states and UTs providing counts of active, recovered and deceased cases along with the total confirmed cases so far. It also allows users to view the day wise history of the disease dating back to March 2020 </string>
+    <string name="info_2">Since there has been a recent surge in the number of cases, it is extremely difficult to keep track of every case in every state. Hence the data provided is updated with daily with the best efforts of volunteers and the people behind creating the api used in the app: https://api.rootnet.in/covid19-in/</string>
+    <string name="info_3">Since the data is fetched from an open source api, it must not be considered 100% accurate and I hold no responsibility and accountability for any inaccuracy observed in the data</string>
+    <string name="info_4">All the Covid-19 leads and resources are provided by their respective posters and owners. This app only provides easier access to all those resources by directly opening their websites for ease of use. I hold no accountability for the authenticity of the leads or resources provided on these websites. It is a sole property of the website creators and the person posting it.</string>
+    <string name="info_5">These are difficult times and the only way to defeat the pandemic is staying safe and helping each other. It is requested that everyone follow the guidelines for Covid-Appropirate behaviour including, staying at homes, wearing mask at all times when outside, maintaining social distancing and washing/sanitising your hands regularly</string>
+    <string name="info_6">I wanted to contribute towards this vision as a developer and hence I decided to create this app to provide easier access to data, statistics and quick links for vaccine registration and leads for oxygen, beds and medicine resources that are circulating on the social media and tend to get mixed up with the other content and get difficult to find. I would like to thank Spinklr and Covid India Resources for creating such a wonderful dashboard</string>
 </resources>

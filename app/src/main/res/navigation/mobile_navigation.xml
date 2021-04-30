@@ -34,6 +34,16 @@
             android:defaultValue="CERTIFICATE" />
     </activity>
     <activity
+        android:id="@+id/nav_vaccine_statistics"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity"
+        android:label="COWIN Dashboard"
+        tools:layout="@layout/activity_vaccination" >
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="VACCINE_DASHBAORD" />
+    </activity>
+    <activity
         android:id="@+id/nav_sprinklr_dashboard"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
         android:label="Sprinklr Dashboard for Beds, Oxygen, Medicine related posts"

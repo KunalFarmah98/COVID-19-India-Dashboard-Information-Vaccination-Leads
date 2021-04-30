@@ -2,6 +2,9 @@ package com.kunalfarmah.covid_19_info_dashboard.ui.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -110,6 +113,39 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var intent = Intent(this, WebViewActivity::class.java)
+        when (item.itemId) {
+
+            R.id.action_info -> {
+                intent.putExtra("action", "Info")
+                startActivity(intent)
+            }
+            R.id.action_donate -> {
+                intent.putExtra("action", "Donate")
+                startActivity(intent)
+            }
+            R.id.action_privacy -> {
+                /* intent.putExtra("action","Privacy")
+                 startActivity(intent)*/
+                var intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("https://kunal-farmah.jimdosite.com/contact-me/")
+                if (isChromeInstalled()) {
+                    intent.`package` = "com.android.chrome"
+                    startActivity(intent)
+                } else {
+                    startActivity(intent)
+                }
+            }
+            R.id.action_about -> {
+                intent = Intent(this@MainActivity, AboutActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return false
+    }
+
+
     fun goToStateHistory(date: String, total: String, recovered: String, deceased: String) {
         sharedPreferences?.edit()?.putString(Constants.SELECTED_DATE, date)?.apply()
         dashboardViewModel.getHistoryByDate(date)
@@ -129,19 +165,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun openMap(item: MenuItem) {
-        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.HOSPITAL_MAP).apply()
+    private fun isChromeInstalled(): Boolean {
+        var pInfo: PackageInfo? = null
+        pInfo = try {
+            packageManager.getPackageInfo("com.android.chrome", 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            //chrome is not installed on the device
+            return false
+        }
+        return null != pInfo
     }
-    fun openResources(item: MenuItem) {
-        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.INDIA_RESOURCES).apply()
-    }
-    fun openSprinklr(item: MenuItem) {
-        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.SPRINKLR_DASHBOARD).apply()
-    }
-    fun getCertificate(item: MenuItem) {
-        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.CERTIFICATE).apply()
-    }
-    fun registerVaccine(item: MenuItem) {
-        sharedPreferences!!.edit().putString(Constants.NAV_ACTION,Constants.REGISTRATION).apply()
-    }
+
 }
