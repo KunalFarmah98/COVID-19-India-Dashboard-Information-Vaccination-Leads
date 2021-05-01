@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
@@ -19,7 +18,7 @@ import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentHelplineBindi
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.ContactsRegionalItem
 import com.kunalfarmah.covid_19_info_dashboard.ui.WebViewFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.HelplineAdapter
-import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardViewModel
+import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

@@ -1,4 +1,4 @@
-package com.kunalfarmah.covid_19_info_dashboard.ui.dashboard
+package com.kunalfarmah.covid_19_info_dashboard.viewModel
 
 import android.app.Application
 import android.content.Context
@@ -14,7 +14,6 @@ import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi

@@ -10,4 +10,9 @@
         android:icon="@drawable/baseline_history_black_24dp"
         android:checkable="true"
         android:title="@string/history" />
+    <item
+        android:id="@+id/nav_leads"
+        android:icon="@drawable/lead"
+        android:checkable="true"
+        android:title="@string/leads_" />
 </menu>

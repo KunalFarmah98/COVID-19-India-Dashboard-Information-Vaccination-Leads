@@ -1,16 +1,13 @@
 package com.kunalfarmah.covid_19_info_dashboard.ui.dashboard
 
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -31,6 +28,7 @@ import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.ui.activity.HelplineActivity
 import com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.DashboardAdapter
+import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.text.DecimalFormat

@@ -1,8 +1,6 @@
 package com.kunalfarmah.covid_19_info_dashboard.ui.activity
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -15,7 +13,7 @@ import com.kunalfarmah.covid_19_info_dashboard.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivitySplashBinding
 import com.kunalfarmah.covid_19_info_dashboard.listener.LatestListener
-import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardViewModel
+import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

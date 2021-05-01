@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
@@ -21,9 +20,8 @@ import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityHistoryBinding
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
-import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.DashboardAdapter
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.HistoryStateWiseAdapter
-import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardViewModel
+import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.text.DecimalFormat
@@ -32,7 +30,7 @@ import java.text.SimpleDateFormat
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
-    private val dashboardViewModel:DashboardViewModel by viewModels()
+    private val dashboardViewModel: DashboardViewModel by viewModels()
     private lateinit var binding: ActivityHistoryBinding
     private var sPref:SharedPreferences?=null
     private var date:String?=null

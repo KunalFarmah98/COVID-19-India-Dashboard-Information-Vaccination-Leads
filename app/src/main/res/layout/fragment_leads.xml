@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.LeadsFragment">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_leads_loader" />
+
+            <include layout="@layout/item_leads_loader" />
+
+            <include layout="@layout/item_leads_loader" />
+
+            <include layout="@layout/item_leads_loader" />
+        </LinearLayout>
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/selectTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/select_tags_for_filtering"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/all"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    app:cardBackgroundColor="@color/purple_700"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/allTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/all"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/beds"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/bedsTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/beds"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/oxi"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/oxiTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/oxigen"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/equipment"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/equipTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/equipment"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/medicine"
+
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/medsTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/medicines"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/food"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/foodTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/food"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/others"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/othersTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/others"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/leadsRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/noNetworkLayout"
+        layout="@layout/no_network_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/noPostsLayout"
+        layout="@layout/no_posts_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
+        android:id="@+id/addPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_margin="20sp"
+        android:text="@string/add_a_post"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:onClick="addPost"
+        app:icon="@drawable/baseline_add_white_24dp"
+        app:iconTint="@color/white" />
+
+
+</RelativeLayout>

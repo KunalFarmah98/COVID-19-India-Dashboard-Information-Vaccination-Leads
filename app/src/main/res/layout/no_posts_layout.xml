@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/noPostsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/noNetwork"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:scaleType="fitXY"
+        android:src="@drawable/no_post" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/no_posts"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
+        android:id="@+id/addPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20sp"
+        android:text="@string/add_a_post"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:icon="@drawable/baseline_add_white_24dp"
+        app:iconTint="@color/white" />
+
+</LinearLayout>

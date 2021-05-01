@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -24,9 +23,10 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
-import com.kunalfarmah.covid_19_info_dashboard.ui.WebViewFragment
+import com.kunalfarmah.covid_19_info_dashboard.ui.LeadsFragment
+import com.kunalfarmah.covid_19_info_dashboard.ui.PostsFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardFragment
-import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardViewModel
+import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import com.kunalfarmah.covid_19_info_dashboard.ui.history.HistoryFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -76,10 +76,17 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.nav_host_fragment, DashboardFragment()).commit()
                 }
             } else if (it.itemId == R.id.nav_history) {
-                if (bottomNav?.selectedItemId == R.id.nav_home) {
+                if (bottomNav?.selectedItemId == R.id.nav_home || bottomNav?.selectedItemId==R.id.nav_leads) {
                     supportActionBar?.title = "History"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, HistoryFragment()).commit()
+                }
+            }
+            else if(it.itemId==R.id.nav_leads){
+                if (bottomNav?.selectedItemId == R.id.nav_home || bottomNav?.selectedItemId ==R.id.nav_history) {
+                    supportActionBar?.title = "Leads and Resources"
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, PostsFragment()).commit()
                 }
             }
 
@@ -197,6 +204,10 @@ class MainActivity : AppCompatActivity() {
             return false
         }
         return null != pInfo
+    }
+
+    fun addPost(view: View) {
+        startActivity(Intent(this, PostActivity::class.java))
     }
 
 }

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentHistoryBinding
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.HistoryAdapter
-import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardViewModel
+import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.text.SimpleDateFormat

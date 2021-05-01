@@ -7,6 +7,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import com.kunalfarmah.covid_19_info_dashboard.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityWebViewBinding
+import java.lang.Exception
 
 class WebViewActivity : AppCompatActivity() {
     lateinit var binding: ActivityWebViewBinding
@@ -24,6 +25,10 @@ class WebViewActivity : AppCompatActivity() {
         binding.webView.webChromeClient = WebChromeClient()
 
         action = intent.getStringExtra("action")
+        try {
+            url = intent.getStringExtra("url")
+        }
+        catch (e:Exception){}
 
         when (action) {
             "Info" -> {
@@ -39,6 +44,10 @@ class WebViewActivity : AppCompatActivity() {
             "Privacy" -> {
                 supportActionBar?.title = "Privacy Policy"
                 url = "https://kunal-farmah.jimdosite.com/contact-me/"
+                loadUrl(url!!)
+            }
+            "External"->{
+                supportActionBar?.title = "Leads and Resources"
                 loadUrl(url!!)
             }
         }
