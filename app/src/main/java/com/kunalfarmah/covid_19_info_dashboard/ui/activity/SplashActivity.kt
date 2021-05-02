@@ -9,7 +9,7 @@ import android.view.Window
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.kunalfarmah.covid_19_info_dashboard.AppUtil
+import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivitySplashBinding
 import com.kunalfarmah.covid_19_info_dashboard.listener.LatestListener

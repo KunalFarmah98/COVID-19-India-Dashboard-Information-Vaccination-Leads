@@ -7,11 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
 import androidx.navigation.*
-import com.kunalfarmah.covid_19_info_dashboard.AppUtil
+import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.Constants
-import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityVaccinationBinding
-import com.kunalfarmah.covid_19_info_dashboard.ui.WebViewFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi

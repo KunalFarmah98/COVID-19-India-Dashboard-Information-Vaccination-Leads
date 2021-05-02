@@ -5,27 +5,28 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.gson.Gson
-import com.kunalfarmah.covid_19_info_dashboard.AppUtil
+import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.Constants
-import com.kunalfarmah.covid_19_info_dashboard.Constants.Companion.RC_SIGN_IN
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentLeadsBinding
 import com.kunalfarmah.covid_19_info_dashboard.model.Post
 import com.kunalfarmah.covid_19_info_dashboard.model.User
+import com.kunalfarmah.covid_19_info_dashboard.ui.activity.MainActivity
 import com.kunalfarmah.covid_19_info_dashboard.ui.activity.PostActivity
+import com.kunalfarmah.covid_19_info_dashboard.ui.activity.SignInActivity
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.PostsAdapter
 import com.kunalfarmah.covid_19_info_dashboard.viewModel.LeadsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,31 +51,60 @@ class LeadsFragment(var isUser: Boolean) : Fragment() {
     ): View? {
         binding = FragmentLeadsBinding.inflate(inflater)
 
+        binding.swipeRefresh.isRefreshing = false
         sPref = activity?.getSharedPreferences(Constants.PREFS, MODE_PRIVATE)
+        user_ = Gson().fromJson(sPref?.getString(Constants.USER, ""), User::class.java)
         if (!isUser)
             viewModel.fetchAllPosts()
         else
             viewModel.fetchUserPosts()
 
-
         if (AppUtil.isNetworkAvailable(requireContext())) {
-            if (sPref!!.getString(Constants.USER, "").isNullOrEmpty())
-                signIn()
-            else
-                loadData()
+            loadData()
         } else {
             setNoNetworkLayout()
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+            if (AppUtil.isNetworkAvailable(requireContext())) {
+                binding.swipeRefresh.isRefreshing = true
+                viewModel.fetchFilteredPosts(filter!!)
+            }
+        }
 
-        binding.addPost.bringToFront()
-        binding.addPost.setOnClickListener {
-            startActivity(Intent(activity, PostActivity::class.java))
+        binding.logout.setOnClickListener {
+            AuthUI.getInstance()
+                .signOut(requireContext())
+                .addOnCompleteListener(OnCompleteListener {
+                    sPref?.edit()?.putString(Constants.USER, "")?.apply()
+                    Toast.makeText(requireContext(), "Signed Out successfully", Toast.LENGTH_SHORT)
+                        .show()
+                    binding.userWelcome.visibility = View.GONE
+                    binding.logout.visibility = View.GONE
+                    startActivityForResult(
+                        Intent(activity, SignInActivity::class.java),
+                        Constants.SIGN_IN
+                    )
+                })
         }
 
         setUpFilters()
 
         return binding.root
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == Constants.SIGN_IN) {
+            if (resultCode == Activity.RESULT_OK) {
+                user_ = Gson().fromJson(data?.getStringExtra("user"), User::class.java)
+                loadData()
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                (activity as MainActivity)?.openDashBoard()
+            }
+        }
     }
 
     fun resetAllFilters() {
@@ -98,6 +128,12 @@ class LeadsFragment(var isUser: Boolean) : Fragment() {
 
         binding.equipment.setCardBackgroundColor(requireContext().resources.getColor(R.color.white))
         binding.equipTv.setTextColor(requireContext().resources.getColor(R.color.black))
+
+        binding.plasma.setCardBackgroundColor(requireContext().resources.getColor(R.color.white))
+        binding.plasmaTv.setTextColor(requireContext().resources.getColor(R.color.black))
+
+        binding.ambulance.setCardBackgroundColor(requireContext().resources.getColor(R.color.white))
+        binding.ambulanceTv.setTextColor(requireContext().resources.getColor(R.color.black))
     }
 
     private fun setUpFilters() {
@@ -150,69 +186,33 @@ class LeadsFragment(var isUser: Boolean) : Fragment() {
             binding.foodTv.setTextColor(requireContext().resources.getColor(R.color.white))
             viewModel.fetchFilteredPosts(filter!!)
         }
-    }
 
-    private fun signIn() {
-        providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build()
-        )
+        binding.plasma.setOnClickListener {
+            filter = "Plasma"
+            resetAllFilters()
+            binding.plasma.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
+            binding.plasmaTv.setTextColor(requireContext().resources.getColor(R.color.white))
+            viewModel.fetchFilteredPosts(filter!!)
 
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setLogo(R.drawable.coronavirus)
-                .setAvailableProviders(providers)
-                .build(),
-            RC_SIGN_IN
-        )
-    }
+        }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-
-            if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
-                user = FirebaseAuth.getInstance().currentUser
-                val userId = user?.uid
-                val name = user?.displayName
-                val phone = user?.phoneNumber
-                insertUser(userId, name, phone)
-                loadData()
-                sPref!!.edit().putString(Constants.USER, Gson().toJson(user)).apply()
-            } else {
-                Toast.makeText(context, "SignIn Failed, Please Try Again!", Toast.LENGTH_SHORT)
-                    .show()
-            }
+        binding.ambulance.setOnClickListener {
+            filter = "Ambulance"
+            resetAllFilters()
+            binding.ambulance.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
+            binding.ambulanceTv.setTextColor(requireContext().resources.getColor(R.color.white))
+            viewModel.fetchFilteredPosts(filter!!)
         }
     }
 
-    private fun insertUser(userID: String?, name: String?, phone: String?) {
-        usersRef = FirebaseDatabase.getInstance().reference.child("Users")
-        user_ = User(
-            userID,
-            name,
-            phone,
-            null,
-            null
-        )
-        usersRef?.addListenerForSingleValueEvent(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (!snapshot.child(userID!!).exists()) {
-                    usersRef?.child(userID)?.setValue(user_)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        });
-    }
 
     private fun loadData() {
+        binding.userWelcome.visibility = View.VISIBLE
+        binding.userWelcome.text = String.format(
+            "Welcome, %s",
+            user_?.name
+        )
+        binding.logout.visibility = View.VISIBLE
         binding.leadsRecycler.visibility = View.GONE
         binding.loading.visibility = View.VISIBLE
         binding.loading.startShimmerAnimation()
@@ -227,6 +227,7 @@ class LeadsFragment(var isUser: Boolean) : Fragment() {
     }
 
     private fun setView(list: List<Post>) {
+        binding.swipeRefresh.isRefreshing = false
         binding.loading.stopShimmerAnimation()
         binding.loading.visibility = View.GONE
         binding.leadsRecycler.visibility = View.VISIBLE
@@ -238,6 +239,7 @@ class LeadsFragment(var isUser: Boolean) : Fragment() {
     }
 
     private fun setNoDataLayout() {
+        binding.swipeRefresh.isRefreshing = false
         binding.loading.stopShimmerAnimation()
         binding.loading.visibility = View.GONE
         binding.leadsRecycler.visibility = View.GONE
@@ -245,6 +247,7 @@ class LeadsFragment(var isUser: Boolean) : Fragment() {
     }
 
     private fun setNoNetworkLayout() {
+        binding.swipeRefresh.isRefreshing = false
         binding.leadsRecycler.visibility = View.GONE
         binding.loading.stopShimmerAnimation()
         binding.loading.visibility = View.GONE

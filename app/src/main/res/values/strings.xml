@@ -78,8 +78,8 @@
     <string name="contact1">Contact 1</string>
     <string name="contact2">Contact 2</string>
     <string name="link">Links:</string>
-    <string name="link1">link1</string>
-    <string name="link2">link2</string>
+    <string name="link1">Link1</string>
+    <string name="link2">Link2</string>
     <string name="count">count</string>
     <string name="downvote">Downvote</string>
     <string name="upvote">Upvote</string>
@@ -109,4 +109,26 @@
     <string name="my_posts">My Leads</string>
     <string name="enter_location">Enter Location(Place/State)</string>
     <string name="location_">Enter the location where this lead is valid:</string>
+    <string name="plasma">Plasma</string>
+    <string name="ambulance">Ambulance</string>
+    <string name="logout">Logout</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_google_login">Sign in with Google</string>
+    <string name="Login">Login/Sign Up</string>
+    <string name="password">Password</string>
+    <string name="enter_email_or_ph_num">Enter Email Id</string>
+    <string name="email_or_ph_num">Email:</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="or">OR</string>
+    <string name="signed_out">Signed Out Successfully</string>
+    <string name="social_auth_failed">Authentication failed.</string>
+    <string name="sign_in_failed">Sign In Failed, please try some other method.</string>
+    <string name="signed_in_success">Signed in Successfully</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_name">Enter your Full Name</string>
+    <string name="name">Name</string>
+    <string name="last_refreshed">Last Refreshed</string>
+    <string name="covid_india_fighters">Covid India Fighters</string>
 </resources>

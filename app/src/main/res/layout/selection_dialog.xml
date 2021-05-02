@@ -21,7 +21,7 @@
 
             android:id="@+id/gallery"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:elevation="8dp"
@@ -39,14 +39,14 @@
                 android:gravity="center"
                 android:text="Pick Image From Gallery"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
 
             android:id="@+id/camera"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:elevation="8dp"
@@ -64,7 +64,7 @@
                 android:textColor="#FFFFFF"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>

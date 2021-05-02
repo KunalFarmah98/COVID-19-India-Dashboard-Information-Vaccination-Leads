@@ -23,7 +23,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/warning"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
 
@@ -35,7 +35,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:text="@string/title_"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/titleCard"
@@ -54,6 +54,7 @@
                     android:layout_below="@id/warning"
                     android:layout_gravity="start"
                     android:layout_margin="10dp"
+                    android:textSize="15sp"
                     android:layout_marginHorizontal="10dp"
                     android:hint="@string/enter_title"
                     android:textColor="@color/black" />
@@ -68,7 +69,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:text="Add Tags (required):"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <RelativeLayout
                 android:id="@+id/tagsCard"
@@ -81,9 +82,9 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/beds"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_margin="5dp"
+                    android:layout_margin="2dp"
                     app:cardCornerRadius="10dp"
                     app:strokeColor="@color/purple_700"
                     app:strokeWidth="3dp">
@@ -94,15 +95,16 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/beds"
+                        android:layout_marginHorizontal="10dp"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/oxi"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_margin="5dp"
+                    android:layout_margin="2dp"
                     android:layout_toRightOf="@id/beds"
                     app:cardCornerRadius="10dp"
                     app:strokeColor="@color/purple_700"
@@ -113,17 +115,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginHorizontal="10dp"
                         android:text="@string/oxigen"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
                 </com.google.android.material.card.MaterialCardView>
 
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/equipment"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_margin="5dp"
+                    android:layout_margin="2dp"
                     android:layout_toRightOf="@id/oxi"
                     app:cardCornerRadius="10dp"
                     app:strokeColor="@color/purple_700"
@@ -135,17 +138,38 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/equipment"
+                        android:layout_marginHorizontal="10dp"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/plasma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="2dp"
+                    android:layout_toRightOf="@id/equipment"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/plasmaTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/plasma"
+                        android:layout_marginHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/medicine"
-
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_below="@id/beds"
-                    android:layout_margin="5dp"
+                    android:layout_margin="2dp"
                     app:cardCornerRadius="10dp"
                     app:strokeColor="@color/purple_700"
                     app:strokeWidth="3dp">
@@ -156,17 +180,40 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/medicines"
+                        android:layout_marginHorizontal="10dp"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/ambulance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_margin="2dp"
+                    android:layout_below="@id/oxi"
+                    android:layout_toRightOf="@id/medicine"
+                    app:cardCornerRadius="10dp"
+                    app:strokeColor="@color/purple_700"
+                    app:strokeWidth="3dp">
+
+                    <TextView
+                        android:id="@+id/ambulanceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/ambulance"
+                        android:layout_marginHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/food"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_below="@id/oxi"
-                    android:layout_margin="5dp"
-                    android:layout_toRightOf="@id/medicine"
+                    android:layout_margin="2dp"
+                    android:layout_toRightOf="@id/ambulance"
                     app:cardCornerRadius="10dp"
                     app:strokeColor="@color/purple_700"
                     app:strokeWidth="3dp">
@@ -177,16 +224,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/food"
+                        android:layout_marginHorizontal="10dp"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/others"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_below="@id/equipment"
-                    android:layout_margin="5dp"
+                    android:layout_margin="2dp"
                     android:layout_toRightOf="@id/food"
                     app:cardCornerRadius="10dp"
                     app:strokeColor="@color/purple_700"
@@ -196,10 +244,11 @@
                         android:id="@+id/othersTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
                         android:layout_gravity="center"
                         android:text="@string/others"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
                 </com.google.android.material.card.MaterialCardView>
 
             </RelativeLayout>
@@ -220,6 +269,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:gravity="start"
+                    android:textSize="15sp"
                     android:hint="@string/enter_contents"
                     android:textColor="@color/black" />
             </com.google.android.material.card.MaterialCardView>
@@ -229,6 +279,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/bodyCard"
+                android:layout_centerHorizontal="true"
                 android:visibility="gone" />
 
             <TextView
@@ -236,10 +287,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/image"
+                android:layout_marginTop="5dp"
                 android:layout_marginHorizontal="10dp"
                 android:text="@string/location_"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/locationCard"
@@ -258,6 +310,7 @@
                     android:layout_below="@id/warning"
                     android:layout_gravity="start"
                     android:layout_margin="10dp"
+                    android:textSize="15sp"
                     android:layout_marginHorizontal="10dp"
                     android:hint="@string/enter_location"
                     android:textColor="@color/black" />
@@ -271,7 +324,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:text="@string/add_contact_number"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/contactsCard"
@@ -299,6 +352,7 @@
                         android:hint="@string/contact1"
                         android:inputType="phone"
                         android:maxLength="10"
+                        android:textSize="15sp"
                         android:textColor="@color/black" />
 
                     <EditText
@@ -308,6 +362,7 @@
                         android:layout_weight="1"
                         android:hint="@string/contact2"
                         android:inputType="phone"
+                        android:textSize="15sp"
                         android:maxLength="10"
                         android:textColor="@color/black" />
                 </LinearLayout>
@@ -323,7 +378,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:text="@string/add_links"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/linksCard"
@@ -346,6 +401,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
                         android:hint="@string/link1"
+                        android:textSize="15sp"
                         android:inputType="textWebEmailAddress"
                         android:textColor="@color/black" />
 
@@ -355,6 +411,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
                         android:hint="@string/link2"
+                        android:textSize="15sp"
                         android:inputType="textWebEmailAddress"
                         android:textColor="@color/black" />
 

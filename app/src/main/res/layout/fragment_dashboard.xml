@@ -16,7 +16,8 @@
             android:id="@+id/summaryCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
             app:cardBackgroundColor="@color/cardview_light_background"
             app:strokeColor="@color/purple_700"
             app:strokeWidth="3dp"
@@ -85,7 +86,7 @@
                         android:gravity="center"
                         android:text="@string/active"
                         android:textColor="@color/blue"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/recoveredSummary"
@@ -96,7 +97,7 @@
                         android:gravity="center"
                         android:text="@string/recovered"
                         android:textColor="@color/green"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/deceasedSummary"
@@ -107,12 +108,22 @@
                         android:gravity="center"
                         android:text="@string/deceased"
                         android:textColor="@color/red"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </RelativeLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/lastRefreshed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_refreshed"
+            android:layout_gravity="end"
+            android:padding="5dp"
+            android:textSize="10sp"
+            android:layout_marginEnd="10dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

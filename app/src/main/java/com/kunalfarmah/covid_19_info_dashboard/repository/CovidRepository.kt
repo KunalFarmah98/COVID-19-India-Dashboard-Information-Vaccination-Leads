@@ -23,6 +23,7 @@ constructor(
         val result = covidRetrofit.getOfficialLatest()
         sPref.edit().putString(Constants.LATEST_SUMMARY, Gson().toJson(result.data?.summary))
             .apply()
+        sPref.edit().putString(Constants.LAST_REFRESHED, result.lastRefreshed).apply()
         if (!result.data?.unofficialSummary.isNullOrEmpty())
             sPref.edit().putString(
                 Constants.LATEST_ACTIVE,
@@ -49,12 +50,12 @@ constructor(
 
     suspend fun fetchActiveData(listener: LatestListener?) {
         val result = covidRetrofit.getUnofficialLatestData()
-        CoroutineScope(Dispatchers.IO).launch{
+        CoroutineScope(Dispatchers.IO).launch {
             for (case in result.data?.statewise!!) {
                 if (case?.state.equals("State Unassigned"))
                     continue
                 Log.d("Active", case?.state + " : " + case?.active.toString())
-                if(!case?.active.toString().isNullOrEmpty())
+                if (!case?.active.toString().isNullOrEmpty())
                     covidDao.insertActive(case?.active.toString(), case?.state.toString())
             }
         }

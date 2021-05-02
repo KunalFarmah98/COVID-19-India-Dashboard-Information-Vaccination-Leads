@@ -1,4 +1,4 @@
-package com.kunalfarmah.covid_19_info_dashboard
+package com.kunalfarmah.covid_19_info_dashboard.util
 
 import android.content.Context
 import android.net.ConnectivityManager

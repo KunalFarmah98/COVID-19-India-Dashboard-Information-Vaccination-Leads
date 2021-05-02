@@ -11,23 +11,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
-import com.kunalfarmah.covid_19_info_dashboard.ui.LeadsFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.PostsFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardFragment
-import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import com.kunalfarmah.covid_19_info_dashboard.ui.history.HistoryFragment
+import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.*
@@ -165,9 +164,13 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this@MainActivity, HistoryActivity::class.java))
     }
 
-    fun goToDashboard(item: MenuItem) {
+     fun goToDashboard(item: MenuItem) {
         drawerLayout.closeDrawers()
-        if (bottomNav?.selectedItemId == R.id.nav_history) {
+        openDashBoard()
+    }
+
+    fun openDashBoard(){
+        if (bottomNav?.selectedItemId == R.id.nav_history || bottomNav?.selectedItemId==R.id.nav_leads) {
             bottomNav?.selectedItemId = R.id.nav_home
             supportActionBar?.title = "Dashboard"
             bottomNav?.menu?.findItem(R.id.nav_home)?.isChecked = true

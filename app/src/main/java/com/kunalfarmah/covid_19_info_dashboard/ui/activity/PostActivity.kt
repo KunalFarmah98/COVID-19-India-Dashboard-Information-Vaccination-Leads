@@ -2,6 +2,8 @@ package com.kunalfarmah.covid_19_info_dashboard.ui.activity
 
 import android.Manifest
 import android.app.Dialog
+import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -16,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.google.android.gms.tasks.OnCompleteListener
@@ -61,6 +64,7 @@ class PostActivity : AppCompatActivity() {
     var location: String? = null
     var userID: String? = null
     var userName: String? = null
+    var bitmap: Bitmap? = null
 
     companion object {
         const val TAG = "PostsActivity"
@@ -85,6 +89,9 @@ class PostActivity : AppCompatActivity() {
         contacts = ArrayList()
         links = ArrayList()
 
+        binding.image.visibility = View.GONE
+
+
         binding.addImage.setOnClickListener {
             displayChoice()
         }
@@ -92,10 +99,10 @@ class PostActivity : AppCompatActivity() {
         setUpFilters()
 
         binding.post.setOnClickListener {
-             timeStamp = SimpleDateFormat("dd/MM/yyyy hh:mm a ").format(Date())
-             title = binding.titleEt.text.toString()
-             body = binding.body.text.toString()
-             location = binding.locationEt.text.toString()
+            timeStamp = SimpleDateFormat("dd/MM/yyyy hh:mm a ").format(Date())
+            title = binding.titleEt.text.toString()
+            body = binding.body.text.toString()
+            location = binding.locationEt.text.toString()
             var contact1 = binding.contact1.text.toString()
             var contact2 = binding.contact2.text.toString()
 
@@ -132,7 +139,7 @@ class PostActivity : AppCompatActivity() {
 
 
             if (null == photoURI) {
-               post(null)
+                post(null)
             } else {
                 uploadImageAndPost()
             }
@@ -140,7 +147,7 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
-    private fun post(imageUrl:String?){
+    private fun post(imageUrl: String?) {
         var ref = postRef?.push()
 
         var post = Post(
@@ -175,23 +182,26 @@ class PostActivity : AppCompatActivity() {
     private fun uploadImageAndPost() {
         val storageRef = FirebaseStorage.getInstance().reference
         val imageRef =
-            storageRef.child(String.format("Covid-19_India_Dashboard_Posts/%s", imageFileName))
-        // Get the data from an ImageView as bytes
-        binding.image.isDrawingCacheEnabled = true
-        binding.image.buildDrawingCache()
-        val bitmap = (binding.image.drawable as BitmapDrawable).bitmap
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
+            storageRef.child(
+                "images/"
+                        + UUID.randomUUID().toString())
 
-        var uploadTask = imageRef.putBytes(data)
+        var progressDialog = ProgressDialog(this)
+        progressDialog.setMessage(resources.getString(R.string.please_wait))
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+
+        var uploadTask = imageRef.putFile(photoURI!!)
         uploadTask.addOnFailureListener {
             // Handle unsuccessful uploads
         }.addOnSuccessListener {
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             // ...
-            var imageUrl = imageRef.downloadUrl.result
-            post(imageUrl.toString())
+            imageRef.downloadUrl.addOnSuccessListener {
+                post(it?.toString())
+                progressDialog.dismiss()
+            }
+
         }
 
         uploadTask.addOnProgressListener { (bytesTransferred, totalByteCount) ->
@@ -282,6 +292,34 @@ class PostActivity : AppCompatActivity() {
                 binding.foodTv.setTextColor(this.resources.getColor(R.color.black))
             }
         }
+
+        binding.plasma.setOnClickListener {
+
+            var color = binding.plasmaTv.currentTextColor
+            if (color == resources.getColor(R.color.black)) {
+                tags?.add("Plasma")
+                binding.plasma.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
+                binding.plasmaTv.setTextColor(this.resources.getColor(R.color.white))
+            } else {
+                tags?.remove("Plasma")
+                binding.plasma.setCardBackgroundColor(this.resources.getColor(R.color.white))
+                binding.plasmaTv.setTextColor(this.resources.getColor(R.color.black))
+            }
+        }
+
+        binding.ambulance.setOnClickListener {
+
+            var color = binding.ambulanceTv.currentTextColor
+            if (color == resources.getColor(R.color.black)) {
+                tags?.add("Food")
+                binding.ambulance.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
+                binding.ambulanceTv.setTextColor(this.resources.getColor(R.color.white))
+            } else {
+                tags?.remove("Food")
+                binding.ambulance.setCardBackgroundColor(this.resources.getColor(R.color.white))
+                binding.ambulanceTv.setTextColor(this.resources.getColor(R.color.black))
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -342,7 +380,7 @@ class PostActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_CANCELED) finish()
+        if (resultCode == RESULT_CANCELED)
         if (requestCode == Constants.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             try {
                 CropImage.activity(photoURI)
@@ -364,7 +402,6 @@ class PostActivity : AppCompatActivity() {
             val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
             if (resultCode == RESULT_OK) {
                 photoURI = result.uri
-                var bitmap: Bitmap? = null
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(
                         applicationContext.contentResolver,
@@ -373,6 +410,7 @@ class PostActivity : AppCompatActivity() {
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
+                binding.image.visibility = View.VISIBLE
                 binding.image.setImageBitmap(bitmap)
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -413,7 +451,7 @@ class PostActivity : AppCompatActivity() {
                 if (photoFile != null) {
                     photoURI = FileProvider.getUriForFile(
                         this,
-                        "com.example.android.fileprovider",
+                        "com.apps.kunalfarmah.covid19_india_dashboard.fileprovider",
                         photoFile
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -427,13 +465,27 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
+    private fun showDialog(){
+        var dialog = AlertDialog.Builder(this).setTitle("Are you sure you want to discard the lead")
+            .setPositiveButton("Go Back") { dialog: DialogInterface, _: Int ->
+                dialog.dismiss()
+            }
+            .setNegativeButton("Discard") { dialog: DialogInterface, _: Int ->
+                dialog.dismiss()
+                finish()
+            }
+
+        dialog.create()
+        dialog.show()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        showDialog()
     }
 
 }

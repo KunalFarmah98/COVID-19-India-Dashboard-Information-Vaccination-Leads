@@ -19,7 +19,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.gson.Gson
-import com.kunalfarmah.covid_19_info_dashboard.AppUtil
+import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentDashboardBinding
@@ -32,6 +32,7 @@ import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
@@ -43,6 +44,7 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
     private var sPref: SharedPreferences? = null
     private var list: List<CovidEntity>? = null
     private var summary: Summary? = null
+    private var refreshed: String? = null
     var active: Float? = null
     var recovered: Float? = null
     var deceaased: Float? = null
@@ -88,6 +90,22 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
             )
         }
 
+        refreshed = sPref?.getString(Constants.LAST_REFRESHED,"")
+        if(refreshed?.isNotEmpty() == true){
+            binding.lastRefreshed.visibility = View.VISIBLE
+            var i = refreshed?.indexOf('T')!!
+            var date = refreshed?.substring(0,i)
+            var time = refreshed?.substring(i+1, refreshed?.indexOf('.')!!)
+            var finaldate = "$date $time"
+            val df1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            var df2 =  SimpleDateFormat("dd/MM/yyyy hh:mm a")
+            var refreshedTime = df2.format(df1.parse(finaldate))
+            binding.lastRefreshed.text = String.format("Last Refreshed: %s",refreshedTime)
+        }
+        else{
+            binding.lastRefreshed.visibility = View.GONE
+        }
+
         setUpPieChart()
 
         list = dashboardViewModel.latestData.value
@@ -98,7 +116,7 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
             binding.loading.startShimmerAnimation()
         }
 
-        if(AppUtil.isNetworkAvailable(requireContext()))
+        if (AppUtil.isNetworkAvailable(requireContext()))
             dashboardViewModel.fetchActiveData(null)
 
 
@@ -190,18 +208,17 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        if (e!!.equalTo(PieEntry(active!!))){
+        if (e!!.equalTo(PieEntry(active!!))) {
             binding.activeSummary.textSize = 22f
             binding.deceasedSummary.textSize = 20f
             binding.recoveredSummary.textSize = 20f
 
-        }
-        else if (e!!.equalTo(PieEntry(recovered!!))){
+        } else if (e!!.equalTo(PieEntry(recovered!!))) {
             binding.activeSummary.textSize = 20f
             binding.deceasedSummary.textSize = 20f
             binding.recoveredSummary.textSize = 22f
         }
-        if (e!!.equalTo(PieEntry(deceaased!!))){
+        if (e!!.equalTo(PieEntry(deceaased!!))) {
             binding.activeSummary.textSize = 20f
             binding.deceasedSummary.textSize = 22f
             binding.recoveredSummary.textSize = 20f

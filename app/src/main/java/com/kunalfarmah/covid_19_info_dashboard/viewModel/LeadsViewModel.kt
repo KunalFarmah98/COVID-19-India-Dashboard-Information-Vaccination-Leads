@@ -63,8 +63,8 @@ constructor(application: Application) : AndroidViewModel(application) {
                 var posts = ArrayList<Post>()
                 for (postSnapshot in snapshot.children) {
                     var post = postSnapshot.getValue(Post::class.java)
-                    if (post?.tags?.contains(filter)!!)
-                        posts.add(post)
+                    if (filter == "All" || post?.tags?.contains(filter)!!)
+                        posts.add(post!!)
                 }
                 posts_.value = posts.sortedWith(PostComparator())
             }

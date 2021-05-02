@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import com.kunalfarmah.covid_19_info_dashboard.AppUtil
-import com.kunalfarmah.covid_19_info_dashboard.R
+import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentWebViewBinding
 
 

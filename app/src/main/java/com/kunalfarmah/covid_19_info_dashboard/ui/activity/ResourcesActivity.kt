@@ -12,7 +12,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
-import com.kunalfarmah.covid_19_info_dashboard.AppUtil
+import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityResourcesBinding
@@ -37,7 +37,7 @@ class ResourcesActivity : AppCompatActivity() {
 
         when(action){
             Constants.SPRINKLR_DASHBOARD -> {
-                supportActionBar?.title = "Spinklr's dashboard for Covid-19 Leads and Resources"
+                supportActionBar?.title = "Spinklr's Covid-19 Dashboard"
                 url = "https://external.sprinklr.com/insights/explorer/dashboard/601b9e214c7a6b689d76f493/tab/16?id=DASHBOARD_601b9e214c7a6b689d76f493&home=1"
                 loadUrl(url!!)
             }
@@ -69,6 +69,11 @@ class ResourcesActivity : AppCompatActivity() {
             Constants.MH_COVID_HELP_DESK->{
                 supportActionBar?.title = "Covid-19 Hospitals on Map"
                 val url = "https://docs.google.com/spreadsheets/u/0/d/16-UdbV7hX7vRVxT2EVHDjXscaAnE5QKTjG-7JIFdOHM/htmlview"
+                loadUrl(url)
+            }
+            Constants.INDIA_FIGHTERS->{
+                supportActionBar?.title = "Covid India Fighters"
+                val url = "https://covidindiafighters.com/"
                 loadUrl(url)
             }
         }

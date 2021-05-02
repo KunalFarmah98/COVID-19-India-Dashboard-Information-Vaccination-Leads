@@ -5,6 +5,8 @@ class Constants {
     companion object {
 
 
+        const val SIGNED_IN = 1003
+        const val SIGN_IN = 1002
         const val RC_SIGN_IN = 1001
         const val MY_CAMERA_PERMISSION_CODE = 100
         const val REQUEST_TAKE_PHOTO = 1
@@ -13,6 +15,7 @@ class Constants {
 
         const val PREFS = "COVID_DASHBOARD"
         const val USER = "USER"
+        const val LAST_REFRESHED = "LAST_REFRESHED"
         const val LATEST_SUMMARY = "LATEST_SUMMARY"
         const val LATEST_ACTIVE = "LATEST_ACTIVE"
 
@@ -29,6 +32,7 @@ class Constants {
         const val VACCINE_DASHBAORD = "VACCINE_DASHBAORD"
         const val SPRINKLR_DASHBOARD = "SPRINKLR_DASHBOARD"
         const val INDIA_RESOURCES = "INDIA_RESOURCES"
+        const val INDIA_FIGHTERS = "INDIA_FIGHTERS"
         const val HOSPITAL_MAP = "HOSPITAL_MAP"
         const val MH_COVID_HELP_DESK = "MH_COVID_HELP_DESK"
 

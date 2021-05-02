@@ -54,6 +54,11 @@
                         android:title="@string/covid_india_resources" />
 
                     <item
+                        android:id="@+id/nav_covid_india_fighters"
+                        android:icon="@drawable/willpower"
+                        android:title="@string/covid_india_fighters" />
+
+                    <item
                         android:id="@+id/nav_hospital_map"
                         android:icon="@drawable/baseline_location_on_black_24dp"
                         android:title="@string/hospital_locations" />

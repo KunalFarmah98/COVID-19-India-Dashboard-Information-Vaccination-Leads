@@ -1,12 +1,12 @@
 package com.kunalfarmah.covid_19_info_dashboard.ui.activity
 
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.data.Entry
@@ -26,6 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
@@ -50,7 +52,7 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         sPref = getSharedPreferences(Constants.PREFS, MODE_PRIVATE)
-        date = sPref?.getString(Constants.SELECTED_DATE,"")
+        date = sPref?.getString(Constants.SELECTED_DATE, "")
 
         list = dashboardViewModel.historyDateData.value
 
@@ -64,8 +66,8 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
         }
         dashboardViewModel.getHistoryByDate(date!!)
 
-        dashboardViewModel.historyDateData.observe(this,{
-            if(it!=null){
+        dashboardViewModel.historyDateData.observe(this, {
+            if (it != null) {
                 list = it
                 setView(it)
             }
@@ -74,14 +76,17 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
         setUpPieChart()
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             var tempAdapter: HistoryStateWiseAdapter? = null
-            var temp: List<CovidEntity>?=null
+            var temp: List<CovidEntity>? = null
             override fun onQueryTextSubmit(query: String): Boolean {
                 temp = ArrayList<CovidEntity>()
                 for (case in list!!) {
                     if (case.state.contains(query, true))
                         (temp as ArrayList<CovidHistoryEntity>).add(case)
                 }
-                tempAdapter = HistoryStateWiseAdapter(this@HistoryActivity, temp as ArrayList<CovidHistoryEntity>)
+                tempAdapter = HistoryStateWiseAdapter(
+                    this@HistoryActivity,
+                    temp as ArrayList<CovidHistoryEntity>
+                )
                 binding.historyRecycler.adapter = tempAdapter
                 return true
             }
@@ -92,7 +97,10 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
                     if (case.state.contains(newText, true))
                         (temp as ArrayList<CovidHistoryEntity>).add(case)
                 }
-                tempAdapter = HistoryStateWiseAdapter(this@HistoryActivity, temp as ArrayList<CovidHistoryEntity>)
+                tempAdapter = HistoryStateWiseAdapter(
+                    this@HistoryActivity,
+                    temp as ArrayList<CovidHistoryEntity>
+                )
                 binding.historyRecycler.adapter = tempAdapter
                 return true
             }
@@ -113,21 +121,33 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
         return super.onSupportNavigateUp()
     }
 
-    private fun setView(List:List<CovidHistoryEntity>){
+    private fun setView(list: List<CovidHistoryEntity>){
         val df = DecimalFormat("##,##,###")
-        val dateFormatter1: SimpleDateFormat =  SimpleDateFormat("yyyy-MM-dd")
-        val dateFormatter2: SimpleDateFormat = SimpleDateFormat("dd/MM/yyy")
+        val dateFormatter1 =  SimpleDateFormat("yyyy-MM-dd")
+        var date_ = dateFormatter1.parse(date)
+        var cal = Calendar.getInstance()
+        cal.time = date_
+
+        var day = cal.get(Calendar.DAY_OF_MONTH)
+        var month = cal.get(Calendar.MONTH)
+        var year = cal.get(Calendar.YEAR)
+
+        var month_ = arrayOf("","January","February","March","April","May","June","July","August","September","October","November","December")
+
+        var fullMonth = month_[month]
+
+        var fullDate = String.format("%s %s %s",day, fullMonth,year)
 
         binding.layout.visibility = View.VISIBLE
         binding.loading.visibility = View.GONE
         binding.loading.stopShimmerAnimation()
-        binding.dateSummary.text = dateFormatter2.format(dateFormatter1.parse(date)!!)
-        total = Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL,"")!!)
-        recovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED,"")!!)
-        deceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED,"")!!)
-        binding.totalSummary.text = String.format("Total:\n%s",df.format(total))
-        binding.recoveredSummary.text = String.format("Recovered:\n%s",df.format(total))
-        binding.deceasedSummary.text = String.format("Deceased:\n%s",df.format(deceased))
+        binding.dateSummary.text = fullDate
+        total = Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL, "")!!)
+        recovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED, "")!!)
+        deceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED, "")!!)
+        binding.totalSummary.text = String.format("Total:\n%s", df.format(total))
+        binding.recoveredSummary.text = String.format("Recovered:\n%s", df.format(total))
+        binding.deceasedSummary.text = String.format("Deceased:\n%s", df.format(deceased))
 
         binding.historyRecycler.layoutManager = LinearLayoutManager(this)
         binding.historyRecycler.setHasFixedSize(true)
@@ -136,14 +156,14 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
     }
 
     private fun setUpPieChart() {
-        total = Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL,"")!!)
-        recovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED,"")!!)
-        deceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED,"")!!)
+        total = Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL, "")!!)
+        recovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED, "")!!)
+        deceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED, "")!!)
         var pieEntries = ArrayList<PieEntry>()
         pieEntries.add(PieEntry(recovered!!.toFloat()))
         pieEntries.add(PieEntry(deceased!!.toFloat()))
 
-        var dataSet = PieDataSet(pieEntries,String.format("Summary for %s",date))
+        var dataSet = PieDataSet(pieEntries, String.format("Summary for %s", date))
         var red:Int= resources.getColor(R.color.red)
         var green:Int = resources.getColor(R.color.green)
         var colors = ArrayList<Int>()
