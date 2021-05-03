@@ -5,7 +5,7 @@ class Constants {
     companion object {
 
 
-        const val SIGNED_IN = 1003
+        const val POST_LEAD = 1003
         const val SIGN_IN = 1002
         const val RC_SIGN_IN = 1001
         const val MY_CAMERA_PERMISSION_CODE = 100

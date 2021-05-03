@@ -1,6 +1,7 @@
 package com.kunalfarmah.covid_19_info_dashboard.ui.activity
 
 import android.Manifest
+import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
@@ -8,6 +9,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.icu.util.IndianCalendar
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -41,6 +43,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
+import java.time.Instant
 
 
 class PostActivity : AppCompatActivity() {
@@ -99,7 +102,7 @@ class PostActivity : AppCompatActivity() {
         setUpFilters()
 
         binding.post.setOnClickListener {
-            timeStamp = SimpleDateFormat("dd/MM/yyyy hh:mm a ").format(Date())
+            timeStamp = SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(Calendar.getInstance().time)
             title = binding.titleEt.text.toString()
             body = binding.body.text.toString()
             location = binding.locationEt.text.toString()
@@ -174,6 +177,8 @@ class PostActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             )
                 .show()
+            var intent = Intent()
+            setResult(Activity.RESULT_OK, intent)
             this@PostActivity.finish()
         }
         userRef?.child("Posts")?.push()?.setValue(post)
@@ -367,14 +372,14 @@ class PostActivity : AppCompatActivity() {
             if (null != grantResults && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent(true)
             } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please Provide Camera Permission to Continue", Toast.LENGTH_LONG).show()
             }
         }
         if (requestCode == Constants.MY_STORAGE_PERMISSION_CODE) {
             if (null != grantResults && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent(false)
             } else {
-                Toast.makeText(this, "storage permission denied", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please Provide Camera Permission to Continue", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -398,7 +403,7 @@ class PostActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
             if (resultCode == RESULT_OK) {
                 photoURI = result.uri
@@ -472,6 +477,8 @@ class PostActivity : AppCompatActivity() {
             }
             .setNegativeButton("Discard") { dialog: DialogInterface, _: Int ->
                 dialog.dismiss()
+                var intent = Intent()
+                setResult(Activity.RESULT_CANCELED,intent)
                 finish()
             }
 

@@ -77,15 +77,15 @@ class PostsFragment : Fragment() {
     ) :
         FragmentStatePagerAdapter(fm) {
         private var leadsFragment: LeadsFragment? = null
-        private var leadsFragmentUser: LeadsFragment? = null
+        private var leadsFragmentUser: MyLeadsFragment? = null
         private val activity: Activity = activity_
         override fun getItem(position: Int): Fragment {
             if (position == 0) {
-                leadsFragment = LeadsFragment(false)
+                leadsFragment = LeadsFragment()
                 return leadsFragment as LeadsFragment
             } else if (position == 1) {
-                leadsFragmentUser = LeadsFragment(true)
-                return leadsFragmentUser as LeadsFragment
+                leadsFragmentUser = MyLeadsFragment()
+                return leadsFragmentUser as MyLeadsFragment
             }
             return leadsFragment!!
         }

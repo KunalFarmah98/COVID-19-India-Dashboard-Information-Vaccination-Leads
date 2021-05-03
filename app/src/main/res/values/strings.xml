@@ -131,4 +131,6 @@
     <string name="name">Name</string>
     <string name="last_refreshed">Last Refreshed</string>
     <string name="covid_india_fighters">Covid India Fighters</string>
+    <string name="signup_prompt"><u>No Account? SignUp</u></string>
+    <string name="add_a_lead">Add a Lead</string>
 </resources>

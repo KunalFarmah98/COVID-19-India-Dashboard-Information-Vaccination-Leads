@@ -15,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Covid19InfoDashboard">
-        <activity android:name=".ui.activity.SignInActivity"
-            android:launchMode="singleInstance"/>
+        <activity android:name=".ui.activity.ImageActivity"></activity>
+        <activity
+            android:name=".ui.activity.SignInActivity"
+            android:launchMode="singleInstance" />
         <activity android:name=".ui.activity.PostActivity" />
         <activity android:name=".ui.activity.WebViewActivity" />
         <activity android:name=".ui.activity.AboutActivity" />

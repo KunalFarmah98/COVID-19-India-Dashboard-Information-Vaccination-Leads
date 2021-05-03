@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -38,7 +39,7 @@ class SignInActivity : AppCompatActivity() {
     private var progressDialog: ProgressDialog? = null
     private var sharedPreferences: SharedPreferences? = null
     var usersRef: DatabaseReference? = null
-    var isSignin: Boolean = false
+    var isSignin: Boolean = true
 
 
     companion object {
@@ -141,7 +142,21 @@ class SignInActivity : AppCompatActivity() {
             }
         }
 
-        binding.loginSwitch.isChecked = false
+        binding.signUp.setOnClickListener {
+            if(isSignin) {
+                isSignin = false
+                binding.nameLayout.visibility = View.VISIBLE
+                binding.login.text = resources.getString(R.string.sign_up)
+                binding.signUp.text = Html.fromHtml("<u>Already have an account? SignIn</u>")
+            }
+            else{
+                isSignin = true
+                binding.nameLayout.visibility = View.GONE
+                binding.login.text = resources.getString(R.string.sign_in)
+                binding.signUp.text = Html.fromHtml("<u>No Account? SignUp</u>")
+            }
+        }
+       /* binding.loginSwitch.isChecked = false
         binding.loginSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener() { compoundButton: CompoundButton, b: Boolean ->
             if (compoundButton.isChecked) {
                 isSignin = false
@@ -152,7 +167,7 @@ class SignInActivity : AppCompatActivity() {
                 binding.nameLayout.visibility = View.GONE
                 binding.login.text = resources.getString(R.string.sign_in)
             }
-        })
+        })*/
     }
 
 

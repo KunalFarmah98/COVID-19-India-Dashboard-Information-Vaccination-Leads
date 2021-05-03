@@ -23,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.kunalfarmah.covid_19_info_dashboard.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
+import com.kunalfarmah.covid_19_info_dashboard.ui.LeadsFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.PostsFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.history.HistoryFragment
@@ -207,10 +208,6 @@ class MainActivity : AppCompatActivity() {
             return false
         }
         return null != pInfo
-    }
-
-    fun addPost(view: View) {
-        startActivity(Intent(this, PostActivity::class.java))
     }
 
 }
