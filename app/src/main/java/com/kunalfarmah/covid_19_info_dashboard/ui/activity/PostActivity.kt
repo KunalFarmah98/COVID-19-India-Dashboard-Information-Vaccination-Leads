@@ -102,7 +102,7 @@ class PostActivity : AppCompatActivity() {
         setUpFilters()
 
         binding.post.setOnClickListener {
-            timeStamp = SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(Calendar.getInstance().time)
+            timeStamp = SimpleDateFormat("dd/MM/yyyy kk:mm:ss").format(Date())
             title = binding.titleEt.text.toString()
             body = binding.body.text.toString()
             location = binding.locationEt.text.toString()
