@@ -67,7 +67,7 @@ class ResourcesActivity : AppCompatActivity() {
                 }
             }
             Constants.MH_COVID_HELP_DESK->{
-                supportActionBar?.title = "Covid-19 Hospitals on Map"
+                supportActionBar?.title = "MH Covid Help Desk"
                 val url = "https://docs.google.com/spreadsheets/u/0/d/16-UdbV7hX7vRVxT2EVHDjXscaAnE5QKTjG-7JIFdOHM/htmlview"
                 loadUrl(url)
             }

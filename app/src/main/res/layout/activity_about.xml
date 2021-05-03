@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,79 +7,91 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginHorizontal="10dp"
+        android:orientation="vertical"
         tools:context=".ui.activity.AboutActivity">
 
         <TextView
             android:id="@+id/info1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:text="@string/info_1"
             android:textColor="@color/black"
-            android:padding="5dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/infoLeads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:text="@string/info_leads"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/info2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:text="@string/info_2"
             android:textColor="@color/black"
-            android:padding="5dp"
-            android:layout_marginBottom="5dp"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/info3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:textStyle="bold"
             android:text="@string/info_3"
             android:textColor="@color/black"
-            android:padding="5dp"
-            android:layout_marginBottom="5dp"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/info4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:textStyle="bold"
             android:text="@string/info_4"
             android:textColor="@color/black"
-            android:padding="5dp"
-            android:layout_marginBottom="5dp"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/info5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:text="@string/info_5"
             android:textColor="@color/black"
-            android:padding="5dp"
-            android:layout_marginBottom="5dp"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/info6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:text="@string/info_6"
             android:textColor="@color/black"
-            android:padding="5dp"
-            android:layout_marginBottom="5dp"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/about_developer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="15sp"
-            android:textColor="@color/blue"
             android:layout_marginBottom="5dp"
-            android:text="Follow this link to learn more about the developer" />
+            android:padding="5dp"
+            android:text="@string/about_dev"
+            android:textColor="@color/blue"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

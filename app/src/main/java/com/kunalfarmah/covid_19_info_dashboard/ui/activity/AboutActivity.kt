@@ -23,10 +23,10 @@ class AboutActivity : AppCompatActivity() {
         binding = ActivityAboutBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
 
-        binding.aboutDeveloper.text = Html.fromHtml("<u>Click here to learn more about the developer</u>")
+        binding.aboutDeveloper.text = Html.fromHtml("<u>Click here to provide any feedback and suggestions or report any bugs</u>")
         binding.aboutDeveloper.setOnClickListener {
             var intent = Intent(ACTION_VIEW)
-            intent.data = Uri.parse("https://kunal-farmah.jimdosite.com/")
+            intent.data = Uri.parse("https://kunal-farmah.jimdosite.com/contact-me/")
             if (isChromeInstalled()) {
                 intent.`package` = "com.android.chrome"
                 startActivity(intent)

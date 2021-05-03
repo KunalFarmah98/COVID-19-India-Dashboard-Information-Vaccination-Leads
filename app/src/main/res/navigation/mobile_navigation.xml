@@ -46,7 +46,7 @@
     <activity
         android:id="@+id/nav_sprinklr_dashboard"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
-        android:label="Sprinklr Dashboard for Beds, Oxygen, Medicine related posts"
+        android:label="Sprinklr's Covid-19 Dashboard"
         tools:layout="@layout/activity_resources" >
         <argument
             android:name="action"
@@ -87,7 +87,7 @@
     <activity
         android:id="@+id/nav_mh_covid_help_Desk"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
-        android:label="Hospitals on Map"
+        android:label="MH Covid HelpDesk"
         tools:layout="@layout/activity_resources" >
         <argument
             android:name="action"

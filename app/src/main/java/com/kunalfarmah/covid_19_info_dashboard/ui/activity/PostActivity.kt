@@ -6,7 +6,9 @@ import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.icu.util.IndianCalendar
@@ -43,6 +45,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
+import com.google.gson.Gson
+import com.kunalfarmah.covid_19_info_dashboard.model.User
 import java.time.Instant
 
 
@@ -51,16 +55,15 @@ class PostActivity : AppCompatActivity() {
     lateinit var binding: ActivityPostBinding
     var currentPhotoPath: String? = null
     var imageFileName: String? = null
-    var photoFile: File? = null
     var photoURI: Uri? = null
     var isCamera = true
     var contacts: ArrayList<String>? = null
     var links: ArrayList<String>? = null
     var tags: ArrayList<String>? = null
-    var user: FirebaseUser? = null
     var postRef: DatabaseReference? = null
     var userRef: DatabaseReference? = null
-
+    var sPref: SharedPreferences? = null
+    var user: User? = null
     var timeStamp: String? = null
     var title: String? = null
     var body: String? = null
@@ -68,6 +71,7 @@ class PostActivity : AppCompatActivity() {
     var userID: String? = null
     var userName: String? = null
     var bitmap: Bitmap? = null
+    var res:Resources?=null
 
     companion object {
         const val TAG = "PostsActivity"
@@ -82,12 +86,13 @@ class PostActivity : AppCompatActivity() {
         binding = ActivityPostBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
 
-
-        user = FirebaseAuth.getInstance().currentUser
-        userID = user?.uid
-        userName = user?.displayName
+        res = this.resources
+        sPref = getSharedPreferences(Constants.PREFS, MODE_PRIVATE)
+        user = Gson().fromJson(sPref?.getString(Constants.USER, ""), User::class.java)
+        userID = user?.id
+        userName = user?.name
         postRef = FirebaseDatabase.getInstance().reference.child("Leads")
-        userRef = FirebaseDatabase.getInstance().reference.child("Users").child(user?.uid!!)
+        userRef = FirebaseDatabase.getInstance().reference.child("Users").child(user?.id!!)
         tags = ArrayList()
         contacts = ArrayList()
         links = ArrayList()
@@ -189,7 +194,8 @@ class PostActivity : AppCompatActivity() {
         val imageRef =
             storageRef.child(
                 "images/"
-                        + UUID.randomUUID().toString())
+                        + UUID.randomUUID().toString()
+            )
 
         var progressDialog = ProgressDialog(this)
         progressDialog.setMessage(resources.getString(R.string.please_wait))
@@ -223,11 +229,11 @@ class PostActivity : AppCompatActivity() {
         binding.beds.setOnClickListener {
             var color = binding.bedsTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Beds")
+                tags?.add(res?.getString(R.string.beds)!!)
                 binding.beds.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.bedsTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Beds")
+                tags?.remove(res?.getString(R.string.beds))
                 binding.beds.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.bedsTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -236,11 +242,11 @@ class PostActivity : AppCompatActivity() {
 
             var color = binding.oxiTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Oxygen")
+                tags?.add(res?.getString(R.string.oxygen)!!)
                 binding.oxi.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.oxiTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Oxygen")
+                tags?.remove(res?.getString(R.string.oxygen))
                 binding.oxi.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.oxiTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -249,11 +255,11 @@ class PostActivity : AppCompatActivity() {
 
             var color = binding.medsTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Medicines")
+                tags?.add(res?.getString(R.string.meds)!!)
                 binding.medicine.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.medsTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Medicines")
+                tags?.remove(res?.getString(R.string.meds))
                 binding.medicine.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.medsTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -262,11 +268,11 @@ class PostActivity : AppCompatActivity() {
 
             var color = binding.equipTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Equipment")
+                tags?.add(res?.getString(R.string.equipment)!!)
                 binding.equipment.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.equipTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Equipment")
+                tags?.remove(res?.getString(R.string.equipment))
                 binding.equipment.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.equipTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -275,11 +281,11 @@ class PostActivity : AppCompatActivity() {
 
             var color = binding.othersTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Others")
+                tags?.add(res?.getString(R.string.other)!!)
                 binding.others.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.othersTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Others")
+                tags?.remove(res?.getString(R.string.other))
                 binding.others.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.othersTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -288,11 +294,11 @@ class PostActivity : AppCompatActivity() {
 
             var color = binding.foodTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Food")
+                tags?.add(res?.getString(R.string.food)!!)
                 binding.food.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.foodTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Food")
+                tags?.remove(res?.getString(R.string.food))
                 binding.food.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.foodTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -302,11 +308,11 @@ class PostActivity : AppCompatActivity() {
 
             var color = binding.plasmaTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Plasma")
+                tags?.add(res?.getString(R.string.plasma)!!)
                 binding.plasma.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.plasmaTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Plasma")
+                tags?.remove(res?.getString(R.string.plasma))
                 binding.plasma.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.plasmaTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -316,11 +322,11 @@ class PostActivity : AppCompatActivity() {
 
             var color = binding.ambulanceTv.currentTextColor
             if (color == resources.getColor(R.color.black)) {
-                tags?.add("Food")
+                tags?.add(res?.getString(R.string.ambulance)!!)
                 binding.ambulance.setCardBackgroundColor(this.resources.getColor(R.color.purple_700))
                 binding.ambulanceTv.setTextColor(this.resources.getColor(R.color.white))
             } else {
-                tags?.remove("Food")
+                tags?.remove(res?.getString(R.string.ambulance))
                 binding.ambulance.setCardBackgroundColor(this.resources.getColor(R.color.white))
                 binding.ambulanceTv.setTextColor(this.resources.getColor(R.color.black))
             }
@@ -372,28 +378,36 @@ class PostActivity : AppCompatActivity() {
             if (null != grantResults && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent(true)
             } else {
-                Toast.makeText(this, "Please Provide Camera Permission to Continue", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Please Provide Camera Permission to Continue",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
         if (requestCode == Constants.MY_STORAGE_PERMISSION_CODE) {
             if (null != grantResults && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 dispatchTakePictureIntent(false)
             } else {
-                Toast.makeText(this, "Please Provide Camera Permission to Continue", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "Please Provide Camera Permission to Continue",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_CANCELED)
-        if (requestCode == Constants.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            try {
-                CropImage.activity(photoURI)
-                    .start(this)
-            } catch (e: Exception) {
-                e.printStackTrace()
+            if (requestCode == Constants.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+                try {
+                    CropImage.activity(photoURI)
+                        .start(this)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
-        }
         if (requestCode == Constants.REQUEST_GALLERY && resultCode == RESULT_OK) {
             currentPhotoPath = data?.data.toString()
             try {
@@ -470,7 +484,7 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog(){
+    private fun showDialog() {
         var dialog = AlertDialog.Builder(this).setTitle("Are you sure you want to discard the lead")
             .setPositiveButton("Go Back") { dialog: DialogInterface, _: Int ->
                 dialog.dismiss()
@@ -478,7 +492,7 @@ class PostActivity : AppCompatActivity() {
             .setNegativeButton("Discard") { dialog: DialogInterface, _: Int ->
                 dialog.dismiss()
                 var intent = Intent()
-                setResult(Activity.RESULT_CANCELED,intent)
+                setResult(Activity.RESULT_CANCELED, intent)
                 finish()
             }
 

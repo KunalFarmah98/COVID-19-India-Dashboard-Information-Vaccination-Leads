@@ -8,9 +8,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.Constants
@@ -35,6 +38,21 @@ class PostsFragment : Fragment() {
 
         checkAuth()
 
+        binding.logout.setOnClickListener {
+            AuthUI.getInstance()
+                .signOut(requireContext())
+                .addOnCompleteListener(OnCompleteListener {
+                    sPref?.edit()?.putString(Constants.USER, "")?.apply()
+                    Toast.makeText(requireContext(), "Signed Out successfully", Toast.LENGTH_SHORT)
+                        .show()
+                    binding.userLayout.visibility = View.GONE
+                    startActivityForResult(
+                        Intent(activity, SignInActivity::class.java),
+                        Constants.SIGN_IN
+                    )
+                })
+        }
+
         binding.noNetworkLayout.retry.setOnClickListener {
             checkAuth()
         }
@@ -42,11 +60,17 @@ class PostsFragment : Fragment() {
     }
 
     private fun setNoNetworkLayout() {
+        binding.userLayout.visibility = View.GONE
         binding.mainLayout.visibility = View.GONE
         binding.noNetworkLayout.noNetworkLayout.visibility = View.VISIBLE
     }
 
     fun loadFragment(){
+        binding.userLayout.visibility = View.VISIBLE
+        binding.userWelcome.text = String.format(
+            "Welcome, %s",
+            user_?.name
+        )
         var pagerAdapter =
             ViewPagerAdapter(childFragmentManager, requireActivity())
         binding.tabLayout.setupWithViewPager(binding.viewPager)

@@ -75,24 +75,8 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         binding.swipeRefresh.setOnRefreshListener {
             if (AppUtil.isNetworkAvailable(requireContext())) {
                 binding.swipeRefresh.isRefreshing = true
-                viewModel.fetchUserPosts(this)
+                viewModel.fetchFilteredUserPosts(filter!!, this)
             }
-        }
-
-        binding.logout.setOnClickListener {
-            AuthUI.getInstance()
-                .signOut(requireContext())
-                .addOnCompleteListener(OnCompleteListener {
-                    sPref?.edit()?.putString(Constants.USER, "")?.apply()
-                    Toast.makeText(requireContext(), "Signed Out successfully", Toast.LENGTH_SHORT)
-                        .show()
-                    binding.userWelcome.visibility = View.GONE
-                    binding.logout.visibility = View.GONE
-                    startActivityForResult(
-                        Intent(activity, SignInActivity::class.java),
-                        Constants.SIGN_IN
-                    )
-                })
         }
 
         binding.addPost.visibility = View.GONE
@@ -116,7 +100,7 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         if (requestCode == Constants.POST_LEAD) {
             if (resultCode == Activity.RESULT_OK) {
                 isPosted = true
-                viewModel.fetchUserPosts(this)
+                viewModel.fetchFilteredUserPosts(filter!!, this)
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
             }
@@ -154,49 +138,49 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
 
     private fun setUpFilters() {
         binding.all.setOnClickListener {
-            filter = "All"
+            filter = activity?.resources?.getString(R.string.all)
             resetAllFilters()
             binding.all.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.allTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchUserPosts(this)
+            viewModel.fetchAllPosts(this)
         }
         binding.beds.setOnClickListener {
-            filter = "Beds"
+            filter = activity?.resources?.getString(R.string.beds)
             resetAllFilters()
             binding.beds.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.bedsTv.setTextColor(requireContext().resources.getColor(R.color.white))
             viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.oxi.setOnClickListener {
-            filter = "Oxygen"
+            filter = activity?.resources?.getString(R.string.oxygen)
             resetAllFilters()
             binding.oxi.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.oxiTv.setTextColor(requireContext().resources.getColor(R.color.white))
             viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.medicine.setOnClickListener {
-            filter = "Medicines"
+            filter = activity?.resources?.getString(R.string.meds)
             resetAllFilters()
             binding.medicine.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.medsTv.setTextColor(requireContext().resources.getColor(R.color.white))
             viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.equipment.setOnClickListener {
-            filter = "Equipment"
+            filter = activity?.resources?.getString(R.string.equipment)
             resetAllFilters()
             binding.equipment.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.equipTv.setTextColor(requireContext().resources.getColor(R.color.white))
             viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.others.setOnClickListener {
-            filter = "Others"
+            filter = activity?.resources?.getString(R.string.others)
             resetAllFilters()
             binding.others.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.othersTv.setTextColor(requireContext().resources.getColor(R.color.white))
             viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.food.setOnClickListener {
-            filter = "Food"
+            filter = activity?.resources?.getString(R.string.food)
             resetAllFilters()
             binding.food.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.foodTv.setTextColor(requireContext().resources.getColor(R.color.white))
@@ -204,7 +188,7 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         }
 
         binding.plasma.setOnClickListener {
-            filter = "Plasma"
+            filter = activity?.resources?.getString(R.string.plasma)
             resetAllFilters()
             binding.plasma.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.plasmaTv.setTextColor(requireContext().resources.getColor(R.color.white))
@@ -213,7 +197,7 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         }
 
         binding.ambulance.setOnClickListener {
-            filter = "Ambulance"
+            filter = activity?.resources?.getString(R.string.ambulance)
             resetAllFilters()
             binding.ambulance.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.ambulanceTv.setTextColor(requireContext().resources.getColor(R.color.white))
@@ -251,7 +235,7 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         binding.leadsRecycler.visibility = View.VISIBLE
         binding.noPostsLayout.noPostsLayout.visibility = View.GONE
         binding.noNetworkLayout.noNetworkLayout.visibility = View.GONE
-        mAdapter = PostsAdapter(requireContext(), list, this,this)
+        mAdapter = PostsAdapter(requireContext(), list, this, this)
         binding.leadsRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.leadsRecycler.adapter = mAdapter
     }
@@ -273,12 +257,6 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
     }
 
     override fun setData(list: List<Post>) {
-        binding.userWelcome.visibility = View.VISIBLE
-        binding.userWelcome.text = String.format(
-            "Welcome, %s",
-            user_?.name
-        )
-        binding.logout.visibility = View.VISIBLE
         if (list.isNullOrEmpty()) {
             setNoDataLayout()
         } else {
@@ -287,6 +265,7 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
     }
 
     override fun onResume() {
+        binding.all.callOnClick()
         viewModel.fetchUserPosts(this)
         super.onResume()
     }
@@ -302,7 +281,7 @@ class MyLeadsFragment() : Fragment(), PostsListener, ImageClickListener {
     }
 
     override fun deleted() {
-        viewModel.fetchUserPosts(this)
+        viewModel.fetchFilteredUserPosts(filter!!, this)
     }
 
 

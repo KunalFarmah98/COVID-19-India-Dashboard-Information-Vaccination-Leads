@@ -27,7 +27,7 @@
     <string name="select_date">Select a Date to get State-Wise Data:</string>
     <string name="date">Date</string>
     <string name="get_statewise_data">Get Statewise Data</string>
-    <string name="statewise_history">StateWise History</string>
+    <string name="statewise_history">Statewise History</string>
     <string name="covid_19_india_info">Covid-19 India Info</string>
     <string name="search_for_a_date_dd_mm_yyyy">Search for a Date (DD/MM/YYYY)</string>
     <string name="helpline1"><u>01123978046</u></string>
@@ -57,12 +57,13 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="covid_19_info">Covid-19 Info</string>
     <string name="donate">Donate</string>
-    <string name="info_1">This app has been made to provide easier access to Covid-19 data in India including daily summary followed by case counts in various states and UTs providing counts of active, recovered and deceased cases along with the total confirmed cases so far. It also allows users to view the day wise history of the disease dating back to March 2020. </string>
+    <string name="info_1">This app has been made to provide easier access to Covid-19 data in India including national case counts followed by case counts in various states and UTs providing counts of active, recovered and deceased cases along with the total confirmed cases so far. It also allows users to view the day wise history of the disease dating back to March 2020.</string>
     <string name="info_2">Since there has been a recent surge in the number of cases, it is extremely difficult to keep track of every case in every state. Hence the data provided is updated daily with the best efforts of volunteers and the people behind creating the api used in the app: https://api.rootnet.in/covid19-in/</string>
     <string name="info_3">Since the data is fetched from an open source api, it must not be considered 100% accurate and I hold no responsibility and accountability for any inaccuracy observed in the data.</string>
-    <string name="info_4">All the Covid-19 leads and resources are provided by their respective posters and owners. This app only provides easier access to all those resources by directly opening their websites for ease of use. I hold no accountability for the authenticity of the leads or resources provided on these websites. It is a sole property of the website creators and the person posting it.</string>
-    <string name="info_5">These are difficult times and the only way to defeat the pandemic is staying safe and helping each other. It is requested that everyone follow the guidelines for Covid-Appropirate behaviour including staying at homes, wearing mask at all times when outside, maintaining social distancing and washing/sanitising your hands regularly.</string>
-    <string name="info_6">I wanted to contribute towards this vision as a developer and hence I decided to create this app to provide easier access to data, statistics and quick links for vaccine registration and leads for oxygen, beds and medicine resources that are circulating on the social media and tend to get mixed up with the other content and get difficult to find. I would like to thank Spinklr and Covid India Resources for creating such a wonderful dashboard and Abhinav, Delhi Technological University for creating the leads chatbot for Delhi.</string>
+    <string name="info_4">All the Covid-19 leads and resources are provided by their respective posters and owners. This app only provides easier access to all those resources by directly opening their websites for ease of use. I hold no accountability for the authenticity of the leads or resources provided on these websites. It is a sole property of the website creators and the people posting it.</string>
+    <string name="info_5">These are difficult times and the only way to defeat the pandemic is staying safe and helping each other. It is requested that everyone follow the guidelines for Covid-Appropirate behaviour including staying at home, wearing mask at all times when outside, maintaining social distancing and washing/sanitising your hands regularly.\nTogether we can beat this pandemic and come back stronger.</string>
+    <string name="info_6">I wanted to contribute towards this vision as a developer and hence I decided to create this app to provide easier access to data, statistics and quick links for vaccine registration and leads for oxygen, beds and medicine resources that are circulating on the social media and tend to get mixed up with the other content and get difficult to find. I would like to thank Spinklr and Covid India Resources for creating such a wonderful dashboard, MH Covid Help desk for compiling such a big data sheet and Covid India Fighters for a wonderful website for sources and leads.</string>
+    <string name="info_leads"> The users can log in and post any sources or leads they have regarding hospital beds, oxygen, medicines, equipments, plasma, ambulance, food and other resources in the leads section of the app. The tags can be used to filter specific leads and hence save time. The leads feature is still in beta mode and would be continuously enhanced following the feedback received. It is a 100% community backed feature and it is your responsibility to make sure that the leads posted on the app are verified before posting them.</string>
     <string name="location">Location:</string>
     <string name="number">Number</string>
     <string name="delhi_ncr_leads">Delhi/NCR Specific Leads, Resources</string>
@@ -133,4 +134,8 @@
     <string name="covid_india_fighters">Covid India Fighters</string>
     <string name="signup_prompt"><u>No Account? SignUp</u></string>
     <string name="add_a_lead">Add a Lead</string>
+    <string name="about_dev">Follow this link to provide any feedback or report any bugs</string>
+    <string name="oxygen">Oxygen</string>
+    <string name="meds">Medicines</string>
+    <string name="other">Others</string>
 </resources>
