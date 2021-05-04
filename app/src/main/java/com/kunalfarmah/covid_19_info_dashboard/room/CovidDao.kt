@@ -20,7 +20,7 @@ interface CovidDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHistory(covidHistoryEntity: CovidHistoryEntity): Long
 
-    @Query("SELECT DISTINCT date, summary FROM covid19_history GROUP BY date ORDER BY date DESC")
+    @Query("SELECT DISTINCT date, summary FROM covid19_history")
     suspend fun getHistorySummary(): List<HistorySummary>
 
     @Query("SELECT * FROM covid19_history WHERE date = :date ORDER BY total DESC")

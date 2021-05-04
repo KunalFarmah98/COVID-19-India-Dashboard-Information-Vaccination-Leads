@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -21,12 +20,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
-import com.kunalfarmah.covid_19_info_dashboard.ui.LeadsFragment
-import com.kunalfarmah.covid_19_info_dashboard.ui.PostsFragment
-import com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardFragment
-import com.kunalfarmah.covid_19_info_dashboard.ui.history.HistoryFragment
+import com.kunalfarmah.covid_19_info_dashboard.ui.fragment.PostsFragment
+import com.kunalfarmah.covid_19_info_dashboard.ui.fragment.DashboardFragment
+import com.kunalfarmah.covid_19_info_dashboard.ui.fragment.HistoryFragment
 import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
+        navView.menu.findItem(R.id.nav_home).isChecked = true
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -72,6 +71,7 @@ class MainActivity : AppCompatActivity() {
             if (it.itemId == R.id.nav_home) {
                 if (bottomNav?.selectedItemId != R.id.nav_home) {
                     supportActionBar?.title = "Dashboard"
+                    navView.menu.findItem(R.id.nav_home).isChecked = true
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, DashboardFragment()).commit()
                 }
@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         }
         if (bottomNav?.selectedItemId != R.id.nav_home) {
             bottomNav?.selectedItemId = R.id.nav_home
+            navView.menu.findItem(R.id.nav_home).isChecked = true
             supportActionBar?.title = "Dashboard"
             bottomNav?.menu?.findItem(R.id.nav_home)?.isChecked = true
         } else if (bottomNav?.selectedItemId == R.id.nav_home) {

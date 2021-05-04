@@ -1,4 +1,4 @@
-package com.kunalfarmah.covid_19_info_dashboard.ui
+package com.kunalfarmah.covid_19_info_dashboard.ui.fragment
 
 import android.app.Activity
 import android.content.Context
@@ -14,9 +14,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentPostsBinding
 import com.kunalfarmah.covid_19_info_dashboard.model.User
@@ -26,8 +27,8 @@ import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 
 class PostsFragment : Fragment() {
     lateinit var binding: FragmentPostsBinding
-    var sPref :SharedPreferences?=null
-    var user_:User?=null
+    var sPref: SharedPreferences? = null
+    var user_: User? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,7 +66,7 @@ class PostsFragment : Fragment() {
         binding.noNetworkLayout.noNetworkLayout.visibility = View.VISIBLE
     }
 
-    fun loadFragment(){
+    fun loadFragment() {
         binding.userLayout.visibility = View.VISIBLE
         binding.userWelcome.text = String.format(
             "Welcome, %s",
@@ -79,17 +80,16 @@ class PostsFragment : Fragment() {
         binding.viewPager.currentItem = 0
     }
 
-    fun checkAuth(){
+    fun checkAuth() {
         if (AppUtil.isNetworkAvailable(requireContext())) {
             val auth = FirebaseAuth.getInstance()
-            if (!sPref?.getString(Constants.USER,"").isNullOrEmpty() || auth.currentUser != null) {
+            if (!sPref?.getString(Constants.USER, "").isNullOrEmpty() || auth.currentUser != null) {
                 loadFragment()
             } else {
                 var intent = Intent(activity, SignInActivity::class.java)
                 startActivityForResult(intent, Constants.SIGN_IN)
             }
-        }
-        else{
+        } else {
             setNoNetworkLayout()
         }
     }
@@ -138,12 +138,16 @@ class PostsFragment : Fragment() {
                 loadFragment()
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                (activity as MainActivity)?.openDashBoard()
+                (activity as MainActivity).openDashBoard()
             }
         }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        val navigationView = activity?.findViewById<View>(R.id.nav_view) as NavigationView
+        navigationView.menu.findItem(R.id.nav_home).isChecked = false
+    }
 
 
 }

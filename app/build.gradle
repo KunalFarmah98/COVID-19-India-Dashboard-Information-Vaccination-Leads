@@ -17,7 +17,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,21 +87,29 @@ dependencies {
     implementation "androidx.room:room-ktx:$room"
     kapt "androidx.room:room-compiler:$room"
 
+    // facebook shimmer
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
+    //charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    implementation platform('com.google.firebase:firebase-bom:27.1.0')
 
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:27.1.0')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage-ktx'
+
+    // image cropper
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.0'
+
+    //google singin
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
+    //glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 }

@@ -1,4 +1,4 @@
-package com.kunalfarmah.covid_19_info_dashboard.ui.helpline
+package com.kunalfarmah.covid_19_info_dashboard.ui.fragment
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
@@ -12,11 +12,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentHelplineBinding
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.ContactsRegionalItem
-import com.kunalfarmah.covid_19_info_dashboard.ui.WebViewFragment
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.HelplineAdapter
 import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -87,7 +86,8 @@ class HelplineFragment : Fragment() {
             var args = Bundle()
             args.putString("url","https://www.mohfw.gov.in/")
             webViewFragment.arguments = args
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,webViewFragment)?.addToBackStack(WebViewFragment.TAG)
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragment,webViewFragment)?.addToBackStack(
+                WebViewFragment.TAG)
                 ?.commit()
         })
 

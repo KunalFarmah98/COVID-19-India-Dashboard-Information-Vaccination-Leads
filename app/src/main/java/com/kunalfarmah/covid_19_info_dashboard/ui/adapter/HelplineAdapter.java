@@ -41,7 +41,7 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Helpli
     @Override
     public void onBindViewHolder(@NonNull final HelplineVH helplineVH, final int i) {
         final ContactsRegionalItem item = items.get(i);
-        helplineVH.loc.setText(item.getLoc().toString());
+        helplineVH.loc.setText(item.getLoc());
         String number = item.getNumber();
         String[] list = number.split(",");
         SpannableString content = new SpannableString(list[0]);

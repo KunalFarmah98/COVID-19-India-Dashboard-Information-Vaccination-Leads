@@ -6,13 +6,17 @@ import android.content.SharedPreferences
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.gson.Gson
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.listener.HistoryListener
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.listener.LatestListener
+import com.kunalfarmah.covid_19_info_dashboard.model.HistoryDates
 import com.kunalfarmah.covid_19_info_dashboard.repository.CovidRepository
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.ContactsData
+import com.kunalfarmah.covid_19_info_dashboard.retrofit.HistoryResponse
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -20,13 +24,20 @@ import kotlinx.coroutines.launch
 class DashboardViewModel @ViewModelInject
 constructor(
     private val covidRepository: CovidRepository,
-    application: Application
+    application: Application,
+    @ApplicationContext context_: Context
 ) : AndroidViewModel(application) {
 
+    private val context = context_
+    private var sharedPreferences:SharedPreferences?=null
 
+    init{
+        sharedPreferences = context.getSharedPreferences(Constants.PREFS,Context.MODE_PRIVATE)
+    }
     private val _latestData: MutableLiveData<List<CovidEntity>> = MutableLiveData()
     private val _historyData: MutableLiveData<List<HistorySummary>> = MutableLiveData()
     private val _historyDateData: MutableLiveData<List<CovidHistoryEntity>> = MutableLiveData()
+    private val _goForward: MutableLiveData<Boolean> = MutableLiveData(false)
 
     private val _contactsData: MutableLiveData<ContactsData> = MutableLiveData()
 
@@ -45,6 +56,9 @@ constructor(
 
     val contactsData: MutableLiveData<ContactsData>
         get() = _contactsData
+
+    val goForward: MutableLiveData<Boolean>
+        get() = _goForward
 
 
 
@@ -85,7 +99,7 @@ constructor(
 
     fun getHistoryData() {
         viewModelScope.launch {
-            historyData.value = covidRepository.getHistoryData()
+            historyData.value = covidRepository.getHistoryData().sortedWith(HistoryComparator())
         }
     }
 
@@ -97,8 +111,15 @@ constructor(
 
     fun getContacts() {
         contactsData.value = Gson().fromJson(
-            sPref?.getString(Constants.CONTACTS, ""),
+            sPref.getString(Constants.CONTACTS, ""),
             ContactsData::class.java
         )
+    }
+
+    class HistoryComparator:Comparator<HistorySummary>{
+        override fun compare(o1: HistorySummary?, o2: HistorySummary?): Int {
+            return o2?.date?.compareTo(o1?.date!!)!!
+        }
+
     }
 }

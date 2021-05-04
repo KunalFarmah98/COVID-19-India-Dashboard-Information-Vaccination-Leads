@@ -53,7 +53,6 @@ class SplashActivity : AppCompatActivity(), LatestListener {
             return
         }
         dashboardViewModel.getLatestData(null)
-        dashboardViewModel.getHistoryData()
         if (!AppUtil.isNetworkAvailable(this)) {
             Handler().postDelayed({
                 startActivity(Intent(this, MainActivity::class.java))

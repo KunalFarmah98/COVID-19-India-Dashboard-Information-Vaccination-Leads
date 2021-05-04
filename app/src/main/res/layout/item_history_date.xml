@@ -46,7 +46,7 @@
                 android:gravity="center"
                 android:text="@string/total_cases"
                 android:textColor="@color/purple_700"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/recovered"
@@ -57,7 +57,7 @@
                 android:gravity="center"
                 android:text="@string/recovered"
                 android:textColor="@color/green"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/deceased"
@@ -68,7 +68,7 @@
                 android:gravity="center"
                 android:text="@string/deceased"
                 android:textColor="@color/red"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 

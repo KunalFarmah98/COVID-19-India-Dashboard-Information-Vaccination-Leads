@@ -104,13 +104,16 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".ui.dashboard.DashboardFragment">
+            android:descendantFocusability="beforeDescendants"
+            tools:context=".ui.fragment.DashboardFragment">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -172,7 +175,7 @@
                             android:gravity="center"
                             android:text="@string/active"
                             android:textColor="@color/purple_700"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/recoveredSummary"
@@ -183,7 +186,7 @@
                             android:gravity="center"
                             android:text="@string/recovered"
                             android:textColor="@color/green"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/deceasedSummary"
@@ -194,7 +197,7 @@
                             android:gravity="center"
                             android:text="@string/deceased"
                             android:textColor="@color/red"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
                 </RelativeLayout>

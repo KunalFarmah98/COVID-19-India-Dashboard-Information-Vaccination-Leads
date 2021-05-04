@@ -13,7 +13,7 @@ import android.webkit.WebChromeClient
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.navArgs
 import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityResourcesBinding
 
@@ -98,13 +98,13 @@ class ResourcesActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if(item.itemId==R.id.nav_home)
-            onBackPressed()
+            finish()
 
         return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+            finish()
         return super.onSupportNavigateUp()
     }
 

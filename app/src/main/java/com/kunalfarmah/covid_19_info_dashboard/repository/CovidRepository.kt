@@ -3,7 +3,7 @@ package com.kunalfarmah.covid_19_info_dashboard.repository
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.listener.LatestListener
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Api
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidDao
@@ -76,8 +76,9 @@ constructor(
         val result = covidRetrofit.getHistory()
 
         CoroutineScope(Dispatchers.IO).launch {
-            for (record in result.data!!) {
+            for (record in result.data?.reversed()!!) {
                 var day = record?.day
+                Log.e("History",day!!)
                 var summary = record?.summary
                 for (case in record?.regional!!) {
                     covidDao.insertHistory(
@@ -90,7 +91,7 @@ constructor(
                             case?.confirmedCasesForeign.toString(),
                             case?.discharged.toString(),
                             case?.deaths.toString(),
-                            case?.totalConfirmed.toString()
+                            case?.totalConfirmed!!
                         )
                     )
                 }

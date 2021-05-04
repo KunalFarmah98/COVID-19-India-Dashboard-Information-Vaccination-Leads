@@ -3,9 +3,8 @@ package com.kunalfarmah.covid_19_info_dashboard.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
 import com.kunalfarmah.covid_19_info_dashboard.R
-import com.kunalfarmah.covid_19_info_dashboard.ui.helpline.HelplineFragment
+import com.kunalfarmah.covid_19_info_dashboard.ui.fragment.HelplineFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -17,7 +16,7 @@ class HelplineActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.title = "Helpline"
-        supportFragmentManager.beginTransaction().replace(R.id.fragment,HelplineFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment, HelplineFragment()).commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

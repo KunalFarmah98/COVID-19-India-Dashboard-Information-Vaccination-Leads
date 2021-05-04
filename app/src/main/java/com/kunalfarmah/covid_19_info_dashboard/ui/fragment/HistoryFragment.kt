@@ -1,20 +1,24 @@
-package com.kunalfarmah.covid_19_info_dashboard.ui.history
+package com.kunalfarmah.covid_19_info_dashboard.ui.fragment
 
 import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationView
+import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentHistoryBinding
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.HistoryAdapter
+import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -23,12 +27,13 @@ import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment(){
 
     private val viewModel: DashboardViewModel by viewModels()
     private lateinit var binding: FragmentHistoryBinding
     private lateinit var mAdapter: HistoryAdapter
     private var list: List<HistorySummary>? = null
+    private var sPref:SharedPreferences?=null
 
     companion object {
         val TAG = "HistoryFragment"
@@ -39,9 +44,12 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         viewModel.getHistoryData()
+        sPref = activity?.getSharedPreferences(Constants.PREFS,Context.MODE_PRIVATE)
         binding = FragmentHistoryBinding.inflate(inflater)
-        list = viewModel.historyData.value
+        if(!viewModel.historyData.value.isNullOrEmpty())
+            list = viewModel.historyData.value
         if(!list.isNullOrEmpty()){
             setView(list!!)
         }
@@ -54,9 +62,9 @@ class HistoryFragment : Fragment() {
         activity?.actionBar?.title = "History"
 
         viewModel.historyData.observe(viewLifecycleOwner, {
-            if (it != null) {
+            if (it.isNotEmpty()) {
                 list = it
-                setView(it)
+                setView(list!!)
             }
         })
 
@@ -93,7 +101,7 @@ class HistoryFragment : Fragment() {
         })
 
         binding.search.setOnClickListener {
-            hideSoftKeyboard(requireActivity())
+            AppUtil.hideSoftKeyboard(requireActivity())
             temp = ArrayList<HistorySummary>()
             for (case in list!!) {
                 val date_ = dateFormatter2.format(dateFormatter1.parse(case.date)!!)
@@ -124,12 +132,9 @@ class HistoryFragment : Fragment() {
         binding.dateRecycler.adapter = mAdapter
     }
 
-    fun hideSoftKeyboard(activity: Activity) {
-        if (activity.currentFocus == null) {
-            return
-        }
-        val inputMethodManager: InputMethodManager =
-            activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
+    override fun onResume() {
+        super.onResume()
+        val navigationView = activity?.findViewById<View>(R.id.nav_view) as NavigationView
+        navigationView.menu.findItem(R.id.nav_home).isChecked = false
     }
 }

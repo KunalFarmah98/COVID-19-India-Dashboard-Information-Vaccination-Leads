@@ -15,7 +15,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityImageBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -72,7 +72,7 @@ class ImageActivity : AppCompatActivity() {
         //For devices running android >= Q
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             //getting the contentResolver
-            this?.contentResolver?.also { resolver ->
+            this.contentResolver?.also { resolver ->
                 val contentValues = ContentValues().apply {
                     put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
                     put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")

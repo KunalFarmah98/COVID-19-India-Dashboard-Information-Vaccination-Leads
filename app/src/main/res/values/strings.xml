@@ -1,15 +1,7 @@
 <resources>
-    <string name="app_name">Covid-19 Info-Dashboard</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_name">Covid-19 India Info-Dashboard</string>
     <string name="nav_header_title">Welcome to Covid-19 India Dashboard</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <string name="india">India</string>
     <string name="total_cases">Total Cases:</string>
     <string name="active">Active:</string>
@@ -26,20 +18,16 @@
     <string name="history">History</string>
     <string name="select_date">Select a Date to get State-Wise Data:</string>
     <string name="date">Date</string>
-    <string name="get_statewise_data">Get Statewise Data</string>
     <string name="statewise_history">Statewise History</string>
-    <string name="covid_19_india_info">Covid-19 India Info</string>
     <string name="search_for_a_date_dd_mm_yyyy">Search for a Date (DD/MM/YYYY)</string>
     <string name="helpline1"><u>01123978046</u></string>
     <string name="helpline2"><u>1075</u></string>
     <string name="website"><u>https://www.mohfw.gov.in</u></string>
     <string name="nearest_response_centers">Region-wise Helpline Numbers</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="india_covid_19_helpline_numbers">India Covid-19 HelpLine Numbers:</string>
     <string name="ministry_of_health_website">Ministry of Health Website:</string>
     <string name="title">COVID-19 India Information, Dashboard, Vaccination, Leads</string>
-    <string name="covid_19">Covid-19</string>
     <string name="vaccination">Vaccination</string>
     <string name="register_for_vaccination_on_cowin">Register for Vaccination</string>
     <string name="vaccination_certificate">Vaccination Certificate</string>
@@ -48,10 +36,7 @@
     <string name="covid_india_resources">Covid India Resources</string>
     <string name="beds_oxygen_medcines_dashboard_by_sprinklr">Sprinklr Dashboard</string>
     <string name="general">General</string>
-    <string name="hospital_map">map</string>
-    <string name="coid19_india_resources">res</string>
     <string name="if_the_page_didn_t_open_open_this_link_in_a_desktop_browser">If the page didn\'t open or show correctly, open this link in a desktop browser:</string>
-    <string name="hospital_map_url"><u>https://covid-19-hospital-data.el.r.appspot.com</u></string>
     <string name="vaccination_statistics">Vaccination Statistics</string>
     <string name="about">About</string>
     <string name="privacy_policy">Privacy Policy</string>
@@ -82,8 +67,6 @@
     <string name="link1">Link1</string>
     <string name="link2">Link2</string>
     <string name="count">count</string>
-    <string name="downvote">Downvote</string>
-    <string name="upvote">Upvote</string>
     <string name="helpful">Was it Helpful?</string>
     <string name="warning">Please make sure that you are sharing verified leads and resources such that the people in need can get access to them quickly. Your post will be shown as it is and it is your responsibility to make sure that whatever you post is verified.</string>
     <string name="enter_title">Enter Title of Your Post</string>
@@ -93,7 +76,6 @@
     <string name="add_image">Add Image</string>
     <string name="beds">Beds</string>
     <string name="oxigen">Oxygen</string>
-    <string name="ventilators">Ventilators</string>
     <string name="medicines">Medicines</string>
     <string name="food">Food</string>
     <string name="others">Others</string>
@@ -102,7 +84,6 @@
     <string name="post">Post</string>
     <string name="no_posts">No posts added yet. Start adding posts and sharing your leads with others to help as many people as you can.</string>
     <string name="add_a_post">Add a Post</string>
-    <string name="fetching_posts">Fetching Posts..</string>
     <string name="leads_">Leads</string>
     <string name="select_tags_for_filtering">Select Tags for Filtering</string>
     <string name="all">All</string>
@@ -114,17 +95,13 @@
     <string name="ambulance">Ambulance</string>
     <string name="logout">Logout</string>
     <string name="welcome">Welcome</string>
-    <string name="btn_google_login">Sign in with Google</string>
-    <string name="Login">Login/Sign Up</string>
     <string name="password">Password</string>
     <string name="enter_email_or_ph_num">Enter Email Id</string>
-    <string name="email_or_ph_num">Email:</string>
+    <string name="email_or_ph_num">Email</string>
     <string name="google_sign_in">Sign in with Google</string>
     <string name="or">OR</string>
-    <string name="signed_out">Signed Out Successfully</string>
     <string name="social_auth_failed">Authentication failed.</string>
     <string name="sign_in_failed">Sign In Failed, please try some other method.</string>
-    <string name="signed_in_success">Signed in Successfully</string>
     <string name="please_wait">Please Wait</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
@@ -138,4 +115,8 @@
     <string name="oxygen">Oxygen</string>
     <string name="meds">Medicines</string>
     <string name="other">Others</string>
+    <string name="uploading_image">Uploading Image</string>
+    <string name="pick_image_from_gallery">Pick Image From Gallery</string>
+    <string name="take_picture_from_camera">Take Picture from Camera</string>
+    <string name="hist_warning">Some older dates may not show yet!</string>
 </resources>

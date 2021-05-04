@@ -41,11 +41,11 @@ class PostsAdapter(context_: Context, list_: List<Post>, imageListener_: ImageCl
             binding.title.text = post.title
             binding.user.text = post.userName
             binding.body.text = post.body
-            binding.upvoteCnt.text = post.upvotes?.size.toString()
-            binding.downvoteCnt.text = post.downvotes?.size.toString()
+            binding.upvoteCnt.text = post.upvotes.size.toString()
+            binding.downvoteCnt.text = post.downvotes.size.toString()
             binding.helpfulCnt.isSelected = true
             binding.helpfulCnt.text =
-                String.format("%s people were helped by this lead", post.helpful?.size.toString())
+                String.format("%s people were helped by this lead", post.helpful.size.toString())
             binding.date.text = SimpleDateFormat("dd/MM/yyyy hh:mm a").format(
                 SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(
                     post.timeStamp

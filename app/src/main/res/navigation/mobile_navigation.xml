@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.dashboard.DashboardFragment"
+        android:name="com.kunalfarmah.covid_19_info_dashboard.ui.fragment.DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
     <activity
         android:id="@+id/nav_contacts"
@@ -17,82 +17,82 @@
         android:id="@+id/nav_vaccine_registration"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity"
         android:label="COWIN Registration"
-        tools:layout="@layout/activity_vaccination" >
+        tools:layout="@layout/activity_vaccination">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="REGISTRATION" />
+            android:defaultValue="REGISTRATION"
+            app:argType="string" />
     </activity>
     <activity
         android:id="@+id/nav_vaccine_certificate"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity"
         android:label="Vaccination Certificate"
-        tools:layout="@layout/activity_vaccination" >
+        tools:layout="@layout/activity_vaccination">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="CERTIFICATE" />
+            android:defaultValue="CERTIFICATE"
+            app:argType="string" />
     </activity>
     <activity
         android:id="@+id/nav_vaccine_statistics"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.VaccinationActivity"
         android:label="COWIN Dashboard"
-        tools:layout="@layout/activity_vaccination" >
+        tools:layout="@layout/activity_vaccination">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="VACCINE_DASHBAORD" />
+            android:defaultValue="VACCINE_DASHBAORD"
+            app:argType="string" />
     </activity>
     <activity
         android:id="@+id/nav_sprinklr_dashboard"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
         android:label="Sprinklr's Covid-19 Dashboard"
-        tools:layout="@layout/activity_resources" >
+        tools:layout="@layout/activity_resources">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="SPRINKLR_DASHBOARD" />
+            android:defaultValue="SPRINKLR_DASHBOARD"
+            app:argType="string" />
     </activity>
     <activity
         android:id="@+id/nav_covid_india_res"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
         android:label="Covid India Resources"
-        tools:layout="@layout/activity_resources" >
+        tools:layout="@layout/activity_resources">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="INDIA_RESOURCES" />
+            android:defaultValue="INDIA_RESOURCES"
+            app:argType="string" />
     </activity>
     <activity
         android:id="@+id/nav_hospital_map"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
         android:label="Hospitals on Map"
-        tools:layout="@layout/activity_resources" >
+        tools:layout="@layout/activity_resources">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="HOSPITAL_MAP" />
+            android:defaultValue="HOSPITAL_MAP"
+            app:argType="string" />
     </activity>
     <activity
         android:id="@+id/nav_covid_india_fighters"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
         android:label="Covid India Fighters"
-        tools:layout="@layout/activity_resources" >
+        tools:layout="@layout/activity_resources">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="INDIA_FIGHTERS" />
+            android:defaultValue="INDIA_FIGHTERS"
+            app:argType="string" />
     </activity>
 
     <activity
         android:id="@+id/nav_mh_covid_help_Desk"
         android:name="com.kunalfarmah.covid_19_info_dashboard.ui.activity.ResourcesActivity"
         android:label="MH Covid HelpDesk"
-        tools:layout="@layout/activity_resources" >
+        tools:layout="@layout/activity_resources">
         <argument
             android:name="action"
-            app:argType="string"
-            android:defaultValue="MH_COVID_HELP_DESK" />
+            android:defaultValue="MH_COVID_HELP_DESK"
+            app:argType="string" />
     </activity>
 
 </navigation>

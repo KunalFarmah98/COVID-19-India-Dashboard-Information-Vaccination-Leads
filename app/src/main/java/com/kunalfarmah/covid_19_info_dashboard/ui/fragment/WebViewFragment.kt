@@ -1,4 +1,4 @@
-package com.kunalfarmah.covid_19_info_dashboard.ui
+package com.kunalfarmah.covid_19_info_dashboard.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentWebViewBinding
 
 
-class WebViewFragment() : Fragment() {
+class WebViewFragment : Fragment() {
 
 
     lateinit var binding: FragmentWebViewBinding

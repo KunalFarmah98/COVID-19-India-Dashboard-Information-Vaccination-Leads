@@ -1,4 +1,4 @@
-package com.kunalfarmah.covid_19_info_dashboard.ui
+package com.kunalfarmah.covid_19_info_dashboard.ui.fragment
 
 import android.app.Activity
 import android.content.Context.MODE_PRIVATE
@@ -8,16 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.firebase.ui.auth.AuthUI
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.util.AppUtil
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentLeadsBinding
 import com.kunalfarmah.covid_19_info_dashboard.listener.ImageClickListener
@@ -26,15 +23,13 @@ import com.kunalfarmah.covid_19_info_dashboard.model.Post
 import com.kunalfarmah.covid_19_info_dashboard.model.User
 import com.kunalfarmah.covid_19_info_dashboard.ui.activity.ImageActivity
 import com.kunalfarmah.covid_19_info_dashboard.ui.activity.MainActivity
-import com.kunalfarmah.covid_19_info_dashboard.ui.activity.PostActivity
-import com.kunalfarmah.covid_19_info_dashboard.ui.activity.SignInActivity
 import com.kunalfarmah.covid_19_info_dashboard.ui.adapter.PostsAdapter
 import com.kunalfarmah.covid_19_info_dashboard.viewModel.LeadsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
+class MyLeadsFragment : Fragment(), PostsListener, ImageClickListener {
 
     private val viewModel: LeadsViewModel by viewModels()
     lateinit var binding: FragmentLeadsBinding
@@ -59,7 +54,7 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
             binding.leadsRecycler.visibility = View.GONE
             binding.loading.visibility = View.VISIBLE
             binding.loading.startShimmerAnimation()
-            viewModel.fetchAllPosts(this)
+            viewModel.fetchUserPosts(this)
         } else {
             setNoNetworkLayout()
         }
@@ -75,13 +70,11 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         binding.swipeRefresh.setOnRefreshListener {
             if (AppUtil.isNetworkAvailable(requireContext())) {
                 binding.swipeRefresh.isRefreshing = true
-                viewModel.fetchFilteredPosts(filter!!, this)
+                viewModel.fetchFilteredUserPosts(filter!!, this)
             }
         }
 
-        binding.addPost.setOnClickListener {
-            addPost()
-        }
+        binding.addPost.visibility = View.GONE
 
         setUpFilters()
 
@@ -96,13 +89,13 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
                 user_ = Gson().fromJson(data?.getStringExtra("user"), User::class.java)
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                (activity as MainActivity)?.openDashBoard()
+                (activity as MainActivity).openDashBoard()
             }
         }
         if (requestCode == Constants.POST_LEAD) {
             if (resultCode == Activity.RESULT_OK) {
                 isPosted = true
-                viewModel.fetchFilteredPosts(filter!!,this)
+                viewModel.fetchFilteredUserPosts(filter!!, this)
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
             }
@@ -151,42 +144,42 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
             resetAllFilters()
             binding.beds.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.bedsTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.oxi.setOnClickListener {
             filter = activity?.resources?.getString(R.string.oxygen)
             resetAllFilters()
             binding.oxi.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.oxiTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.medicine.setOnClickListener {
             filter = activity?.resources?.getString(R.string.meds)
             resetAllFilters()
             binding.medicine.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.medsTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.equipment.setOnClickListener {
             filter = activity?.resources?.getString(R.string.equipment)
             resetAllFilters()
             binding.equipment.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.equipTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.others.setOnClickListener {
             filter = activity?.resources?.getString(R.string.others)
             resetAllFilters()
             binding.others.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.othersTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
         }
         binding.food.setOnClickListener {
             filter = activity?.resources?.getString(R.string.food)
             resetAllFilters()
             binding.food.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.foodTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
         }
 
         binding.plasma.setOnClickListener {
@@ -194,7 +187,7 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
             resetAllFilters()
             binding.plasma.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.plasmaTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
 
         }
 
@@ -203,7 +196,7 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
             resetAllFilters()
             binding.ambulance.setCardBackgroundColor(requireContext().resources.getColor(R.color.purple_700))
             binding.ambulanceTv.setTextColor(requireContext().resources.getColor(R.color.white))
-            viewModel.fetchFilteredPosts(filter!!, this)
+            viewModel.fetchFilteredUserPosts(filter!!, this)
         }
     }
 
@@ -237,7 +230,7 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         binding.leadsRecycler.visibility = View.VISIBLE
         binding.noPostsLayout.noPostsLayout.visibility = View.GONE
         binding.noNetworkLayout.noNetworkLayout.visibility = View.GONE
-        mAdapter = PostsAdapter(requireContext(), list, this,this)
+        mAdapter = PostsAdapter(requireContext(), list, this, this)
         binding.leadsRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.leadsRecycler.adapter = mAdapter
     }
@@ -262,14 +255,14 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
         if (list.isNullOrEmpty()) {
             setNoDataLayout()
         } else {
-//            if(isPosted || null==mAdapter || binding.swipeRefresh.isRefreshing)
-                setView(list)
+            setView(list)
         }
     }
 
-    private fun addPost() {
-        var intent = Intent(activity, PostActivity::class.java)
-        startActivityForResult(intent, Constants.POST_LEAD)
+    override fun onResume() {
+        binding.all.callOnClick()
+        viewModel.fetchUserPosts(this)
+        super.onResume()
     }
 
     override fun openImage(title: String?, uri: String?) {
@@ -283,7 +276,7 @@ class LeadsFragment() : Fragment(), PostsListener, ImageClickListener {
     }
 
     override fun deleted() {
-        viewModel.fetchFilteredPosts(filter!!,this)
+        viewModel.fetchFilteredUserPosts(filter!!, this)
     }
 
 

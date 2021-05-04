@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "491385422224",
+    "firebase_url": "https://covid-19-india-dashboard-c0dd5-default-rtdb.firebaseio.com",
     "project_id": "covid-19-india-dashboard-c0dd5",
     "storage_bucket": "covid-19-india-dashboard-c0dd5.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "491385422224-8bmb7supd4ii9140k0f9k63s63a1r8ha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kunalfarmah.covid_19_info_dashboard",
+            "certificate_hash": "f5cf71b0962f0c6163071966e979ac9e431e8cd8"
+          }
+        },
         {
           "client_id": "491385422224-usiffugc0u36ep1vmhu8hj389e96bmor.apps.googleusercontent.com",
           "client_type": 1,

@@ -1,4 +1,4 @@
-package com.kunalfarmah.covid_19_info_dashboard
+package com.kunalfarmah.covid_19_info_dashboard.util
 
 class Constants {
 
@@ -18,6 +18,7 @@ class Constants {
         const val LAST_REFRESHED = "LAST_REFRESHED"
         const val LATEST_SUMMARY = "LATEST_SUMMARY"
         const val LATEST_ACTIVE = "LATEST_ACTIVE"
+        const val HISTORY = "HISTORY"
 
         const val CONTACTS = "CONTACTS"
 

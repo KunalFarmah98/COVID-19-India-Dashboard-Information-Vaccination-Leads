@@ -10,8 +10,6 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.icu.util.IndianCalendar
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,19 +23,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityPostBinding
 import com.kunalfarmah.covid_19_info_dashboard.model.Post
 import com.theartofdev.edmodo.cropper.CropImage
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -47,7 +40,6 @@ import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.model.User
-import java.time.Instant
 
 
 class PostActivity : AppCompatActivity() {
@@ -71,7 +63,7 @@ class PostActivity : AppCompatActivity() {
     var userID: String? = null
     var userName: String? = null
     var bitmap: Bitmap? = null
-    var res:Resources?=null
+    var res: Resources? = null
 
     companion object {
         const val TAG = "PostsActivity"
@@ -198,7 +190,7 @@ class PostActivity : AppCompatActivity() {
             )
 
         var progressDialog = ProgressDialog(this)
-        progressDialog.setMessage(resources.getString(R.string.please_wait))
+        progressDialog.setMessage(resources.getString(R.string.uploading_image))
         progressDialog.setCancelable(false)
         progressDialog.show()
 
@@ -338,34 +330,39 @@ class PostActivity : AppCompatActivity() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.selection_dialog)
         dialog.findViewById<View>(R.id.camera).setOnClickListener { view: View? ->
-            isCamera = true
             dialog.cancel()
-            uploadImage()
+            uploadImageFromCamera()
         }
         dialog.findViewById<View>(R.id.gallery).setOnClickListener { view: View? ->
-            isCamera = false
             dialog.cancel()
-            uploadImage()
+            uploadImageFromGallery()
         }
         dialog.show()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun uploadImage() {
+    private fun uploadImageFromCamera() {
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
                 arrayOf(Manifest.permission.CAMERA),
                 Constants.MY_CAMERA_PERMISSION_CODE
             )
-        } else if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        } else {
+            takePicture()
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun uploadImageFromGallery() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                 Constants.MY_STORAGE_PERMISSION_CODE
             )
         } else {
-            dispatchTakePictureIntent(isCamera)
+            pickImage()
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -376,7 +373,7 @@ class PostActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.MY_CAMERA_PERMISSION_CODE) {
             if (null != grantResults && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                dispatchTakePictureIntent(true)
+                takePicture()
             } else {
                 Toast.makeText(
                     this,
@@ -387,7 +384,7 @@ class PostActivity : AppCompatActivity() {
         }
         if (requestCode == Constants.MY_STORAGE_PERMISSION_CODE) {
             if (null != grantResults && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                dispatchTakePictureIntent(false)
+                pickImage()
             } else {
                 Toast.makeText(
                     this,
@@ -399,15 +396,14 @@ class PostActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_CANCELED)
-            if (requestCode == Constants.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-                try {
-                    CropImage.activity(photoURI)
-                        .start(this)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+        if (requestCode == Constants.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            try {
+                CropImage.activity(photoURI)
+                    .start(this)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
+        }
         if (requestCode == Constants.REQUEST_GALLERY && resultCode == RESULT_OK) {
             currentPhotoPath = data?.data.toString()
             try {
@@ -417,9 +413,10 @@ class PostActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            var result: CropImage.ActivityResult?=null
             if (resultCode == RESULT_OK) {
+                result = CropImage.getActivityResult(data)
                 photoURI = result.uri
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(
@@ -433,6 +430,7 @@ class PostActivity : AppCompatActivity() {
                 binding.image.setImageBitmap(bitmap)
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                 result = CropImage.getActivityResult(data)
                 val error: Exception = result.error
             }
         }
@@ -451,37 +449,35 @@ class PostActivity : AppCompatActivity() {
             ".jpg",  /* suffix */
             storageDir /* directory */
         )
-
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.absolutePath
         return image
     }
 
-    private fun dispatchTakePictureIntent(isCamera: Boolean) {
-        val takePictureIntent: Intent
-        if (isCamera) {
-            takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (takePictureIntent.resolveActivity(packageManager) != null) {
-                var photoFile: File? = null
-                try {
-                    photoFile = createImageFile()
-                } catch (ex: IOException) {
-                }
-                if (photoFile != null) {
-                    photoURI = FileProvider.getUriForFile(
-                        this,
-                        "com.apps.kunalfarmah.covid19_india_dashboard.fileprovider",
-                        photoFile
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                }
+    private fun takePicture() {
+        var takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (takePictureIntent.resolveActivity(packageManager) != null) {
+            var photoFile: File? = null
+            try {
+                photoFile = createImageFile()
+            } catch (ex: IOException) {
             }
-            startActivityForResult(takePictureIntent, Constants.REQUEST_TAKE_PHOTO)
-        } else {
-            takePictureIntent =
-                Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(takePictureIntent, Constants.REQUEST_GALLERY)
+            if (photoFile != null) {
+                photoURI = FileProvider.getUriForFile(
+                    this,
+                    "com.apps.kunalfarmah.covid19_india_dashboard.fileprovider",
+                    photoFile
+                )
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            }
         }
+        startActivityForResult(takePictureIntent, Constants.REQUEST_TAKE_PHOTO)
+    }
+
+    private fun pickImage() {
+        val takePictureIntent =
+            Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        startActivityForResult(takePictureIntent, Constants.REQUEST_GALLERY)
     }
 
     private fun showDialog() {

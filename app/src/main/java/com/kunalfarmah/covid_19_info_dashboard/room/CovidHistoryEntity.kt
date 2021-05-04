@@ -33,6 +33,6 @@ class CovidHistoryEntity(
         var deceased: String,
 
         @ColumnInfo(name="total")
-        var total: String
+        var total: Int
 
 )

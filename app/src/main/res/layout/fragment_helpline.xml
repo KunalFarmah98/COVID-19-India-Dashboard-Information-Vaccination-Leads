@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        tools:context=".ui.helpline.HelplineFragment">
+        tools:context=".ui.fragment.HelplineFragment">
 
 
         <com.google.android.material.card.MaterialCardView

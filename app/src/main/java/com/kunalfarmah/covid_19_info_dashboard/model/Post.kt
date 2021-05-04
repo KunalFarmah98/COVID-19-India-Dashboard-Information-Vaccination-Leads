@@ -15,7 +15,4 @@ class Post(
     var helpful: ArrayList<String> = ArrayList(),
     var timeStamp: String =  "",
     var location: String =  ""
-) {
-
-
-}
+)

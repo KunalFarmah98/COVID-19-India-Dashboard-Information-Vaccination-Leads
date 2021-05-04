@@ -17,7 +17,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
 
     class DashboardVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var binding: ItemSummaryDashboardBinding = ItemSummaryDashboardBinding.bind(itemView)
-        val df = DecimalFormat("##,##,###");
+        val df = DecimalFormat("##,##,###")
         fun bind(case: CovidEntity) {
             binding.name.text = case.state
             binding.total.text =

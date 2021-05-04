@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".ui.dashboard.DashboardFragment">
+        android:descendantFocusability="beforeDescendants"
+        tools:context=".ui.fragment.DashboardFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/summaryCard"
@@ -56,7 +58,7 @@
                     android:padding="5dp"
                     android:text="@string/total_cases"
                     android:textColor="@color/purple_700"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChart"
@@ -86,7 +88,7 @@
                         android:gravity="center"
                         android:text="@string/active"
                         android:textColor="@color/blue"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/recoveredSummary"
@@ -97,7 +99,7 @@
                         android:gravity="center"
                         android:text="@string/recovered"
                         android:textColor="@color/green"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/deceasedSummary"
@@ -108,7 +110,7 @@
                         android:gravity="center"
                         android:text="@string/deceased"
                         android:textColor="@color/red"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
             </RelativeLayout>
@@ -171,6 +173,8 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:queryHint="@string/search_hint_dashboard" />
@@ -206,6 +210,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/latestRecycler"
             android:layout_width="match_parent"
+            android:focusable="false"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"

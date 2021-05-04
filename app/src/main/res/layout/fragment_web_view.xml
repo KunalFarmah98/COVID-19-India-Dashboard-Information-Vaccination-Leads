@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.WebViewFragment">
+    tools:context=".ui.fragment.WebViewFragment">
 
     <WebView
         android:id="@+id/webView"

@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,8 +22,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
 import com.google.gson.Gson
-import com.kunalfarmah.covid_19_info_dashboard.Constants
-import com.kunalfarmah.covid_19_info_dashboard.Constants.Companion.RC_SIGN_IN
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants.Companion.RC_SIGN_IN
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivitySigninBinding
 import com.kunalfarmah.covid_19_info_dashboard.model.User
@@ -48,7 +47,7 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = "Sign In"
+        supportActionBar?.title = "Sign In to Continue"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         parent_view = findViewById(android.R.id.content)
@@ -156,18 +155,6 @@ class SignInActivity : AppCompatActivity() {
                 binding.signUp.text = Html.fromHtml("<u>No Account? SignUp</u>")
             }
         }
-       /* binding.loginSwitch.isChecked = false
-        binding.loginSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener() { compoundButton: CompoundButton, b: Boolean ->
-            if (compoundButton.isChecked) {
-                isSignin = false
-                binding.nameLayout.visibility = View.VISIBLE
-                binding.login.text = resources.getString(R.string.sign_up)
-            } else {
-                isSignin = true
-                binding.nameLayout.visibility = View.GONE
-                binding.login.text = resources.getString(R.string.sign_in)
-            }
-        })*/
     }
 
 

@@ -7,6 +7,4 @@ class User(
     var phone: String?=  "",
     var posts: List<String> = ArrayList(),
     var helped: List<String> = ArrayList()
-) {
-
-}
+)

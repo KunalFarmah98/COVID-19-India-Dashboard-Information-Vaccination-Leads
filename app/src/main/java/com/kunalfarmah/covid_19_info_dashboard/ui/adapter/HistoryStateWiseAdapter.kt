@@ -18,11 +18,11 @@ class HistoryStateWiseAdapter(context: Context?, list: List<CovidHistoryEntity>)
 
     class DashboardVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var binding: ItemSummaryDashboardBinding = ItemSummaryDashboardBinding.bind(itemView)
-        val df = DecimalFormat("##,##,###");
+        val df = DecimalFormat("##,##,###")
         fun bind(case: CovidHistoryEntity) {
             binding.name.text = case.state
             binding.total.text =
-                String.format("Total Cases: %s", df.format(Integer.parseInt(case.total)))
+                String.format("Total Cases: %s", df.format(case.total))
             binding.recovered.text =
                 String.format("Recovered:\n%s", df.format(Integer.parseInt(case.recovered)))
             binding.deceased.text =

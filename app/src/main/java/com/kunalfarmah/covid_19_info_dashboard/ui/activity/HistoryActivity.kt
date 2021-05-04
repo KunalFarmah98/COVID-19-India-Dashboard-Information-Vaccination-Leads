@@ -15,7 +15,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.kunalfarmah.covid_19_info_dashboard.Constants
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityHistoryBinding
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
@@ -106,7 +106,6 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
             }
         })
 
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -132,13 +131,14 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
         var month = cal.get(Calendar.MONTH)
         var year = cal.get(Calendar.YEAR)
 
-        var month_ = arrayOf("","January","February","March","April","May","June","July","August","September","October","November","December")
+        var month_ = arrayOf("January","February","March","April","May","June","July","August","September","October","November","December")
 
         var fullMonth = month_[month]
 
         var fullDate = String.format("%s %s %s",day, fullMonth,year)
 
         binding.layout.visibility = View.VISIBLE
+        binding.layout.scrollTo(0, 0)
         binding.loading.visibility = View.GONE
         binding.loading.stopShimmerAnimation()
         binding.dateSummary.text = fullDate
@@ -151,7 +151,7 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
 
         binding.historyRecycler.layoutManager = LinearLayoutManager(this)
         binding.historyRecycler.setHasFixedSize(true)
-        mAdapter = HistoryStateWiseAdapter(this@HistoryActivity, list!!)
+        mAdapter = HistoryStateWiseAdapter(this@HistoryActivity, list)
         binding.historyRecycler.adapter = mAdapter
     }
 
@@ -185,18 +185,23 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
 
-         if (e!!.equalTo(PieEntry(recovered!!.toFloat()))){
-            binding.deceasedSummary.textSize = 20f
-            binding.recoveredSummary.textSize = 22f
-        }
-        if (e.equalTo(PieEntry(deceased!!.toFloat()))){
-            binding.deceasedSummary.textSize = 22f
+         if (e!!.equalTo(PieEntry(recovered?.toFloat()!!))) {
+            binding.deceasedSummary.textSize = 16f
             binding.recoveredSummary.textSize = 20f
+        }
+        if (e.equalTo(PieEntry(deceased?.toFloat()!!))) {
+            binding.deceasedSummary.textSize = 20f
+            binding.recoveredSummary.textSize = 16f
         }
     }
 
     override fun onNothingSelected() {
-        binding.deceasedSummary.textSize = 20f
-        binding.recoveredSummary.textSize = 20f
+        binding.deceasedSummary.textSize = 16f
+        binding.recoveredSummary.textSize = 16f
+    }
+
+    override fun onResume() {
+        binding.layout.scrollTo(0,0)
+        super.onResume()
     }
 }
