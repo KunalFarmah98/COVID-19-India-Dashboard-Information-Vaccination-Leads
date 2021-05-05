@@ -76,14 +76,13 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.nav_host_fragment, DashboardFragment()).commit()
                 }
             } else if (it.itemId == R.id.nav_history) {
-                if (bottomNav?.selectedItemId == R.id.nav_home || bottomNav?.selectedItemId==R.id.nav_leads) {
+                if (bottomNav?.selectedItemId == R.id.nav_home || bottomNav?.selectedItemId == R.id.nav_leads) {
                     supportActionBar?.title = "History"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, HistoryFragment()).commit()
                 }
-            }
-            else if(it.itemId==R.id.nav_leads){
-                if (bottomNav?.selectedItemId == R.id.nav_home || bottomNav?.selectedItemId ==R.id.nav_history) {
+            } else if (it.itemId == R.id.nav_leads) {
+                if (bottomNav?.selectedItemId == R.id.nav_home || bottomNav?.selectedItemId == R.id.nav_history) {
                     supportActionBar?.title = "Leads and Resources"
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, PostsFragment()).commit()
@@ -107,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        if(drawerLayout.isDrawerOpen(navView)) {
+        if (drawerLayout.isDrawerOpen(navView)) {
             drawerLayout.closeDrawers()
             return
         }
@@ -166,13 +165,59 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this@MainActivity, HistoryActivity::class.java))
     }
 
-     fun goToDashboard(item: MenuItem) {
+    fun goToStateHistory(
+        date: String,
+        total: String,
+        recovered: String,
+        deceased: String,
+        dTotal: String,
+        dRecovered: String,
+        dDeceased: String
+    ) {
+        sharedPreferences?.edit()?.putString(Constants.SELECTED_DATE, date)?.apply()
+        dashboardViewModel.getHistoryByDate(date)
+        sharedPreferences?.edit()?.putString(Constants.SELECTED_TOTAL, total)?.apply()
+        sharedPreferences?.edit()?.putString(Constants.SELECTED_RECOVERED, recovered)?.apply()
+        sharedPreferences?.edit()?.putString(Constants.SELECTED_DECEASED, deceased)?.apply()
+        sharedPreferences?.edit()?.putString(Constants.SELECTED_DAILYTOTAL, dTotal)?.apply()
+        sharedPreferences?.edit()?.putString(Constants.SELECTED_DAILYRECOVERED, dRecovered)?.apply()
+        sharedPreferences?.edit()?.putString(Constants.SELECTED_DAILYDECEASED, dDeceased)?.apply()
+
+        startActivity(Intent(this@MainActivity, HistoryActivity::class.java))
+    }
+
+    fun openStats(
+        state: String,
+        total: String,
+        active: String,
+        recovered: String,
+        deceased: String,
+        dActive: String,
+        dRecovered: String,
+        dDeceased: String
+    ) {
+        var intent = Intent(this, StatsActivity::class.java)
+        var args = Bundle()
+        args.putString("State",state)
+        args.putString("Total", total)
+        args.putString("Active", active)
+        args.putString("Recovered", recovered)
+        args.putString("Deceased", deceased)
+        args.putString("dActive", dActive)
+        args.putString("dRecovered", dRecovered)
+        args.putString("dDeceased", dDeceased)
+        intent.putExtras(args)
+        startActivity(intent)
+
+    }
+
+    fun goToDashboard(item: MenuItem) {
         drawerLayout.closeDrawers()
         openDashBoard()
     }
 
-    fun openDashBoard(){
-        if (bottomNav?.selectedItemId == R.id.nav_history || bottomNav?.selectedItemId==R.id.nav_leads) {
+    fun openDashBoard() {
+        if (bottomNav?.selectedItemId == R.id.nav_history || bottomNav?.selectedItemId == R.id.nav_leads) {
             bottomNav?.selectedItemId = R.id.nav_home
             supportActionBar?.title = "Dashboard"
             bottomNav?.menu?.findItem(R.id.nav_home)?.isChecked = true
@@ -184,7 +229,7 @@ class MainActivity : AppCompatActivity() {
 
         var intent = Intent(ACTION_VIEW)
         intent.data = Uri.parse("https://wa.me/919910130828?text=covid%20bot%20delhi")
-        if(isWhatsAppInstalled())
+        if (isWhatsAppInstalled())
             intent.`package` = "com.whatsapp"
 //        else
 //            Toast.makeText(this@MainActivity,"WhatsApp is not Installed",Toast.LENGTH_SHORT).show()

@@ -58,7 +58,8 @@
                     android:padding="5dp"
                     android:text="@string/total_cases"
                     android:textColor="@color/purple_700"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChart"
@@ -247,6 +248,7 @@
                 android:focusableInTouchMode="true"
                 app:queryHint="@string/search_hint_dashboard" />
 
+
         </LinearLayout>
 
 
@@ -284,6 +286,15 @@
             android:overScrollMode="never"
             android:visibility="visible"
             tools:listitem="@layout/item_summary_dashboard" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="@string/warning_states"
+            android:textSize="10sp" />
 
 
     </LinearLayout>

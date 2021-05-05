@@ -3,6 +3,7 @@
     package="com.kunalfarmah.covid_19_info_dashboard">
 
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,9 +16,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Covid19InfoDashboard">
-        <activity android:name=".ui.activity.ImageActivity"/>
+        android:theme="@style/Theme.Covid19InfoDashboard"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity.StatsActivity"></activity>
+        <activity android:name=".ui.activity.ImageActivity" />
         <activity
             android:name=".ui.activity.SignInActivity"
             android:launchMode="singleInstance" />
@@ -39,9 +41,9 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
-            android:windowSoftInputMode="adjustPan"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Covid19InfoDashboard.NoActionBar" />
+            android:theme="@style/Theme.Covid19InfoDashboard.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

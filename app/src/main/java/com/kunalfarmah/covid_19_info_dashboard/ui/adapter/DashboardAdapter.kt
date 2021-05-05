@@ -1,5 +1,6 @@
 package com.kunalfarmah.covid_19_info_dashboard.ui.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,18 +8,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ItemSummaryDashboardBinding
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
+import com.kunalfarmah.covid_19_info_dashboard.ui.activity.MainActivity
 import java.text.DecimalFormat
 
-class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
+class DashboardAdapter(activity: Activity?, list: List<CovidEntity>) :
     RecyclerView.Adapter<DashboardAdapter.DashboardVH>() {
 
     var latestList: List<CovidEntity> = list
-    var mContext: Context? = context
+    var mContext: Activity? = activity
 
     class DashboardVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var binding: ItemSummaryDashboardBinding = ItemSummaryDashboardBinding.bind(itemView)
         val df = DecimalFormat("##,##,###")
-        fun bind(case: CovidEntity) {
+        fun bind(case: CovidEntity, activity: Activity?) {
+            itemView.setOnClickListener{
+                (activity as MainActivity).openStats(case.state, case.total.toString(),case.active,case.recovered,case.deceased,case.dailyActive,case.dailyRecovered,case.dailyDeceased)
+            }
             binding.name.text = case.state
             binding.total.text =
                 String.format("Total Cases: %s", df.format(case.total))
@@ -45,7 +50,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
             var dailyRecovered = case.dailyRecovered
             var dailyDeceased = case.dailyDeceased
 
-            if(dailyNew == "0" || dailyRecovered == "0" || dailyDeceased == "0") {
+            if(dailyNew == "0" && dailyRecovered == "0" && dailyDeceased == "0") {
                 binding.dailyLayout.visibility = View.GONE
                 binding.recent.visibility = View.GONE
                 binding.totalStats.visibility = View.GONE
@@ -83,7 +88,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
 
     override fun onBindViewHolder(holder: DashboardVH, position: Int) {
         var case = latestList[position]
-        holder.bind(case)
+        holder.bind(case,mContext)
     }
 
     override fun getItemCount(): Int {

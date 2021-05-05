@@ -43,7 +43,7 @@
     <string name="covid_19_info">Covid-19 Info</string>
     <string name="donate">Donate</string>
     <string name="info_1">This app has been made to provide easier access to Covid-19 data in India including national case counts followed by case counts in various states and UTs providing counts of active, recovered and deceased cases along with the total confirmed cases so far. It also allows users to view the day wise history of the disease dating back to March 2020.</string>
-    <string name="info_2">Since there has been a recent surge in the number of cases, it is extremely difficult to keep track of every case in every state. Hence the data provided is updated daily with the best efforts of volunteers and the people behind creating the api used in the app: https://api.rootnet.in/covid19-in/</string>
+    <string name="info_2">Since there has been a recent surge in the number of cases, it is extremely difficult to keep track of every case in every state. Hence the data provided is updated daily with the best efforts of volunteers and the people behind creating the apis used in the app: https://api.rootnet.in/covid19-in/ and https://api.covid19india.org/</string>
     <string name="info_3">Since the data is fetched from an open source api, it must not be considered 100% accurate and I hold no responsibility and accountability for any inaccuracy observed in the data.</string>
     <string name="info_4">All the Covid-19 leads and resources are provided by their respective posters and owners. This app only provides easier access to all those resources by directly opening their websites for ease of use. I hold no accountability for the authenticity of the leads or resources provided on these websites. It is a sole property of the website creators and the people posting it.</string>
     <string name="info_5">These are difficult times and the only way to defeat the pandemic is staying safe and helping each other. It is requested that everyone follow the guidelines for Covid-Appropirate behaviour including staying at home, wearing mask at all times when outside, maintaining social distancing and washing/sanitising your hands regularly.\nTogether we can beat this pandemic and come back stronger.</string>
@@ -118,8 +118,14 @@
     <string name="uploading_image">Uploading Image</string>
     <string name="pick_image_from_gallery">Pick Image From Gallery</string>
     <string name="take_picture_from_camera">Take Picture from Camera</string>
-    <string name="hist_warning">Some older dates may not appear yet!</string>
+    <string name="hist_warning">Statewise history for some older dates may not appear yet!</string>
     <string name="recent_statistics">Recent Statistics:</string>
     <string name="total_statistics">Total Statistics:</string>
     <string name="recent_report">Recenty Reported:</string>
+    <string name="daily_report">Daily Report</string>
+    <string name="oops_couldn_t_fetch_statewise_history_for_this_date">Oops.. Could not fetch statewise history for this date</string>
+    <string name="history_warn1">Statewise history of older dates may take a while to get populated when you have installed the app for the first time</string>
+    <string name="try_again">Please Try again in a few moments.</string>
+    <string name="try_again2">The history would be available every time on subsequent launches</string>
+    <string name="warning_states">Daily Case data may not be available for some states</string>
 </resources>

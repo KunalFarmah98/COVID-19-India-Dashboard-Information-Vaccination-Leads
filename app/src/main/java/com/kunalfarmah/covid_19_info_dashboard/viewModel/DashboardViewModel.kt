@@ -15,6 +15,7 @@ import com.kunalfarmah.covid_19_info_dashboard.retrofit.ContactsData
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.HistoryResponse
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
+import com.kunalfarmah.covid_19_info_dashboard.room.HistoryListEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,6 +37,8 @@ constructor(
     }
     private val _latestData: MutableLiveData<List<CovidEntity>> = MutableLiveData()
     private val _historyData: MutableLiveData<List<HistorySummary>> = MutableLiveData()
+    private val _historyList: MutableLiveData<List<HistoryListEntity>> = MutableLiveData()
+
     private val _historyDateData: MutableLiveData<List<CovidHistoryEntity>> = MutableLiveData()
     private val _goForward: MutableLiveData<Boolean> = MutableLiveData(false)
 
@@ -50,6 +53,9 @@ constructor(
 
     val historyData: MutableLiveData<List<HistorySummary>>
         get() = _historyData
+
+    val historyList: MutableLiveData<List<HistoryListEntity>>
+        get() = _historyList
 
     val historyDateData: MutableLiveData<List<CovidHistoryEntity>>
         get() = _historyDateData
@@ -66,7 +72,7 @@ constructor(
         viewModelScope.launch {
             covidRepository.fetchLatestData(sPref)
         }.invokeOnCompletion {
-            listener?.goForward()
+            listener.goForward()
         }
     }
 
@@ -105,6 +111,12 @@ constructor(
         }
     }
 
+    fun getHistoryList() {
+        viewModelScope.launch {
+            historyList.value = covidRepository.getHistoryList()
+        }
+    }
+
     fun getHistoryByDate(date:String){
         viewModelScope.launch {
             historyDateData.value = covidRepository.getHistoryByDate(date)
@@ -124,4 +136,5 @@ constructor(
         }
 
     }
+
 }

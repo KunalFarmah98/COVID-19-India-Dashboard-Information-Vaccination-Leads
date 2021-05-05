@@ -154,7 +154,7 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
                     if (case.state.contains(query, true))
                         (temp as ArrayList<CovidEntity>).add(case)
                 }
-                tempAdapter = DashboardAdapter(context, temp as ArrayList<CovidEntity>)
+                tempAdapter = DashboardAdapter(activity, temp as ArrayList<CovidEntity>)
                 binding.latestRecycler.adapter = tempAdapter
                 return true
             }
@@ -165,7 +165,7 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
                     if (case.state.contains(newText, true))
                         (temp as ArrayList<CovidEntity>).add(case)
                 }
-                tempAdapter = DashboardAdapter(context, temp as ArrayList<CovidEntity>)
+                tempAdapter = DashboardAdapter(activity, temp as ArrayList<CovidEntity>)
                 binding.latestRecycler.adapter = tempAdapter
                 return true
             }
@@ -219,25 +219,25 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
         binding.loading.visibility = View.GONE
         binding.loading.stopShimmerAnimation()
         binding.latestRecycler.visibility = View.VISIBLE
-        mAdapter = DashboardAdapter(context, list)
+        mAdapter = DashboardAdapter(activity, list)
         binding.latestRecycler.adapter = mAdapter
         binding.scrollView.scrollTo(0, 0)
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         if (e!!.equalTo(PieEntry(active!!))) {
-            binding.activeSummary.textSize = 20f
+            binding.activeSummary.textSize = 18f
             binding.deceasedSummary.textSize = 16f
             binding.recoveredSummary.textSize = 16f
 
         } else if (e.equalTo(PieEntry(recovered!!))) {
             binding.activeSummary.textSize = 16f
             binding.deceasedSummary.textSize = 16f
-            binding.recoveredSummary.textSize = 20f
+            binding.recoveredSummary.textSize = 18f
         }
         if (e.equalTo(PieEntry(deceased!!))) {
             binding.activeSummary.textSize = 16f
-            binding.deceasedSummary.textSize = 20f
+            binding.deceasedSummary.textSize = 18f
             binding.recoveredSummary.textSize = 16f
         }
     }

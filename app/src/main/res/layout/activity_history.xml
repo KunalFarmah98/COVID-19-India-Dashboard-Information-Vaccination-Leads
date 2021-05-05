@@ -156,30 +156,97 @@
                         android:layout_margin="5dp"
                         android:padding="2dp" />
 
-                    <LinearLayout
-                        android:id="@+id/data_layout"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/recent_report"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/pieChart"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/recent_report"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/daily_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/recent_report"
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:padding="5dp"
                         android:weightSum="3">
 
                         <TextView
-                            android:id="@+id/totalSummary"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/daily_new"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/active"
-                            android:textColor="@color/purple_700"
+                            android:textColor="@color/blue"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/daily_recovered"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/recovered"
+                            android:textColor="@color/green"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/daily_deceased"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/deceased"
+                            android:textColor="@color/red"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/total_statistics"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/daily_layout"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/total_statistics"
+                        android:textColor="@color/purple_500"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:id="@+id/data_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/total_statistics"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:id="@+id/activeSummary"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/active"
+                            android:textColor="@color/blue"
                             android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/recoveredSummary"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
@@ -190,7 +257,7 @@
 
                         <TextView
                             android:id="@+id/deceasedSummary"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
@@ -230,6 +297,57 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/no_data_layout"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_margin="5dp"
+                    android:text="@string/oops_couldn_t_fetch_statewise_history_for_this_date"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/history_warn1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/try_again"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/try_again2"/>
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/historyRecycler"
@@ -237,6 +355,7 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
+                android:visibility="visible"
                 tools:listitem="@layout/item_summary_dashboard" />
 
 

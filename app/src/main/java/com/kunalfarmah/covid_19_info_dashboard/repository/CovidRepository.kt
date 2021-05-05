@@ -5,11 +5,9 @@ import android.util.Log
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Api
-import com.kunalfarmah.covid_19_info_dashboard.room.CovidDao
-import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
-import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
-import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
+import com.kunalfarmah.covid_19_info_dashboard.room.*
 import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
 
 class CovidRepository
 constructor(
@@ -21,13 +19,22 @@ constructor(
     suspend fun fetchLatestData(sPref: SharedPreferences) {
 //        val result = retrofit.getOfficialLatest()
         val result = retrofit.getLatest(Constants.LATEST_URL)
-        var history = result.casesTimeSeries
+        var history = result.casesTimeSeries?.reversed()
         var statewise = result.statewise
         var summary = statewise?.get(0)
         sPref.edit().putString(Constants.LATEST_SUMMARY, Gson().toJson(summary))
             .apply()
         sPref.edit().putString(Constants.DATE_HISTORY, Gson().toJson(history)).apply()
         sPref.edit().putString(Constants.LAST_REFRESHED, summary?.lastupdatedtime).apply()
+        CoroutineScope(Dispatchers.IO).launch {
+            for (value in history!!){
+                if(value?.dateymd=="2020-03-09")
+                    break
+                covidDao.insertHistoryList(HistoryListEntity(value?.date.toString(),value?.dailyconfirmed.toString(),value?.dailydeceased.toString(),
+                value?.dailyrecovered.toString(),value?.dateymd.toString(),value?.totalconfirmed.toString(),
+                value?.totaldeceased.toString(),value?.totalrecovered.toString()))
+            }
+        }
         CoroutineScope(Dispatchers.IO).launch {
             for (case in statewise!!) {
                 if (case?.state.equals("State Unassigned") || case?.state.equals("Total"))
@@ -86,6 +93,10 @@ constructor(
                 }
             }
         }
+    }
+
+    suspend fun getHistoryList(): List<HistoryListEntity> {
+        return covidDao.getHistoryList()
     }
 
     suspend fun getHistoryData(): List<HistorySummary> {

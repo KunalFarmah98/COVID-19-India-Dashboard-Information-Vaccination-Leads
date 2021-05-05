@@ -21,6 +21,9 @@ class HistoryStateWiseAdapter(context: Context?, list: List<CovidHistoryEntity>)
         val df = DecimalFormat("##,##,###")
         fun bind(case: CovidHistoryEntity) {
             binding.name.text = case.state
+            binding.totalStats.visibility = View.GONE
+            binding.dailyLayout.visibility = View.GONE
+            binding.recent.visibility = View.GONE
             binding.total.text =
                 String.format("Total Cases: %s", df.format(case.total))
             binding.recovered.text =

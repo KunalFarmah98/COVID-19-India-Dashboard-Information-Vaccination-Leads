@@ -42,6 +42,10 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
     private var recovered:Int?=null
     private var deceased:Int?=null
 
+    private var dTotal:Int?=null
+    private var dRecovered:Int?=null
+    private var dDeceased:Int?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,8 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
         supportActionBar?.setHomeButtonEnabled(true)
         sPref = getSharedPreferences(Constants.PREFS, MODE_PRIVATE)
         date = sPref?.getString(Constants.SELECTED_DATE, "")
+        dashboardViewModel.getHistoryByDate(date!!)
+
 
         list = dashboardViewModel.historyDateData.value
 
@@ -64,7 +70,6 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
             binding.loading.visibility = View.VISIBLE
             binding.loading.startShimmerAnimation()
         }
-        dashboardViewModel.getHistoryByDate(date!!)
 
         dashboardViewModel.historyDateData.observe(this, {
             if (it != null) {
@@ -145,14 +150,26 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
         total = Integer.parseInt(sPref?.getString(Constants.SELECTED_TOTAL, "")!!)
         recovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_RECOVERED, "")!!)
         deceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DECEASED, "")!!)
-        binding.totalSummary.text = String.format("Total:\n%s", df.format(total))
+        dTotal = Integer.parseInt(sPref?.getString(Constants.SELECTED_DAILYTOTAL, "")!!)
+        dRecovered = Integer.parseInt(sPref?.getString(Constants.SELECTED_DAILYRECOVERED, "")!!)
+        dDeceased = Integer.parseInt(sPref?.getString(Constants.SELECTED_DAILYDECEASED, "")!!)
+        binding.activeSummary.text = String.format("Total:\n%s", df.format(total))
         binding.recoveredSummary.text = String.format("Recovered:\n%s", df.format(total))
         binding.deceasedSummary.text = String.format("Deceased:\n%s", df.format(deceased))
+        binding.dailyNew.text = String.format("Cases:\n%s", df.format(dTotal))
+        binding.dailyRecovered.text = String.format("Recoveries:\n%s", df.format(dRecovered))
+        binding.dailyDeceased.text = String.format("Deaths:\n%s", df.format(dDeceased))
 
-        binding.historyRecycler.layoutManager = LinearLayoutManager(this)
-        binding.historyRecycler.setHasFixedSize(true)
-        mAdapter = HistoryStateWiseAdapter(this@HistoryActivity, list)
-        binding.historyRecycler.adapter = mAdapter
+        if(list.isEmpty()){
+            binding.historyRecycler.visibility = View.GONE
+            binding.noDataLayout.visibility = View.VISIBLE
+        }
+        else {
+            binding.historyRecycler.layoutManager = LinearLayoutManager(this)
+            binding.historyRecycler.setHasFixedSize(true)
+            mAdapter = HistoryStateWiseAdapter(this@HistoryActivity, list)
+            binding.historyRecycler.adapter = mAdapter
+        }
     }
 
     private fun setUpPieChart() {
@@ -187,10 +204,10 @@ class HistoryActivity : AppCompatActivity(), OnChartValueSelectedListener {
 
          if (e!!.equalTo(PieEntry(recovered?.toFloat()!!))) {
             binding.deceasedSummary.textSize = 16f
-            binding.recoveredSummary.textSize = 20f
+            binding.recoveredSummary.textSize = 18f
         }
         if (e.equalTo(PieEntry(deceased?.toFloat()!!))) {
-            binding.deceasedSummary.textSize = 20f
+            binding.deceasedSummary.textSize = 18f
             binding.recoveredSummary.textSize = 16f
         }
     }

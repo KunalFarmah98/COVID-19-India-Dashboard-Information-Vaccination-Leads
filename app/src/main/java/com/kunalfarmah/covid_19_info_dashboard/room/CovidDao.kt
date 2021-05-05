@@ -18,7 +18,13 @@ interface CovidDao {
     suspend fun getLatestCases(): List<CovidEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHistoryList(historyListEntity: HistoryListEntity): Long
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertHistory(covidHistoryEntity: CovidHistoryEntity): Long
+
+    @Query("SELECT * FROM covid19_history_table")
+    suspend fun getHistoryList(): List<HistoryListEntity>
 
     @Query("SELECT DISTINCT date, summary FROM covid19_history")
     suspend fun getHistorySummary(): List<HistorySummary>
