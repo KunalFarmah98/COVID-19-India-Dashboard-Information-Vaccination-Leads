@@ -18,7 +18,7 @@ object RepositoryModule {
     @Provides
     fun provideMainRepository(
         covidDao: CovidDao,
-        retrofit: Api,
+        retrofit: Api
     ): CovidRepository {
         return CovidRepository(covidDao, retrofit)
     }

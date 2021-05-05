@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Api
+import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +33,7 @@ object RetrofitModule {
          val client = OkHttpClient.Builder().build()
 
         return Retrofit.Builder()
-            .baseUrl("https://api.rootnet.in/covid19-in/")
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
     }

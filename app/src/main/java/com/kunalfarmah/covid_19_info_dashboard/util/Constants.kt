@@ -5,6 +5,8 @@ class Constants {
     companion object {
 
 
+        const val LATEST_URL = "https://api.covid19india.org/data.json"
+        const val BASE_URL = "https://api.rootnet.in/covid19-in/"
         const val POST_LEAD = 1003
         const val SIGN_IN = 1002
         const val RC_SIGN_IN = 1001
@@ -19,6 +21,7 @@ class Constants {
         const val LATEST_SUMMARY = "LATEST_SUMMARY"
         const val LATEST_ACTIVE = "LATEST_ACTIVE"
         const val HISTORY = "HISTORY"
+        val DATE_HISTORY = "DATE_HISTORY"
 
         const val CONTACTS = "CONTACTS"
 

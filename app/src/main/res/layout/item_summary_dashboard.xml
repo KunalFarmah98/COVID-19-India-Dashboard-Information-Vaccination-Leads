@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:strokeColor="@color/purple_700"
-        app:cardBackgroundColor="@color/cardview_light_background"
-        app:strokeWidth="3dp"
-        app:cardCornerRadius="10dp">
+        app:strokeWidth="3dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,11 +28,11 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="5dp"
-                android:textAlignment="center"
-                android:textStyle="bold"
                 android:text="@string/india"
+                android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
 
             <LinearLayout
@@ -58,6 +58,7 @@
                     android:layout_margin="5dp"
                     android:orientation="horizontal"
                     android:padding="5dp"
+                    android:visibility="gone"
                     android:weightSum="2">
 
                     <TextView
@@ -85,6 +86,72 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/recent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:text="@string/recent_statistics"
+                    android:textColor="@color/purple_500" />
+
+                <LinearLayout
+                    android:id="@+id/dailyLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:id="@+id/daily_new"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/active"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/daily_recovered"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/recovered"
+                        android:textAlignment="center"
+                        android:textColor="@color/green"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/daily_deceased"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/deceased"
+                        android:textAlignment="center"
+                        android:textColor="@color/red"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/total_stats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:text="@string/total_statistics"
+                    android:textColor="@color/purple_500" />
 
                 <LinearLayout
                     android:id="@+id/infoLayout"
@@ -92,39 +159,41 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="5dp"
-                    android:weightSum="2">
+                    android:weightSum="3">
 
                     <TextView
                         android:id="@+id/active"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:visibility="gone"
                         android:text="@string/active"
+                        android:textAlignment="center"
                         android:textColor="@color/blue"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/recovered"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/recovered"
+                        android:textAlignment="center"
                         android:textColor="@color/green"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/deceased"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/deceased"
+                        android:textAlignment="center"
                         android:textColor="@color/red"
                         android:textSize="16sp" />
 

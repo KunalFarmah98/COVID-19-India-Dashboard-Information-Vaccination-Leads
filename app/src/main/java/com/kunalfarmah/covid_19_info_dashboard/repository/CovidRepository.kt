@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.util.Constants
-import com.kunalfarmah.covid_19_info_dashboard.listener.LatestListener
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Api
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidDao
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
@@ -15,55 +14,45 @@ import kotlinx.coroutines.*
 class CovidRepository
 constructor(
     private val covidDao: CovidDao,
-    private val covidRetrofit: Api
+    private val retrofit: Api
 ) {
 
 
     suspend fun fetchLatestData(sPref: SharedPreferences) {
-        val result = covidRetrofit.getOfficialLatest()
-        sPref.edit().putString(Constants.LATEST_SUMMARY, Gson().toJson(result.data?.summary))
+//        val result = retrofit.getOfficialLatest()
+        val result = retrofit.getLatest(Constants.LATEST_URL)
+        var history = result.casesTimeSeries
+        var statewise = result.statewise
+        var summary = statewise?.get(0)
+        sPref.edit().putString(Constants.LATEST_SUMMARY, Gson().toJson(summary))
             .apply()
-        sPref.edit().putString(Constants.LAST_REFRESHED, result.lastRefreshed).apply()
-        if (!result.data?.unofficialSummary.isNullOrEmpty())
-            sPref.edit().putString(
-                Constants.LATEST_ACTIVE,
-                result.data?.unofficialSummary?.get(0)?.active.toString()
-            ).apply()
+        sPref.edit().putString(Constants.DATE_HISTORY, Gson().toJson(history)).apply()
+        sPref.edit().putString(Constants.LAST_REFRESHED, summary?.lastupdatedtime).apply()
         CoroutineScope(Dispatchers.IO).launch {
-            for (case in result.data?.regional!!) {
-                if (case?.loc.equals("State Unassigned"))
+            for (case in statewise!!) {
+                if (case?.state.equals("State Unassigned") || case?.state.equals("Total"))
                     continue
                 covidDao.insertLatest(
                     CovidEntity(
-                        case?.loc.toString(),
-                        case?.confirmedCasesIndian.toString(),
-                        case?.confirmedCasesForeign.toString(),
-                        case?.discharged.toString(),
+                        case?.state.toString(),
+                        "0",
+                        "0",
+                        case?.recovered.toString(),
                         case?.deaths.toString(),
-                        "",
-                        case?.totalConfirmed!!
+                        case?.active.toString(),
+                        Integer.parseInt(case?.confirmed.toString()),
+                        case?.deltarecovered.toString(),
+                        case?.deltadeaths.toString(),
+                        case?.deltaconfirmed.toString()
                     )
                 )
             }
         }
     }
 
-    suspend fun fetchActiveData(listener: LatestListener?) {
-        val result = covidRetrofit.getUnofficialLatestData()
-        CoroutineScope(Dispatchers.IO).launch {
-            for (case in result.data?.statewise!!) {
-                if (case?.state.equals("State Unassigned"))
-                    continue
-                Log.d("Active", case?.state + " : " + case?.active.toString())
-                if (!case?.active.toString().isNullOrEmpty())
-                    covidDao.insertActive(case?.active.toString(), case?.state.toString())
-            }
-        }
-
-    }
 
     suspend fun fetchContacts(sPref: SharedPreferences) {
-        val result = covidRetrofit.getContacts()
+        val result = retrofit.getContacts()
         sPref.edit().putString(Constants.CONTACTS, Gson().toJson(result.data)).apply()
 
     }
@@ -73,12 +62,12 @@ constructor(
     }
 
     suspend fun fetchHistory() {
-        val result = covidRetrofit.getHistory()
+        val result = retrofit.getHistory()
 
         CoroutineScope(Dispatchers.IO).launch {
             for (record in result.data?.reversed()!!) {
                 var day = record?.day
-                Log.e("History",day!!)
+                Log.e("History", day!!)
                 var summary = record?.summary
                 for (case in record?.regional!!) {
                     covidDao.insertHistory(

@@ -54,10 +54,15 @@ class SplashActivity : AppCompatActivity(), LatestListener {
         }
         dashboardViewModel.getLatestData(null)
         if (!AppUtil.isNetworkAvailable(this)) {
-            Handler().postDelayed({
-                startActivity(Intent(this, MainActivity::class.java))
-                this.finish()
-            }, 1500)
+            dashboardViewModel.latestData.observe(this, {
+                if (it.size >= 36) {
+                    Handler().postDelayed({
+                        startActivity(Intent(this, MainActivity::class.java))
+                        this.finish()
+                    }, 1500)
+
+                }
+            })
         }
         else {
             startActivity(Intent(this, MainActivity::class.java))
@@ -78,8 +83,8 @@ class SplashActivity : AppCompatActivity(), LatestListener {
 
     fun getData() {
         if (AppUtil.isNetworkAvailable(this)) {
-            dashboardViewModel.fetchLatestData()
-            dashboardViewModel.fetchActiveData(this)
+            dashboardViewModel.fetchLatestData(this)
+//            dashboardViewModel.fetchActiveData(this)
             dashboardViewModel.fetchHistoryData()
             dashboardViewModel.fetchContacts()
         } else {

@@ -119,4 +119,7 @@
     <string name="pick_image_from_gallery">Pick Image From Gallery</string>
     <string name="take_picture_from_camera">Take Picture from Camera</string>
     <string name="hist_warning">Some older dates may not appear yet!</string>
+    <string name="recent_statistics">Recent Statistics:</string>
+    <string name="total_statistics">Total Statistics:</string>
+    <string name="recent_report">Recenty Reported:</string>
 </resources>

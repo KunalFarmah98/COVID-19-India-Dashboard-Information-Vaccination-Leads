@@ -22,6 +22,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.FragmentDashboardBinding
+import com.kunalfarmah.covid_19_info_dashboard.retrofit.LatestStatewiseItem
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Summary
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.ui.activity.HelplineActivity
@@ -45,7 +46,7 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
     private lateinit var binding: FragmentDashboardBinding
     private var sPref: SharedPreferences? = null
     private var list: List<CovidEntity>? = null
-    private var summary: Summary? = null
+    private var summary: LatestStatewiseItem? = null
     private var refreshed: String? = null
     var active: Float? = null
     var recovered: Float? = null
@@ -69,18 +70,31 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
 
         summary = Gson().fromJson(
             sPref?.getString(Constants.LATEST_SUMMARY, ""),
-            Summary::class.java
+            LatestStatewiseItem::class.java
         )
         if (null != summary) {
             val df = DecimalFormat("##,##,###")
             binding.totalSummary.text = String.format(
                 "Total Cases:\n%s",
-                df.format(Integer.parseInt(summary?.total.toString()))
+                df.format(Integer.parseInt(summary?.confirmed.toString()))
+            )
+            binding.dailyNew.text =
+                String.format(
+                    "Cases:\n%s",
+                    df.format(Integer.parseInt(summary?.deltaconfirmed.toString()))
+                )
+            binding.dailyRecovered.text = String.format(
+                "Recoveries:\n%s",
+                df.format(Integer.parseInt(summary?.deltarecovered.toString()))
+            )
+            binding.dailyDeceased.text = String.format(
+                "Deaths:\n%s",
+                df.format(Integer.parseInt(summary?.deltadeaths.toString()))
             )
             binding.recoveredSummary.text =
                 String.format(
                     "Recovered:\n%s",
-                    df.format(Integer.parseInt(summary?.discharged.toString()))
+                    df.format(Integer.parseInt(summary?.recovered.toString()))
                 )
             binding.deceasedSummary.text = String.format(
                 "Deceased:\n%s",
@@ -88,20 +102,20 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
             )
             binding.activeSummary.text = String.format(
                 "Active:\n%s",
-                df.format(Integer.parseInt(sPref?.getString(Constants.LATEST_ACTIVE, "0")!!))
+                df.format(Integer.parseInt(summary?.active.toString()))
             )
         }
 
         refreshed = sPref?.getString(Constants.LAST_REFRESHED, "")
         if(refreshed?.isNotEmpty() == true){
             binding.lastRefreshed.visibility = View.VISIBLE
-            var i = refreshed?.indexOf('T')!!
+           /* var i = refreshed?.indexOf('T')!!
             var date = refreshed?.substring(0, i)
             var time = refreshed?.substring(i + 1, refreshed?.indexOf('.')!!)
             var finaldate = "$date $time"
             val df1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            var df2 =  SimpleDateFormat("dd/MM/yyyy hh:mm a")
-            var refreshedTime = df2.format(df1.parse(finaldate))
+            var df2 =  SimpleDateFormat("dd/MM/yyyy hh:mm a")*/
+            var refreshedTime = refreshed
             binding.lastRefreshed.text = String.format("Last Refreshed: %s", refreshedTime)
         }
         else{
@@ -169,21 +183,21 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setUpPieChart() {
-        active = sPref?.getString(Constants.LATEST_ACTIVE, "0")?.toFloat()
-        recovered = summary?.discharged?.toFloat()
+        active = summary?.active?.toFloat()
+        recovered = summary?.recovered?.toFloat()
         deceased = summary?.deaths?.toFloat()
 
         var pieEntries = ArrayList<PieEntry>()
-//        pieEntries.add(PieEntry(active!!))
+        pieEntries.add(PieEntry(active!!))
         pieEntries.add(PieEntry(recovered!!))
         pieEntries.add(PieEntry(deceased!!))
 
         var dataSet = PieDataSet(pieEntries, "Daily Summary")
-//        var blue: Int = resources.getColor(R.color.blue)
+        var blue: Int = resources.getColor(R.color.blue)
         var red: Int = resources.getColor(R.color.red)
         var green: Int = resources.getColor(R.color.green)
         var colors = ArrayList<Int>()
-//        colors.add(blue)
+        colors.add(blue)
         colors.add(green)
         colors.add(red)
         dataSet.colors = colors

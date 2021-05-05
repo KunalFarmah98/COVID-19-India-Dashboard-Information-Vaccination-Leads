@@ -5,6 +5,9 @@ import retrofit2.http.*
 
 interface Api {
 
+    @GET
+    suspend fun getLatest(@Url url:String): DataResponse
+
     @GET("stats/latest")
     suspend fun getOfficialLatest(): LatestCasesResponse
 

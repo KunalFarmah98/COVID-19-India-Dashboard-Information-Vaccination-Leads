@@ -27,7 +27,17 @@ class CovidEntity(
     var active: String,
 
     @ColumnInfo(name = "total")
-    var total: Int
+    var total: Int,
+
+    @ColumnInfo(name = "dailyRecovered")
+    var dailyRecovered: String,
+
+    @ColumnInfo(name = "dailyDeceased")
+    var dailyDeceased: String,
+
+    @ColumnInfo(name = "dailyActive")
+    var dailyActive: String
+
 )
 
 

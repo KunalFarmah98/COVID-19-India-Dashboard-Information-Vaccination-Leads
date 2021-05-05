@@ -62,19 +62,21 @@ constructor(
 
 
 
-    fun fetchLatestData() {
+    fun fetchLatestData(listener: LatestListener) {
         viewModelScope.launch {
             covidRepository.fetchLatestData(sPref)
+        }.invokeOnCompletion {
+            listener?.goForward()
         }
     }
 
-    fun fetchActiveData(latestListener: LatestListener?){
+    /*fun fetchActiveData(latestListener: LatestListener?){
         viewModelScope.launch {
             covidRepository.fetchActiveData(latestListener)
         }.invokeOnCompletion {
             latestListener?.goForward()
         }
-    }
+    }*/
 
     fun fetchHistoryData() {
         viewModelScope.launch {
