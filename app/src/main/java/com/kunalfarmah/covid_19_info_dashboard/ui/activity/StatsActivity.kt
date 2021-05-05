@@ -90,7 +90,7 @@ class StatsActivity : AppCompatActivity() {
             override fun onValueSelected(e: Entry?, h: Highlight?) {
                 if (e!!.equalTo(PieEntry(active))) {
                     binding.activeSummary.textSize = 18f
-                    binding.deceasedSummary.textSize = 1f
+                    binding.deceasedSummary.textSize = 16f
                     binding.recoveredSummary.textSize = 16f
 
                 } else if (e.equalTo(PieEntry(recovered))) {

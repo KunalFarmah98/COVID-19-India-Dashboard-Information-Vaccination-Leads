@@ -27,32 +27,41 @@ constructor(
         sPref.edit().putString(Constants.DATE_HISTORY, Gson().toJson(history)).apply()
         sPref.edit().putString(Constants.LAST_REFRESHED, summary?.lastupdatedtime).apply()
         CoroutineScope(Dispatchers.IO).launch {
-            for (value in history!!){
-                if(value?.dateymd=="2020-03-09")
-                    break
-                covidDao.insertHistoryList(HistoryListEntity(value?.date.toString(),value?.dailyconfirmed.toString(),value?.dailydeceased.toString(),
-                value?.dailyrecovered.toString(),value?.dateymd.toString(),value?.totalconfirmed.toString(),
-                value?.totaldeceased.toString(),value?.totalrecovered.toString()))
-            }
-        }
-        CoroutineScope(Dispatchers.IO).launch {
-            for (case in statewise!!) {
-                if (case?.state.equals("State Unassigned") || case?.state.equals("Total"))
-                    continue
-                covidDao.insertLatest(
-                    CovidEntity(
-                        case?.state.toString(),
-                        "0",
-                        "0",
-                        case?.recovered.toString(),
-                        case?.deaths.toString(),
-                        case?.active.toString(),
-                        Integer.parseInt(case?.confirmed.toString()),
-                        case?.deltarecovered.toString(),
-                        case?.deltadeaths.toString(),
-                        case?.deltaconfirmed.toString()
+            async {
+                for (case in statewise!!) {
+                    if (case?.state.equals("State Unassigned") || case?.state.equals("Total"))
+                        continue
+                    covidDao.insertLatest(
+                        CovidEntity(
+                            case?.state.toString(),
+                            "0",
+                            "0",
+                            case?.recovered.toString(),
+                            case?.deaths.toString(),
+                            case?.active.toString(),
+                            Integer.parseInt(case?.confirmed.toString()),
+                            case?.deltarecovered.toString(),
+                            case?.deltadeaths.toString(),
+                            case?.deltaconfirmed.toString()
+                        )
                     )
-                )
+                }
+                for (value in history!!) {
+                    if (value?.dateymd == "2020-03-09")
+                        break
+                    covidDao.insertHistoryList(
+                        HistoryListEntity(
+                            value?.date.toString(),
+                            value?.dailyconfirmed.toString(),
+                            value?.dailydeceased.toString(),
+                            value?.dailyrecovered.toString(),
+                            value?.dateymd.toString(),
+                            value?.totalconfirmed.toString(),
+                            value?.totaldeceased.toString(),
+                            value?.totalrecovered.toString()
+                        )
+                    )
+                }
             }
         }
     }

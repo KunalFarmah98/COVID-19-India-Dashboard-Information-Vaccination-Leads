@@ -126,6 +126,6 @@
     <string name="oops_couldn_t_fetch_statewise_history_for_this_date">Oops.. Could not fetch statewise history for this date</string>
     <string name="history_warn1">Statewise history of older dates may take a while to get populated when you have installed the app for the first time</string>
     <string name="try_again">Please Try again in a few moments.</string>
-    <string name="try_again2">The history would be available every time on subsequent launches</string>
+    <string name="try_again2">The history would be available after running the app for a few minutes</string>
     <string name="warning_states">Daily Case data may not be available for some states</string>
 </resources>
