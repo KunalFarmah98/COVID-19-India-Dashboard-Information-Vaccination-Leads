@@ -14,11 +14,13 @@
    <img width="190" height="350" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/dashboard.jpeg">
     <img hspace="10" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/history_dates.jpeg" width =190 
   height = 350/>
+   <img hspace="10" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/stats.jpeg" width =190 
+  height = 350/>
   <img  hspace="10" width="190" height="350" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/history_states.jpeg">
  
 </p>
 
-### Uses api: <https://api.rootnet.in/covid19-in/>
+### Uses api: <https://api.rootnet.in/covid19-in/> and <https://api.covid19india.org/>
 
 ##
 
