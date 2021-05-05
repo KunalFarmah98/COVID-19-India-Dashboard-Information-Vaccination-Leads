@@ -20,9 +20,10 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
         val df = DecimalFormat("##,##,###")
         fun bind(case: CovidEntity) {
             binding.name.text = case.state
+            binding.active.visibility = View.GONE
             binding.total.text =
                 String.format("Total Cases: %s", df.format(case.total))
-            if(case.active.isNullOrEmpty()){
+            /*if(case.active.isNullOrEmpty()){
                 binding.active.visibility = View.GONE
                 binding.infoLayout.weightSum = 2f
             }
@@ -31,7 +32,7 @@ class DashboardAdapter(context: Context?, list: List<CovidEntity>) :
                 binding.infoLayout.weightSum = 3f
                 binding.active.text =
                     String.format("Active:\n%s", df.format(Integer.parseInt(case.active)))
-            }
+            }*/
             binding.recovered.text =
                 String.format("Recovered:\n%s", df.format(Integer.parseInt(case.recovered)))
             binding.deceased.text =

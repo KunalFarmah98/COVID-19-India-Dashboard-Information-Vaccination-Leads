@@ -118,8 +118,8 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
             binding.loading.startShimmerAnimation()
         }
 
-        if (AppUtil.isNetworkAvailable(requireContext()))
-            dashboardViewModel.fetchActiveData(null)
+       /* if (AppUtil.isNetworkAvailable(requireContext()))
+            dashboardViewModel.fetchActiveData(null)*/
 
 
         binding.latestRecycler.layoutManager = LinearLayoutManager(context)
@@ -174,16 +174,16 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
         deceased = summary?.deaths?.toFloat()
 
         var pieEntries = ArrayList<PieEntry>()
-        pieEntries.add(PieEntry(active!!))
+//        pieEntries.add(PieEntry(active!!))
         pieEntries.add(PieEntry(recovered!!))
         pieEntries.add(PieEntry(deceased!!))
 
         var dataSet = PieDataSet(pieEntries, "Daily Summary")
-        var blue: Int = resources.getColor(R.color.blue)
+//        var blue: Int = resources.getColor(R.color.blue)
         var red: Int = resources.getColor(R.color.red)
         var green: Int = resources.getColor(R.color.green)
         var colors = ArrayList<Int>()
-        colors.add(blue)
+//        colors.add(blue)
         colors.add(green)
         colors.add(red)
         dataSet.colors = colors
