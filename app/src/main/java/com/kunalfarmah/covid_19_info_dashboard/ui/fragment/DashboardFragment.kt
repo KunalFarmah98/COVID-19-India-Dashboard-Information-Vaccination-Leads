@@ -150,8 +150,10 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
 
         dashboardViewModel.latestData.observe(viewLifecycleOwner, {
             Log.d("latest", it.toString())
-            list = it
-            setView(it)
+            if(it.size>=36) {
+                list = it
+                setView(it)
+            }
         })
 
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
