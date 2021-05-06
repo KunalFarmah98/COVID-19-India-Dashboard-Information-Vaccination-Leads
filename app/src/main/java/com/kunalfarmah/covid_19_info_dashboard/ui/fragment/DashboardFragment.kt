@@ -63,15 +63,31 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
     ): View? {
 
         activity?.actionBar?.title = "Dashboard"
-        dashboardViewModel.getLatestData(null)
-//        dashboardViewModel.getHistoryData()
+
+
+
         binding = FragmentDashboardBinding.inflate(inflater)
         sPref = activity?.getSharedPreferences(Constants.PREFS, MODE_PRIVATE)
-
+        list = dashboardViewModel.latestData.value
+        if (!list.isNullOrEmpty()) {
+            setView(list!!)
+        } else {
+            binding.loading.visibility = View.VISIBLE
+            binding.loading.startShimmerAnimation()
+        }
+        dashboardViewModel.getLatestData(null)
         summary = Gson().fromJson(
             sPref?.getString(Constants.LATEST_SUMMARY, ""),
             LatestStatewiseItem::class.java
         )
+
+        if (summary?.deltaconfirmed == "0" && summary?.deltadeaths == "0" && summary?.deltarecovered == "0") {
+            binding.recentReport.visibility = View.GONE
+            binding.dailyLayout.visibility = View.GONE
+        } else {
+            binding.recentReport.visibility = View.VISIBLE
+            binding.dailyLayout.visibility = View.VISIBLE
+        }
         if (null != summary) {
             val df = DecimalFormat("##,##,###")
             binding.totalSummary.text = String.format(
@@ -107,33 +123,26 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
         }
 
         refreshed = sPref?.getString(Constants.LAST_REFRESHED, "")
-        if(refreshed?.isNotEmpty() == true){
+        if (refreshed?.isNotEmpty() == true) {
             binding.lastRefreshed.visibility = View.VISIBLE
-           /* var i = refreshed?.indexOf('T')!!
-            var date = refreshed?.substring(0, i)
-            var time = refreshed?.substring(i + 1, refreshed?.indexOf('.')!!)
-            var finaldate = "$date $time"
-            val df1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            var df2 =  SimpleDateFormat("dd/MM/yyyy hh:mm a")*/
+            /* var i = refreshed?.indexOf('T')!!
+             var date = refreshed?.substring(0, i)
+             var time = refreshed?.substring(i + 1, refreshed?.indexOf('.')!!)
+             var finaldate = "$date $time"
+             val df1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+             var df2 =  SimpleDateFormat("dd/MM/yyyy hh:mm a")*/
             var refreshedTime = refreshed
             binding.lastRefreshed.text = String.format("Last Refreshed: %s", refreshedTime)
-        }
-        else{
+        } else {
             binding.lastRefreshed.visibility = View.GONE
         }
 
         setUpPieChart()
 
-        list = dashboardViewModel.latestData.value
-        if (!list.isNullOrEmpty()) {
-            setView(list!!)
-        } else {
-            binding.loading.visibility = View.VISIBLE
-            binding.loading.startShimmerAnimation()
-        }
 
-       /* if (AppUtil.isNetworkAvailable(requireContext()))
-            dashboardViewModel.fetchActiveData(null)*/
+
+        /* if (AppUtil.isNetworkAvailable(requireContext()))
+             dashboardViewModel.fetchActiveData(null)*/
 
 
         binding.latestRecycler.layoutManager = LinearLayoutManager(context)
