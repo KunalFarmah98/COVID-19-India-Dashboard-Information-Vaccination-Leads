@@ -12,7 +12,7 @@
 
   <p vspace = "20" align="center" >
    <img width="190" height="350" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/dashboard.jpeg">
-    <img hspace="10" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/history_dates.jpeg" width =190 
+    <img hspace="10" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/history_dates_.jpeg" width =190 
   height = 350/>
    <img hspace="10" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/stats.jpeg" width =190 
   height = 350/>
@@ -36,6 +36,8 @@
   height = 350/>
   <img  hspace="10" width="190" height="350" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/spinklr.jpeg">
    <img  hspace="10" width="190" height="350" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/fighter.jpeg">
+     <img  hspace="10" width="190" height="350" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/cov_india_res.jpeg">
+     <img  hspace="10" width="190" height="350" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/beds.jpeg">
 
 </p>
 
