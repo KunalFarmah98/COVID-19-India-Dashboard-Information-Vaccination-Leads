@@ -1,5 +1,4 @@
 # COVID-19 India Info-Dashboard
-#### Watch Promo Video Here: <https://youtu.be/vIfqg2nGZgY>
 ##
   <p align = "center">
   <img width="320" height="220" src="https://github.com/KunalFarmah98/COVID-19-India-Dashboard-Information-Vaccination-Leads/blob/main/app/src/main/res/raw/banner.png">
