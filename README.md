@@ -23,7 +23,7 @@
 
 ##
 
-#### Register for vaccination, get certificate and access vaccination dashboard through CoWin portal website embedded in the app.
+#### Register for vaccination, get certificate and access vaccination dashboard through CoWin portal website linked in the app.
 #### Get acccess to thousands of vertified leads and resources for beds, oxygen, medicine, equipment, plasma, ambulance and food posted on trusted platforms via dashboards and websites created by sprinklr, covid india resources website, covid fighters official website and many more directly from within the app.
 
 ##
