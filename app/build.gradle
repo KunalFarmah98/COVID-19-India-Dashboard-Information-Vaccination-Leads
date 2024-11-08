@@ -2,20 +2,19 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'dagger.hilt.android.plugin'
-    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
     id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
+    id 'com.google.devtools.ksp'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.kunalfarmah.covid_19_info_dashboard"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdk 23
+        targetSdk 34
         versionCode 7
         versionName "1.1.3"
 
@@ -29,15 +28,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.kunalfarmah.covid_19_info_dashboard'
 }
 
 repositories {
@@ -58,18 +58,14 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:23.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    
 
-    def hilt_version = "2.28-alpha"
+    def hilt_version = "2.51"
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-
-    def hilt_viewmodels = "1.0.0-alpha01"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_viewmodels"
-    kapt "androidx.hilt:hilt-compiler:$hilt_viewmodels"
+    ksp "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     def fragment_ktx = "1.3.0"
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
@@ -80,10 +76,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
 
-    def room = "2.2.6"
+    def room = "2.6.1"
     implementation "androidx.room:room-runtime:$room"
     implementation "androidx.room:room-ktx:$room"
-    kapt "androidx.room:room-compiler:$room"
+    ksp "androidx.room:room-compiler:$room"
 
     // facebook shimmer
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
@@ -94,18 +90,18 @@ dependencies {
 
 
     //firebase
-    implementation platform('com.google.firebase:firebase-bom:27.1.0')
+    implementation platform('com.google.firebase:firebase-bom:33.5.1')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
 
     // image cropper
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.5.0'
+    implementation "com.vanniktech:android-image-cropper:4.6.0"
 
     //google singin
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'

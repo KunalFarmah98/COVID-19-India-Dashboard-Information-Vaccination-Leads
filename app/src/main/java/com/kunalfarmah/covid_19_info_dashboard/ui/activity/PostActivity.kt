@@ -23,6 +23,10 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -30,7 +34,6 @@ import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.R
 import com.kunalfarmah.covid_19_info_dashboard.databinding.ActivityPostBinding
 import com.kunalfarmah.covid_19_info_dashboard.model.Post
-import com.theartofdev.edmodo.cropper.CropImage
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -367,7 +370,7 @@ class PostActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String?>,
+        permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -395,45 +398,46 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
+    //TODO: fix cropping
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == Constants.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            try {
-                CropImage.activity(photoURI)
-                    .start(this)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+//            try {
+//                CropImage.activity(photoURI)
+//                    .start(this)
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
         }
         if (requestCode == Constants.REQUEST_GALLERY && resultCode == RESULT_OK) {
             currentPhotoPath = data?.data.toString()
-            try {
-                CropImage.activity(data?.data)
-                    .start(this)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+//            try {
+//                CropImage.activity(data?.data)
+//                    .start(this)
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
         }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            var result: CropImage.ActivityResult?=null
-            if (resultCode == RESULT_OK) {
-                result = CropImage.getActivityResult(data)
-                photoURI = result.uri
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(
-                        applicationContext.contentResolver,
-                        photoURI
-                    )
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-                binding.image.visibility = View.VISIBLE
-                binding.image.setImageBitmap(bitmap)
-
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                 result = CropImage.getActivityResult(data)
-                val error: Exception = result.error
-            }
-        }
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            var result: CropImage.ActivityResult?=null
+//            if (resultCode == RESULT_OK) {
+//                result = CropImage.getActivityResult(data)
+//                photoURI = result.uri
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(
+//                        applicationContext.contentResolver,
+//                        photoURI
+//                    )
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+//                binding.image.visibility = View.VISIBLE
+//                binding.image.setImageBitmap(bitmap)
+//
+//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+//                 result = CropImage.getActivityResult(data)
+//                val error: Exception = result.error
+//            }
+//        }
         super.onActivityResult(requestCode, resultCode, data)
     }
 

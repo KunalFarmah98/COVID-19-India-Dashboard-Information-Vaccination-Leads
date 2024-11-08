@@ -1,7 +1,6 @@
 package com.kunalfarmah.covid_19_info_dashboard.viewModel
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -10,9 +9,12 @@ import com.google.firebase.database.*
 import com.kunalfarmah.covid_19_info_dashboard.listener.LatestListener
 import com.kunalfarmah.covid_19_info_dashboard.listener.PostsListener
 import com.kunalfarmah.covid_19_info_dashboard.model.Post
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 
-class LeadsViewModel @ViewModelInject
+@HiltViewModel
+class LeadsViewModel @Inject
 constructor(application: Application) : AndroidViewModel(application) {
     private var postRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("Leads")
     private var user: FirebaseUser? = FirebaseAuth.getInstance().currentUser

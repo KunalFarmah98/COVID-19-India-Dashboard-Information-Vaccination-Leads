@@ -3,7 +3,6 @@ package com.kunalfarmah.covid_19_info_dashboard.viewModel
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.listener.HistoryListener
@@ -17,12 +16,15 @@ import com.kunalfarmah.covid_19_info_dashboard.room.CovidEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.CovidHistoryEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.HistoryListEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class DashboardViewModel @ViewModelInject
+@HiltViewModel
+class DashboardViewModel @Inject
 constructor(
     private val covidRepository: CovidRepository,
     application: Application,
