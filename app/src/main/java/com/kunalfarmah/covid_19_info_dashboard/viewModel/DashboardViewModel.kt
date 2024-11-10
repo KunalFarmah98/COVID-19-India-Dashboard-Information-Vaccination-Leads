@@ -3,6 +3,7 @@ package com.kunalfarmah.covid_19_info_dashboard.viewModel
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.listener.HistoryListener
@@ -18,6 +19,7 @@ import com.kunalfarmah.covid_19_info_dashboard.room.HistoryListEntity
 import com.kunalfarmah.covid_19_info_dashboard.room.HistorySummary
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -71,7 +73,7 @@ constructor(
 
 
     fun fetchLatestData(listener: LatestListener) {
-        viewModelScope.launch {
+        viewModelScope.launch(handleException) {
             covidRepository.fetchLatestData(sPref)
         }.invokeOnCompletion {
             listener.goForward()
@@ -87,13 +89,13 @@ constructor(
     }*/
 
     fun fetchHistoryData() {
-        viewModelScope.launch {
+        viewModelScope.launch(handleException) {
             covidRepository.fetchHistory()
         }
     }
 
     fun fetchContacts() {
-        viewModelScope.launch {
+        viewModelScope.launch(handleException) {
             covidRepository.fetchContacts(sPref)
         }
     }
@@ -130,6 +132,10 @@ constructor(
             sPref.getString(Constants.CONTACTS, ""),
             ContactsData::class.java
         )
+    }
+
+    private val handleException =  CoroutineExceptionHandler { coroutineContext, throwable ->
+        Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show()
     }
 
     class HistoryComparator:Comparator<HistorySummary>{

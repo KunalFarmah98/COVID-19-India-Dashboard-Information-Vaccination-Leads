@@ -5,6 +5,11 @@ import android.util.Log
 import com.google.gson.Gson
 import com.kunalfarmah.covid_19_info_dashboard.util.Constants
 import com.kunalfarmah.covid_19_info_dashboard.retrofit.Api
+import com.kunalfarmah.covid_19_info_dashboard.retrofit.Contacts
+import com.kunalfarmah.covid_19_info_dashboard.retrofit.ContactsData
+import com.kunalfarmah.covid_19_info_dashboard.retrofit.ContactsResponse
+import com.kunalfarmah.covid_19_info_dashboard.retrofit.DataResponse
+import com.kunalfarmah.covid_19_info_dashboard.retrofit.HistoryResponse
 import com.kunalfarmah.covid_19_info_dashboard.room.*
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
@@ -18,7 +23,12 @@ constructor(
 
     suspend fun fetchLatestData(sPref: SharedPreferences) {
 //        val result = retrofit.getOfficialLatest()
-        val result = retrofit.getLatest(Constants.LATEST_URL)
+        val result = try{
+            retrofit.getLatest(Constants.LATEST_URL)
+        }
+        catch (e: Exception){
+            DataResponse(arrayListOf(), arrayListOf(), arrayListOf())
+        }
         var history = result.casesTimeSeries?.reversed()
         var statewise = result.statewise
         var summary = statewise?.get(0)
@@ -67,7 +77,12 @@ constructor(
 
 
     suspend fun fetchContacts(sPref: SharedPreferences) {
-        val result = retrofit.getContacts()
+        val result = try{
+            retrofit.getContacts()
+        }
+        catch (e: Exception){
+            ContactsResponse("", ContactsData(Contacts()),false,"")
+        }
         sPref.edit().putString(Constants.CONTACTS, Gson().toJson(result.data)).apply()
 
     }
@@ -77,7 +92,12 @@ constructor(
     }
 
     suspend fun fetchHistory() {
-        val result = retrofit.getHistory()
+        val result = try{
+            retrofit.getHistory()
+        }
+        catch (e: Exception){
+            HistoryResponse("",arrayListOf(),false,"")
+        }
 
         CoroutineScope(Dispatchers.IO).launch {
             for (record in result.data?.reversed()!!) {

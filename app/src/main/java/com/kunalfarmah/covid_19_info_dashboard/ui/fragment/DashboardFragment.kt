@@ -48,9 +48,9 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
     private var list: List<CovidEntity>? = null
     private var summary: LatestStatewiseItem? = null
     private var refreshed: String? = null
-    var active: Float? = null
-    var recovered: Float? = null
-    var deceased: Float? = null
+    var active: Float = 0f
+    var recovered: Float = 0f
+    var deceased: Float = 0f
 
     companion object {
         val TAG = "Dashboard Fragment"
@@ -194,9 +194,9 @@ class DashboardFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setUpPieChart() {
-        active = summary?.active?.toFloat()
-        recovered = summary?.recovered?.toFloat()
-        deceased = summary?.deaths?.toFloat()
+        active = summary?.active?.toFloat() ?: 0f
+        recovered = summary?.recovered?.toFloat() ?: 0f
+        deceased = summary?.deaths?.toFloat() ?: 0f
 
         var pieEntries = ArrayList<PieEntry>()
         pieEntries.add(PieEntry(active!!))
