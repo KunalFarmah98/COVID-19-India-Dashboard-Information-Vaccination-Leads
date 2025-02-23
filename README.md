@@ -62,3 +62,9 @@
 ## It is time to come forward and eradicate this pandemic from our country. Small efforts made to share the leads would go a long way in fighting the pandemic.
 
 ### Code is open sourced, open to contributions from the developer community to enhance the application further.
+
+## IMPORTANT NOTE:
+### This app is no longer maintained.
+### This app was made during Covid-19 Lockdown as a self project.
+### The apis used in the app have been discontinued.
+### There is no community feature in the app, login screen was made to showcase the uses of Firebase authentication and realtime database.
